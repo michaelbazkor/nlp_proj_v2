@@ -1,0 +1,9 @@
+{
+  "experiment": "text_only",
+  "n_users": 30,
+  "include_images": false,
+  "include_subject_details": false,
+  "mean_posts": 28.133333333333333,
+  "mean_chars": 3526.4333333333334,
+  "mean_images": 0.0
+}

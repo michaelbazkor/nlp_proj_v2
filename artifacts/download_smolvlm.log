@@ -1,0 +1,5 @@
+downloading HuggingFaceTB/SmolVLM-256M-Instruct
+[transformers] Model config: pad_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 128002. This may result in unexpected behavior.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]Loading weights:  51%|█████     | 240/471 [00:00<00:00, 2398.05it/s]Loading weights: 100%|██████████| 471/471 [00:00<00:00, 2433.81it/s]
+OK HuggingFaceTB/SmolVLM-256M-Instruct

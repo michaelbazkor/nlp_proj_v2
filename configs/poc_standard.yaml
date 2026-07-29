@@ -1,0 +1,118 @@
+# Proof-of-concept config for CPU-only VM (30 users, tiny models).
+# Real H100 run uses configs/real.yaml — same code path, different knobs.
+
+seed: 42
+experiment: standard   # text_only | standard | subject_details | llama_only
+
+paths:
+  root: .
+  user_csv: material/user_data (1).csv
+  posts_csv: material/facebook_data.csv
+  pics_zip: pics.zip
+  artifacts: artifacts
+  reports: reports
+
+cohort:
+  min_status_posts: 10          # status_posts > 9
+  groups: [0, 1]
+  n_users: 30                   # null => all eligible users
+  # Stratified sample of 30: prefer balanced general-risk labels
+  stratify_on: y_general
+
+posts:
+  include_post_description: false
+  include_attachment_title: false
+  require_text_or_image: true
+  max_posts_per_user: 40        # POC cap; null on real run
+  shuffle_seed: 42
+
+images:
+  max_images_per_user: 10       # POC cap
+  caption_model: HuggingFaceTB/SmolVLM-256M-Instruct
+  caption_prompt: >
+    Describe this social-media image briefly (1-2 sentences).
+    Focus on visual cues that may relate to emotional distress,
+    isolation, self-harm, substance use, or overall mood.
+    Do not invent details that are not visible.
+  max_new_tokens: 64
+  batch_size: 1
+  device: cpu
+  dtype: float32
+
+corpus:
+  include_images: true
+  include_subject_details: false
+  post_marker: "[post]"
+  image_marker: "IMAGE_DESCRIPTIONS:"
+  subject_marker: "[subject details]"
+
+represent:
+  models:
+    - name: qwen3_0_6b
+      hf_id: Qwen/Qwen3-0.6B
+      max_context: 4096
+      layer_taps: 4             # evenly spaced across depth
+      layer_stride: null
+      dtype: float32
+      device: cpu
+      enable_thinking: true
+      max_new_tokens: 128
+    - name: smollm2_360m
+      hf_id: HuggingFaceTB/SmolLM2-360M-Instruct
+      max_context: 4096
+      layer_taps: 4
+      layer_stride: null
+      dtype: float32
+      device: cpu
+      enable_thinking: false
+      max_new_tokens: 128
+  positions: [input_only, last_prompt, cot, final_pred]
+  # Prompt asks for rationale then final prediction
+  task_prompt: |
+    You are assisting a research study on suicide-risk signals in social media language.
+    Below is one user's Facebook posts (order is arbitrary; treat them as a set).
+    Provide a short rationale, then give a final prediction as one of:
+      RISK=0 (no/low risk) or RISK=1 (elevated risk).
+    Format your answer exactly as:
+    Rationale: <1-3 sentences>
+    Prediction: RISK=<0 or 1>
+  target_dim: 1024
+
+fusion:
+  method: per_block_pca
+  target_dim: 1024
+  # Fitted per CV fold on train only
+
+train:
+  n_folds: 5
+  train_frac: 0.70
+  dev_frac: 0.15
+  test_frac: 0.15
+  batch_size: 8                 # small for 30-user POC
+  optimizer: rmsprop
+  momentum: 0.9
+  # Reduced grid for POC (full grid in real.yaml)
+  grid:
+    n_layers: [1, 2]
+    n_neurons: [16, 32]
+    activation: [tanh, sigmoid]
+    lr: [0.001, 0.01]
+    epochs: [200, 500]
+  early_stop_patience: 50
+  variants:
+    - {model: stm, target: general}
+    - {model: stm, target: high}
+    - {model: mtm, target: general}
+    - {model: mtm, target: high}
+  aux_targets:
+    - PHQ9
+    - GAD
+    - Brooding
+    - Worry
+    - SWL
+    - Lonely
+    - BFI_O
+    - BFI_C
+    - BFI_E
+    - BFI_A
+    - BFI_N

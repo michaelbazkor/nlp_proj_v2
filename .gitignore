@@ -1,2 +1,19 @@
 # Exceeds GitHub LFS 2 GB per-file limit (~12 GB locally)
+pics.zip
 material/pics.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# Local caches / intermediates (artifacts go under artifacts/ and are selectively LFS-pushed)
+.cache/
+*.tmp
+*.partial
+
+# IDE
+.idea/
+.vscode/

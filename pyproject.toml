@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ssr"
+version = "0.1.0"
+description = "Suicide-risk representations from LLM hidden states (STM/MTM)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "pyarrow",
+  "pyyaml",
+  "scikit-learn",
+  "scipy",
+  "torch",
+  "transformers",
+  "accelerate",
+  "Pillow",
+  "tqdm",
+]
+
+[project.scripts]
+ssr = "ssr.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

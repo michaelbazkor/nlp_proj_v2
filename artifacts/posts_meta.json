@@ -1,0 +1,13 @@
+{
+  "n_rows": 11629,
+  "n_users": 30,
+  "n_with_text": 8032,
+  "n_with_image": 8086,
+  "n_unique_images": 8086,
+  "post_type_counts": {
+    "photo": 5608,
+    "status": 3018,
+    "video": 1891,
+    "link": 1112
+  }
+}
