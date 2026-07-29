@@ -50,7 +50,7 @@ def cmd_captions(cfg, posts):
     for i, (g, c) in enumerate(caps.items()):
         if i >= 3:
             break
-        print(f"  {g[:12]}... -> {c[:120]}")
+        print(f"  {str(g)[:40]}... -> {c[:120]}")
     return caps
 
 

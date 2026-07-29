@@ -79,14 +79,17 @@ def build_corpora(
         images_used = 0
         for _, prow in g.iterrows():
             descs: list[str] = []
-            if include_images and prow.get("has_image") and prow.get("blob_guid"):
-                guid = str(prow["blob_guid"])
-                if max_images is not None and images_used >= int(max_images):
-                    pass
-                elif guid in captions:
-                    descs.append(captions[guid])
-                    images_used += 1
-                    n_images += 1
+            if include_images and prow.get("has_image"):
+                # Prefer PostId-based image_key (matches pics.zip); fall back to blob_guid
+                key = prow.get("image_key") or prow.get("blob_guid")
+                if key and not (isinstance(key, float) and __import__("math").isnan(key)):
+                    key = str(key)
+                    if max_images is not None and images_used >= int(max_images):
+                        pass
+                    elif key in captions:
+                        descs.append(captions[key])
+                        images_used += 1
+                        n_images += 1
             text = str(prow.get("free_text") or "")
             if not text.strip() and not descs:
                 continue

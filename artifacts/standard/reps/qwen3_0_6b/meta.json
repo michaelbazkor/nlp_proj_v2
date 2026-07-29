@@ -1,0 +1,18 @@
+{
+  "model": "qwen3_0_6b",
+  "hf_id": "Qwen/Qwen3-0.6B",
+  "n_layers": 28,
+  "layer_idxs": [
+    1,
+    10,
+    19,
+    28
+  ],
+  "positions": [
+    "input_only",
+    "last_prompt",
+    "cot",
+    "final_pred"
+  ],
+  "hidden_size": 1024
+}

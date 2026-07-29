@@ -1,4 +1,4 @@
-"""Stage 1: image captioning with a VLM. Cache keyed by blob GUID."""
+"""Stage 1: image captioning with a VLM. Cache keyed by PostId (image_key)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -20,7 +20,6 @@ def _load_caption_model(model_id: str, device: str, dtype_name: str):
         dtype_name, torch.float32
     )
     processor = AutoProcessor.from_pretrained(model_id)
-    # transformers>=5 renamed Vision2Seq -> ImageTextToText; keep a fallback
     try:
         from transformers import AutoModelForImageTextToText as _AutoVLM
     except ImportError:
@@ -35,7 +34,6 @@ def _load_caption_model(model_id: str, device: str, dtype_name: str):
 
 
 def _caption_one(processor, model, image, prompt: str, max_new_tokens: int, device: str) -> str:
-    # SmolVLM / IDEFICS-style chat template
     messages = [
         {
             "role": "user",
@@ -54,7 +52,6 @@ def _caption_one(processor, model, image, prompt: str, max_new_tokens: int, devi
     inputs = {k: v.to(device) if hasattr(v, "to") else v for k, v in inputs.items()}
     with torch.inference_mode():
         out = model.generate(**inputs, max_new_tokens=max_new_tokens)
-    # Decode only new tokens when possible
     in_len = inputs["input_ids"].shape[-1]
     gen = out[0][in_len:]
     caption = processor.batch_decode([gen], skip_special_tokens=True)[0].strip()
@@ -69,38 +66,40 @@ def run_captions(
     *,
     force: bool = False,
 ) -> dict[str, str]:
-    """Caption unique blob GUIDs present in posts. Returns guid -> caption."""
+    """Caption unique image_key (PostId) values present in posts."""
     out = cfg.art("captions.parquet")
     meta_path = cfg.art("captions_meta.json")
 
     existing: dict[str, str] = {}
     if exists_nonempty(out) and not force:
         df = pd.read_parquet(out)
-        existing = dict(zip(df["blob_guid"], df["caption"]))
+        if len(df) and ("image_key" in df.columns or "blob_guid" in df.columns):
+            key_col = "image_key" if "image_key" in df.columns else "blob_guid"
+            existing = dict(zip(df[key_col], df["caption"]))
 
-    guids = sorted({g for g in posts["blob_guid"].dropna().unique().tolist()})
+    key_col = "image_key" if "image_key" in posts.columns else "blob_guid"
+    keys = sorted({k for k in posts[key_col].dropna().unique().tolist()})
     max_per_user = cfg.images.get("max_images_per_user")
     if max_per_user is not None:
-        # Cap globally by taking up to max_images_per_user per user, then unique
         capped = []
-        for _, g in posts[posts["blob_guid"].notna()].groupby("UserId"):
-            capped.extend(g["blob_guid"].dropna().unique().tolist()[: int(max_per_user)])
-        guids = sorted(set(capped))
+        for _, g in posts[posts[key_col].notna()].groupby("UserId"):
+            capped.extend(g[key_col].dropna().unique().tolist()[: int(max_per_user)])
+        keys = sorted(set(capped))
 
-    todo = [g for g in guids if g not in existing]
+    todo = [k for k in keys if k not in existing]
     if not todo:
         atomic_write_json(
             meta_path,
-            {"n_cached": len(existing), "n_requested": len(guids), "n_new": 0, "skipped": True},
+            {"n_cached": len(existing), "n_requested": len(keys), "n_new": 0, "skipped": True},
         )
-        return {g: existing[g] for g in guids if g in existing}
+        return {k: existing[k] for k in keys if k in existing}
 
     store = ImageStore(cfg.paths.pics_zip)
     if not store.available:
         print(f"[captions] pics.zip not ready at {cfg.paths.pics_zip}; returning empty captions")
         atomic_write_json(
             meta_path,
-            {"n_cached": len(existing), "n_requested": len(guids), "n_new": 0, "zip_ready": False},
+            {"n_cached": len(existing), "n_requested": len(keys), "n_new": 0, "zip_ready": False},
         )
         return existing
 
@@ -114,20 +113,22 @@ def run_captions(
     processor, model = _load_caption_model(model_id, device, dtype_name)
 
     new_rows = []
+    missing = 0
     with store:
-        for guid in tqdm(todo, desc="captioning"):
-            img = store.load_pil(guid)
+        for key in tqdm(todo, desc="captioning"):
+            img = store.load_pil(key)
             if img is None:
+                missing += 1
                 continue
             try:
                 cap = _caption_one(processor, model, img, prompt, max_new, device)
             except Exception as e:
-                print(f"[captions] failed {guid}: {e}")
+                print(f"[captions] failed {key}: {e}")
                 continue
-            existing[guid] = cap
-            new_rows.append({"blob_guid": guid, "caption": cap})
+            existing[key] = cap
+            new_rows.append({"image_key": key, "caption": cap})
 
-    df = pd.DataFrame([{"blob_guid": k, "caption": v} for k, v in existing.items()])
+    df = pd.DataFrame([{"image_key": k, "caption": v} for k, v in existing.items()])
     out.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(out, index=False)
     atomic_write_json(
@@ -135,12 +136,13 @@ def run_captions(
         {
             "model": model_id,
             "n_cached": len(existing),
-            "n_requested": len(guids),
+            "n_requested": len(keys),
             "n_new": len(new_rows),
+            "n_missing_in_zip": missing,
             "zip_ready": True,
         },
     )
-    return {g: existing[g] for g in guids if g in existing}
+    return {k: existing[k] for k in keys if k in existing}
 
 
 def load_captions(cfg: Config) -> dict[str, str]:
@@ -148,4 +150,5 @@ def load_captions(cfg: Config) -> dict[str, str]:
     if not exists_nonempty(out):
         return {}
     df = pd.read_parquet(out)
-    return dict(zip(df["blob_guid"], df["caption"]))
+    key_col = "image_key" if "image_key" in df.columns else "blob_guid"
+    return dict(zip(df[key_col], df["caption"]))

@@ -1,0 +1,85 @@
+[ssr] experiment=standard config=configs/poc_standard.yaml
+[cohort] n=30 general=11 high=5
+               UserId  suicide  y_general  y_high  status_posts
+  204720893660851 -id      2.0          1       0            34
+  462105087565740 -id      0.0          0       0           382
+10216350023240597 -id      3.0          1       1           227
+10212079190999992 -id      0.0          0       0            14
+10101246572396157 -id      0.0          0       0            32
+[posts] rows=1200 users=30 with_text=844 with_image=817
+               UserId PostType                                                                                                                 free_text                            blob_guid
+10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
+10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
+10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
+[captions] loading HuggingFaceTB/SmolVLM-256M-Instruct on cpu ...
+[transformers] Model config: pad_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 128002. This may result in unexpected behavior.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]Loading weights:  48%|████▊     | 228/471 [00:00<00:00, 2268.54it/s]Loading weights:  97%|█████████▋| 455/471 [00:00<00:00, 2211.18it/s]Loading weights: 100%|██████████| 471/471 [00:00<00:00, 2236.62it/s]
+captioning:   0%|          | 0/103 [00:00<?, ?it/s]captioning: 100%|██████████| 103/103 [00:00<00:00, 330285.41it/s]
+[captions] n=158
+  10101246572396157_10101188700546807 -id... -> The social-media image is a poster titled "What is a Rare Disease?" which is titled "Any disease, disorder, illness or c
+  10101246572396157_10101208120184697 -id... -> This image depicts a man and a child, both wearing sunglasses. The man is holding the child in his arms, and the child i
+  10101246572396157_10101214704599477 -id... -> This social-media image briefly (1-2 sentences). The girls are sitting on a brown fabric armchair. The girl on the left 
+[corpus] users=30 mean_posts=30.1 mean_chars=4668
+  sample UserId=10101246572396157 -id n_posts=32
+  snippet: [post] Just submitted a grant I have been working on since October........time to celebrate by staring at my office wall for 5 minutes before I need to start working on one of the next 20 things that need my immediate attention........academia is a blast! [post] IMAGE_DESCRIPTIONS: This image depicts a man and a child, both wearing sunglasses. The man is holding the child in his arms, and the child is looking at the camera with a neutral expression. The man has sunglasses on, and the child is we...
+[represent:qwen3_0_6b] loading Qwen/Qwen3-0.6B on cpu (30 users) ...
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  44%|████▍     | 137/311 [00:00<00:00, 1362.08it/s]Loading weights:  91%|█████████▏| 284/311 [00:00<00:00, 1417.25it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1429.11it/s]
+[represent:qwen3_0_6b] n_layers=28 tapping=[1, 10, 19, 28]
+represent:qwen3_0_6b:   0%|          | 0/30 [00:00<?, ?it/s]represent:qwen3_0_6b:   3%|▎         | 1/30 [00:22<10:59, 22.74s/it]represent:qwen3_0_6b:   7%|▋         | 2/30 [00:49<11:35, 24.82s/it]represent:qwen3_0_6b:  10%|█         | 3/30 [01:35<15:31, 34.51s/it]represent:qwen3_0_6b:  13%|█▎        | 4/30 [02:04<14:00, 32.34s/it]represent:qwen3_0_6b:  17%|█▋        | 5/30 [02:22<11:27, 27.49s/it]represent:qwen3_0_6b:  20%|██        | 6/30 [02:47<10:37, 26.54s/it]represent:qwen3_0_6b:  23%|██▎       | 7/30 [03:07<09:16, 24.20s/it]represent:qwen3_0_6b:  27%|██▋       | 8/30 [03:24<08:03, 21.99s/it]represent:qwen3_0_6b:  30%|███       | 9/30 [03:39<06:57, 19.89s/it]represent:qwen3_0_6b:  33%|███▎      | 10/30 [04:05<07:14, 21.74s/it]represent:qwen3_0_6b:  37%|███▋      | 11/30 [04:24<06:36, 20.88s/it]represent:qwen3_0_6b:  40%|████      | 12/30 [04:42<06:00, 20.03s/it]represent:qwen3_0_6b:  43%|████▎     | 13/30 [05:03<05:45, 20.30s/it]represent:qwen3_0_6b:  47%|████▋     | 14/30 [05:17<04:56, 18.56s/it]represent:qwen3_0_6b:  50%|█████     | 15/30 [05:34<04:29, 17.98s/it]represent:qwen3_0_6b:  53%|█████▎    | 16/30 [05:53<04:15, 18.26s/it]represent:qwen3_0_6b:  57%|█████▋    | 17/30 [06:10<03:50, 17.76s/it]represent:qwen3_0_6b:  60%|██████    | 18/30 [06:26<03:29, 17.45s/it]represent:qwen3_0_6b:  63%|██████▎   | 19/30 [06:43<03:09, 17.21s/it]represent:qwen3_0_6b:  67%|██████▋   | 20/30 [07:00<02:51, 17.17s/it]represent:qwen3_0_6b:  70%|███████   | 21/30 [07:14<02:24, 16.09s/it]represent:qwen3_0_6b:  73%|███████▎  | 22/30 [07:29<02:08, 16.03s/it]represent:qwen3_0_6b:  77%|███████▋  | 23/30 [07:47<01:54, 16.33s/it]represent:qwen3_0_6b:  80%|████████  | 24/30 [08:05<01:42, 17.05s/it]represent:qwen3_0_6b:  83%|████████▎ | 25/30 [08:34<01:42, 20.50s/it]represent:qwen3_0_6b:  87%|████████▋ | 26/30 [09:04<01:33, 23.39s/it]represent:qwen3_0_6b:  90%|█████████ | 27/30 [09:20<01:03, 21.28s/it]represent:qwen3_0_6b:  93%|█████████▎| 28/30 [09:46<00:44, 22.48s/it]represent:qwen3_0_6b:  97%|█████████▋| 29/30 [10:07<00:22, 22.18s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [10:28<00:00, 21.69s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [10:28<00:00, 20.94s/it]
+[represent:smollm2_360m] loading HuggingFaceTB/SmolLM2-360M-Instruct on cpu (30 users) ...
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  50%|█████     | 146/290 [00:00<00:00, 1458.28it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 1517.36it/s]
+[represent:smollm2_360m] n_layers=32 tapping=[1, 11, 21, 32]
+represent:smollm2_360m:   0%|          | 0/30 [00:00<?, ?it/s]represent:smollm2_360m:   3%|▎         | 1/30 [00:05<02:46,  5.74s/it]represent:smollm2_360m:   7%|▋         | 2/30 [00:12<03:01,  6.49s/it]represent:smollm2_360m:  10%|█         | 3/30 [00:26<04:20,  9.64s/it]represent:smollm2_360m:  13%|█▎        | 4/30 [00:34<03:58,  9.18s/it]represent:smollm2_360m:  17%|█▋        | 5/30 [00:38<02:58,  7.12s/it]represent:smollm2_360m:  20%|██        | 6/30 [00:44<02:46,  6.92s/it]represent:smollm2_360m:  23%|██▎       | 7/30 [00:48<02:16,  5.92s/it]represent:smollm2_360m:  27%|██▋       | 8/30 [00:51<01:51,  5.07s/it]represent:smollm2_360m:  30%|███       | 9/30 [00:53<01:27,  4.15s/it]represent:smollm2_360m:  33%|███▎      | 10/30 [01:00<01:38,  4.95s/it]represent:smollm2_360m:  37%|███▋      | 11/30 [01:03<01:24,  4.44s/it]represent:smollm2_360m:  40%|████      | 12/30 [01:07<01:12,  4.05s/it]represent:smollm2_360m:  43%|████▎     | 13/30 [01:20<01:59,  7.05s/it]represent:smollm2_360m:  47%|████▋     | 14/30 [01:22<01:27,  5.47s/it]represent:smollm2_360m:  50%|█████     | 15/30 [01:25<01:08,  4.59s/it]represent:smollm2_360m:  53%|█████▎    | 16/30 [01:28<00:58,  4.19s/it]represent:smollm2_360m:  57%|█████▋    | 17/30 [01:31<00:48,  3.72s/it]represent:smollm2_360m:  60%|██████    | 18/30 [01:33<00:40,  3.41s/it]represent:smollm2_360m:  63%|██████▎   | 19/30 [01:36<00:35,  3.26s/it]represent:smollm2_360m:  67%|██████▋   | 20/30 [01:39<00:29,  3.00s/it]represent:smollm2_360m:  70%|███████   | 21/30 [01:41<00:24,  2.73s/it]represent:smollm2_360m:  73%|███████▎  | 22/30 [01:43<00:21,  2.64s/it]represent:smollm2_360m:  77%|███████▋  | 23/30 [01:46<00:18,  2.67s/it]represent:smollm2_360m:  80%|████████  | 24/30 [01:50<00:17,  2.97s/it]represent:smollm2_360m:  83%|████████▎ | 25/30 [02:06<00:35,  7.02s/it]represent:smollm2_360m:  87%|████████▋ | 26/30 [02:15<00:29,  7.49s/it]represent:smollm2_360m:  90%|█████████ | 27/30 [02:18<00:18,  6.28s/it]represent:smollm2_360m:  93%|█████████▎| 28/30 [02:25<00:13,  6.51s/it]represent:smollm2_360m:  97%|█████████▋| 29/30 [02:30<00:06,  6.02s/it]represent:smollm2_360m: 100%|██████████| 30/30 [02:35<00:00,  5.57s/it]represent:smollm2_360m: 100%|██████████| 30/30 [02:35<00:00,  5.17s/it]
+[represent] qwen3_0_6b: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/qwen3_0_6b
+[represent] smollm2_360m: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/smollm2_360m
+[train] loading blocks for 30 users ...
+[train] stm_general fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+/anaconda/envs/py38_default/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12020). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[train] stm_general fold 0: test AUC=0.111 PR-AUC=0.411 F1=0.000 d=-1.726
+[train] stm_general fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_general fold 1: test AUC=0.500 PR-AUC=0.417 F1=0.000 d=0.000
+[train] stm_general fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_general fold 2: test AUC=0.125 PR-AUC=0.292 F1=0.000 d=-1.627
+[train] stm_general fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_general fold 3: test AUC=0.500 PR-AUC=0.667 F1=0.500 d=0.000
+[train] stm_general fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_general fold 4: test AUC=0.750 PR-AUC=0.583 F1=0.500 d=0.954
+[train] stm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_high fold 0: test AUC=0.250 PR-AUC=0.333 F1=0.000 d=-0.954
+[train] stm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_high fold 1: test AUC=nan PR-AUC=nan F1=0.000 d=nan
+[train] stm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_high fold 2: test AUC=0.400 PR-AUC=0.250 F1=0.000 d=-0.358
+[train] stm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_high fold 3: test AUC=1.000 PR-AUC=1.000 F1=1.000 d=6.722
+[train] stm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] stm_high fold 4: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
+[train] mtm_general fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_general fold 0: test AUC=0.333 PR-AUC=0.500 F1=0.000 d=-0.609
+[train] mtm_general fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_general fold 1: test AUC=0.875 PR-AUC=0.833 F1=0.000 d=1.627
+[train] mtm_general fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_general fold 2: test AUC=0.625 PR-AUC=0.500 F1=0.000 d=0.451
+[train] mtm_general fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_general fold 3: test AUC=0.750 PR-AUC=0.583 F1=0.500 d=0.954
+[train] mtm_general fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_general fold 4: test AUC=0.562 PR-AUC=0.450 F1=0.333 d=0.222
+[train] mtm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_high fold 0: test AUC=0.250 PR-AUC=0.325 F1=0.000 d=-0.954
+[train] mtm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_high fold 1: test AUC=nan PR-AUC=nan F1=0.000 d=nan
+[train] mtm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_high fold 2: test AUC=0.600 PR-AUC=0.333 F1=0.400 d=0.358
+[train] mtm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_high fold 3: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
+[train] mtm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
+[train] mtm_high fold 4: test AUC=0.300 PR-AUC=0.200 F1=0.000 d=-0.742
+
+=== SUMMARY ===
+  stm_general: AUC=0.397 [0.157, 0.638]  PR=0.474  F1=0.200  d=-0.480
+  stm_high: AUC=0.412 [-0.004, 0.829]  PR=0.438  F1=0.200  d=-0.328
+  mtm_general: AUC=0.629 [0.450, 0.808]  PR=0.573  F1=0.167  d=0.529
+  mtm_high: AUC=0.287 [0.046, 0.529]  PR=0.256  F1=0.080  d=-2.015
+[report] wrote /home/student/nlp_proj_v2/reports/stage_examples.md

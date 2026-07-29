@@ -84,8 +84,13 @@ def build_posts(cfg: Config, user_ids: set[str] | None = None) -> pd.DataFrame:
         other=None,
     )
     raw["blob_guid"] = raw["blob_url"].map(blob_guid_from_url)
+    # pics.zip is keyed by PostId filename (e.g. "<PostId>.jpg"), not blob GUID
+    raw["image_key"] = raw["PostId"].where(
+        raw["blob_url"].notna() & (raw["PostId"].notna()),
+        other=None,
+    )
     raw["has_text"] = raw["free_text"].str.len() > 0
-    raw["has_image"] = raw["blob_guid"].notna()
+    raw["has_image"] = raw["blob_url"].notna()
 
     if cfg.posts.get("require_text_or_image", True):
         raw = raw[raw["has_text"] | raw["has_image"]].copy()
@@ -98,6 +103,7 @@ def build_posts(cfg: Config, user_ids: set[str] | None = None) -> pd.DataFrame:
         "free_text",
         "blob_url",
         "blob_guid",
+        "image_key",
         "has_text",
         "has_image",
         "Revoked",
@@ -111,7 +117,7 @@ def build_posts(cfg: Config, user_ids: set[str] | None = None) -> pd.DataFrame:
         "n_users": int(posts["UserId"].nunique()),
         "n_with_text": int(posts["has_text"].sum()),
         "n_with_image": int(posts["has_image"].sum()),
-        "n_unique_images": int(posts["blob_guid"].nunique(dropna=True)),
+        "n_unique_images": int(posts["image_key"].nunique(dropna=True)),
         "post_type_counts": posts["PostType"].value_counts(dropna=False).head(10).to_dict(),
     }
     posts.to_parquet(out, index=False)
