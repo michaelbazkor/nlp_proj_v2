@@ -87,7 +87,7 @@ vector mean=0.0650 std=5.9350 l2=189.9316
 | mtm_high | 0.738 | 0.287 |
 
 Notes:
-- Labels validated against Ophir et al. 2020: `y_general=(suicide>=1)`, `y_high=(suicide>=3)`.
+- Labels: high risk only — `y_high=(suicide>=3)`. Image captions use per-image `[image]` markers.
 - POC models: Qwen3-0.6B + SmolLM2-360M; captioner: SmolVLM-256M (158 captions).
 - Fusion: per-block PCA to 1024 (fold-safe). Architecture matches H100 `configs/real.yaml`.
 - Metrics with N=30 are unstable; purpose is pipeline proof, not paper-comparable AUCs.

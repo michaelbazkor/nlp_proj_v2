@@ -14,7 +14,7 @@ python -m ssr.cli --config configs/poc.yaml all --skip-captions
 
 | Command | What it does |
 |---------|--------------|
-| `cohort` | Filter users, build `y_general` / `y_high` |
+| `cohort` | Filter users, build `y_high` (suicide >= 3) |
 | `posts` | Decode & clean Facebook posts |
 | `captions` | VLM image captions (cached by blob GUID) |
 | `corpus` | Build per-user `[post] ...` corpora |
@@ -28,11 +28,17 @@ python -m ssr.cli --config configs/poc.yaml all --skip-captions
 - `configs/poc.yaml` — 30 users, tiny models, CPU
 - `configs/real.yaml` — full cohort, Llama-3.3-70B / Qwen3-32B / R1-Distill / Gemma, H100
 
-## Labels (validated against the paper)
+## Labels / cohort filter
 
-- Cohort: `status_posts >= 10` and `grp in {0,1}` → N≈1006
-- General risk: `suicide >= 1` → 361
-- High risk: `suicide >= 3` → 132
+```python
+df_users = df_metadata[(grp.isin([0, 1])) & (status_posts > 9)]
+             .sort_values(by=['status_posts', 'sui_cat']).reset_index()
+df_profiles = df_profiles[df_profiles['UserId'].isin(df_users['UserId'])]
+```
+
+- Yields **N=1006** on this CSV (paper text says 1002; post total **83292** matches the paper).
+- **High risk only:** `y_high = (suicide >= 3)` → 132
+- STM/MTM train and evaluate on `y_high` only
 
 ## Ethics
 

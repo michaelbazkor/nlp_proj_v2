@@ -1,8 +1,10 @@
-"""5-fold stratified CV with 70/15/15 splits, grid search, STM/MTM training."""
+"""5-fold stratified CV with 70/15/15 splits, grid search, STM/MTM training.
+
+Binary label is high suicide risk only: y_high = (suicide >= 3).
+"""
 from __future__ import annotations
 
 import itertools
-import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -35,17 +37,14 @@ class FoldData:
 def _make_splits(y: np.ndarray, n_folds: int, seed: int, train_frac: float, dev_frac: float):
     """Yield (train_idx, dev_idx, test_idx) for each fold.
 
-    Paper: 70/15/15 with 5 random divisions stratified on general risk.
-    We implement as StratifiedKFold for the outer test (20% ≈ 15%+padding),
-    then split remaining into train/dev at 70:15 of total ≈ 82.3:17.7 of remaining.
+    Paper: 70/15/15 with 5 random divisions. We stratify on high risk.
+    Outer StratifiedKFold for test (~20%), then split remaining into train/dev
+    so |dev|/N ≈ 0.15.
     """
-    # Outer: 5-fold -> test ≈ 20%. Then of remaining, take ~17.6% as dev to get ~15% of total.
     skf = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=seed)
     indices = np.arange(len(y))
     for fold_i, (rest_idx, test_idx) in enumerate(skf.split(indices, y)):
         y_rest = y[rest_idx]
-        # Fraction of rest that should be dev so that |dev|/N ≈ 0.15
-        # |rest|/N ≈ 0.8, so dev_frac_of_rest = 0.15/0.8 = 0.1875
         try:
             train_idx, dev_idx = train_test_split(
                 rest_idx,
@@ -68,25 +67,6 @@ def _zscore_fit(X: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     sd = X.std(axis=0)
     sd = np.where(sd < 1e-8, 1.0, sd)
     return mu, sd
-
-
-def _build_xy(
-    cohort: pd.DataFrame,
-    user_ids: list[str],
-    rep_roots: dict[str, Path],
-    fusion,
-    target: str,
-) -> FoldData:
-    blocks_list = [collect_user_blocks(rep_roots, uid) for uid in user_ids]
-    X = np.stack([fusion.transform(b) for b in blocks_list], axis=0)
-    sub = cohort.set_index("UserId").loc[user_ids]
-    y = sub["y_general" if target == "general" else "y_high"].to_numpy().astype(np.float32)
-    aux = {
-        "personality": sub[PERSONALITY].to_numpy().astype(np.float32),
-        "psychosocial": sub[PSYCHOSOCIAL].to_numpy().astype(np.float32),
-        "psychiatric": sub[PSYCHIATRIC].to_numpy().astype(np.float32),
-    }
-    return FoldData(X=X, y=y, aux=aux, user_ids=user_ids)
 
 
 def _train_one(
@@ -112,9 +92,18 @@ def _train_one(
         y = torch.tensor(fd.y, dtype=torch.float32)
         if not is_mtm:
             return TensorDataset(X, y), None
-        pers = torch.tensor((fd.aux["personality"] - aux_mu["personality"]) / aux_sd["personality"], dtype=torch.float32)
-        psy = torch.tensor((fd.aux["psychosocial"] - aux_mu["psychosocial"]) / aux_sd["psychosocial"], dtype=torch.float32)
-        psych = torch.tensor((fd.aux["psychiatric"] - aux_mu["psychiatric"]) / aux_sd["psychiatric"], dtype=torch.float32)
+        pers = torch.tensor(
+            (fd.aux["personality"] - aux_mu["personality"]) / aux_sd["personality"],
+            dtype=torch.float32,
+        )
+        psy = torch.tensor(
+            (fd.aux["psychosocial"] - aux_mu["psychosocial"]) / aux_sd["psychosocial"],
+            dtype=torch.float32,
+        )
+        psych = torch.tensor(
+            (fd.aux["psychiatric"] - aux_mu["psychiatric"]) / aux_sd["psychiatric"],
+            dtype=torch.float32,
+        )
         return TensorDataset(X, y, pers, psy, psych), None
 
     train_ds, _ = _pack(train)
@@ -139,7 +128,6 @@ def _train_one(
             loss.backward()
             opt.step()
 
-        # Dev eval
         model.eval()
         with torch.no_grad():
             xd = torch.tensor(dev.X, dtype=torch.float32, device=device)
@@ -178,14 +166,13 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
     grid = train_cfg["grid"]
     variants = train_cfg["variants"]
     batch_size = int(train_cfg.get("batch_size", 32))
-    momentum = float(train_cfg.get("momentum", train_cfg.get("momentum", 0.9)))
+    momentum = float(train_cfg.get("momentum", 0.9))
     patience = int(train_cfg.get("early_stop_patience", 50))
 
-    # Stratify on general risk for all folds (as paper)
+    # High risk only
     user_ids = cohort["UserId"].tolist()
-    y_strat = cohort["y_general"].to_numpy()
+    y_strat = cohort["y_high"].to_numpy()
 
-    # Preload all user blocks once
     print(f"[train] loading blocks for {len(user_ids)} users ...")
     all_blocks = {uid: collect_user_blocks(rep_roots, uid) for uid in user_ids}
 
@@ -195,12 +182,12 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
 
     for variant in variants:
         model_kind = variant["model"]  # stm | mtm
-        target = variant["target"]  # general | high
-        key = f"{model_kind}_{target}"
+        target = variant.get("target", "high")
+        if target != "high":
+            raise ValueError(f"Only high-risk target is supported (got {target!r})")
+        key = f"{model_kind}_high"
         fold_metrics = []
 
-        y_all = cohort["y_high" if target == "high" else "y_general"].to_numpy()
-        # Use general for stratification always
         for fold_i, tr_idx, dv_idx, te_idx in _make_splits(
             y_strat,
             n_folds,
@@ -212,13 +199,12 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
             dv_ids = [user_ids[i] for i in dv_idx]
             te_ids = [user_ids[i] for i in te_idx]
 
-            # Fit fusion on TRAIN only
             fusion = fit_fusion([all_blocks[u] for u in tr_ids], target_dim=target_dim)
 
             def _xy(ids):
                 X = np.stack([fusion.transform(all_blocks[u]) for u in ids], axis=0)
                 sub = cohort.set_index("UserId").loc[ids]
-                y = sub["y_high" if target == "high" else "y_general"].to_numpy().astype(np.float32)
+                y = sub["y_high"].to_numpy().astype(np.float32)
                 aux = {
                     "personality": sub[PERSONALITY].to_numpy().astype(np.float32),
                     "psychosocial": sub[PSYCHOSOCIAL].to_numpy().astype(np.float32),
@@ -230,14 +216,12 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
             dev_fd = _xy(dv_ids)
             test_fd = _xy(te_ids)
 
-            # Aux z-score from train
             aux_mu, aux_sd = {}, {}
             for k in ("personality", "psychosocial", "psychiatric"):
                 mu, sd = _zscore_fit(train_fd.aux[k])
                 aux_mu[k] = mu
                 aux_sd[k] = sd
 
-            # Grid search on dev
             best = None
             param_grid = list(
                 itertools.product(
@@ -248,9 +232,11 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
                     grid["epochs"],
                 )
             )
-            print(f"[train] {key} fold {fold_i}: grid size {len(param_grid)}, "
-                  f"train={len(tr_ids)} dev={len(dv_ids)} test={len(te_ids)} "
-                  f"in_dim={train_fd.X.shape[1]} k_block={fusion.k_per_block}")
+            print(
+                f"[train] {key} fold {fold_i}: grid size {len(param_grid)}, "
+                f"train={len(tr_ids)} dev={len(dv_ids)} test={len(te_ids)} "
+                f"in_dim={train_fd.X.shape[1]} k_block={fusion.k_per_block}"
+            )
 
             for n_layers, n_neurons, activation, lr, epochs in param_grid:
                 if model_kind == "stm":
@@ -289,29 +275,47 @@ def run_training(cfg: Config, cohort: pd.DataFrame, rep_roots: dict[str, Path]) 
             assert best is not None
             scores = _predict(best["model"], test_fd.X)
             metrics = summarize_scores(test_fd.y, scores)
-            metrics.update({"fold": fold_i, "dev_auc": best["dev_auc"], **{f"p_{k}": v for k, v in best["params"].items()}})
+            metrics.update(
+                {
+                    "fold": fold_i,
+                    "dev_auc": best["dev_auc"],
+                    **{f"p_{k}": v for k, v in best["params"].items()},
+                }
+            )
             fold_metrics.append(metrics)
 
-            # Save weights
             wpath = out_dir / f"{key}_fold{fold_i}.pt"
             torch.save(
-                {"state_dict": best["model"].state_dict(), "params": best["params"], "metrics": metrics},
+                {
+                    "state_dict": best["model"].state_dict(),
+                    "params": best["params"],
+                    "metrics": metrics,
+                },
                 wpath,
             )
-            print(f"[train] {key} fold {fold_i}: test AUC={metrics['auc_roc']:.3f} "
-                  f"PR-AUC={metrics['pr_auc']:.3f} F1={metrics['f1']:.3f} d={metrics['cohens_d']:.3f}")
+            print(
+                f"[train] {key} fold {fold_i}: test AUC={metrics['auc_roc']:.3f} "
+                f"PR-AUC={metrics['pr_auc']:.3f} F1={metrics['f1']:.3f} d={metrics['cohens_d']:.3f}"
+            )
 
-        # Aggregate
         def _agg(name):
             vals = [m[name] for m in fold_metrics if np.isfinite(m.get(name, np.nan))]
             if not vals:
-                return {"mean": float("nan"), "std": float("nan"), "ci95": [float("nan"), float("nan")]}
+                return {
+                    "mean": float("nan"),
+                    "std": float("nan"),
+                    "ci95": [float("nan"), float("nan")],
+                }
             arr = np.asarray(vals, dtype=float)
             mean = float(arr.mean())
             std = float(arr.std(ddof=1)) if len(arr) > 1 else 0.0
-            # Simple normal approx CI
             se = std / np.sqrt(len(arr)) if len(arr) > 1 else 0.0
-            return {"mean": mean, "std": std, "ci95": [mean - 1.96 * se, mean + 1.96 * se], "values": vals}
+            return {
+                "mean": mean,
+                "std": std,
+                "ci95": [mean - 1.96 * se, mean + 1.96 * se],
+                "values": vals,
+            }
 
         results["summary"][key] = {
             "auc_roc": _agg("auc_roc"),

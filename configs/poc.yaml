@@ -16,8 +16,8 @@ cohort:
   min_status_posts: 10          # status_posts > 9
   groups: [0, 1]
   n_users: 30                   # null => all eligible users
-  # Stratified sample of 30: prefer balanced general-risk labels
-  stratify_on: y_general
+  # Stratified sample of 30 on high-risk labels
+  stratify_on: y_high
 
 posts:
   include_post_description: false
@@ -30,10 +30,14 @@ images:
   max_images_per_user: 10       # POC cap
   caption_model: HuggingFaceTB/SmolVLM-256M-Instruct
   caption_prompt: >
-    Describe this social-media image briefly (1-2 sentences).
+    You are assisting a research study on suicide-risk signals in social media language.
+    Below is an image from one user's Facebook post.
+    Describe this image briefly, on a low and a high level.
     Focus on visual cues that may relate to emotional distress,
     isolation, self-harm, substance use, or overall mood.
+    If the image contains text, transcribe it.
     Do not invent details that are not visible.
+    Do not get emotional, remain objective in the description.
   max_new_tokens: 64
   batch_size: 1
   device: cpu
@@ -43,7 +47,7 @@ corpus:
   include_images: false         # text_only POC first
   include_subject_details: false
   post_marker: "[post]"
-  image_marker: "IMAGE_DESCRIPTIONS:"
+  image_marker: "[image]"
   subject_marker: "[subject details]"
 
 represent:
@@ -71,11 +75,16 @@ represent:
   task_prompt: |
     You are assisting a research study on suicide-risk signals in social media language.
     Below is one user's Facebook posts (order is arbitrary; treat them as a set).
-    Provide a short rationale, then give a final prediction as one of:
-      RISK=0 (no/low risk) or RISK=1 (elevated risk).
+    Identify trends that might indicate a development of suicidial ideation.
+    Example trends include:
+    - Expressions of hopelessness or despair
+    - Statements about feeling isolated or alone
+    - References to death or dying
+    - References to substance use or abuse
+    - References to mental health issues or treatment
     Format your answer exactly as:
-    Rationale: <1-3 sentences>
-    Prediction: RISK=<0 or 1>
+    Rationale: <a few sentences>
+    Prediction: RISK=<1 for elevated risk, 0 for no/low risk>
   target_dim: 1024
 
 fusion:
@@ -100,9 +109,7 @@ train:
     epochs: [200, 500]
   early_stop_patience: 50
   variants:
-    - {model: stm, target: general}
     - {model: stm, target: high}
-    - {model: mtm, target: general}
     - {model: mtm, target: high}
   aux_targets:
     - PHQ9

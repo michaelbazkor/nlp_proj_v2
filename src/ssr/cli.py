@@ -20,8 +20,8 @@ from ssr.io_utils import atomic_write_text
 
 def cmd_cohort(cfg):
     c = build_cohort(cfg, assert_paper=cfg.cohort.get("n_users") is None)
-    print(f"[cohort] n={len(c)} general={int(c.y_general.sum())} high={int(c.y_high.sum())}")
-    print(c[["UserId", "suicide", "y_general", "y_high", "status_posts"]].head(5).to_string(index=False))
+    print(f"[cohort] n={len(c)} high={int(c.y_high.sum())} ({100*c.y_high.mean():.1f}%)")
+    print(c[["UserId", "suicide", "y_high", "status_posts"]].head(5).to_string(index=False))
     return c
 
 
@@ -42,10 +42,10 @@ def cmd_posts(cfg, cohort):
     return posts
 
 
-def cmd_captions(cfg, posts):
+def cmd_captions(cfg, posts, *, force: bool = False):
     from ssr.caption.run import run_captions
 
-    caps = run_captions(cfg, posts)
+    caps = run_captions(cfg, posts, force=force)
     print(f"[captions] n={len(caps)}")
     for i, (g, c) in enumerate(caps.items()):
         if i >= 3:
@@ -54,8 +54,8 @@ def cmd_captions(cfg, posts):
     return caps
 
 
-def cmd_corpus(cfg, cohort, posts, captions):
-    corpora = build_corpora(cfg, cohort, posts, captions)
+def cmd_corpus(cfg, cohort, posts, captions, *, force: bool = False):
+    corpora = build_corpora(cfg, cohort, posts, captions, force=force)
     print(f"[corpus] users={len(corpora)} mean_posts={corpora.n_posts.mean():.1f} "
           f"mean_chars={corpora.n_chars.mean():.0f}")
     sample = corpora.iloc[0]
@@ -65,10 +65,10 @@ def cmd_corpus(cfg, cohort, posts, captions):
     return corpora
 
 
-def cmd_represent(cfg, corpora):
+def cmd_represent(cfg, corpora, *, force: bool = False):
     from ssr.represent.extract import run_representations
 
-    roots = run_representations(cfg, corpora)
+    roots = run_representations(cfg, corpora, force=force)
     for name, root in roots.items():
         n = len(list(root.glob("*.npz")))
         print(f"[represent] {name}: {n} user files in {root}")
@@ -99,7 +99,7 @@ def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
     lines.append("## 0. Cohort row\n")
     row = cohort[cohort.UserId == uid].iloc[0]
     lines.append("```")
-    lines.append(row[["UserId", "suicide", "y_general", "y_high", "status_posts",
+    lines.append(row[["UserId", "suicide", "y_high", "status_posts",
                       "age", "gender_label", "PHQ9", "GAD", "BFI_N", "Lonely"]].to_string())
     lines.append("```\n")
 
@@ -108,10 +108,13 @@ def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
     for _, p in up.iterrows():
         lines.append(f"- **PostType={p.PostType}** has_image={p.has_image}")
         lines.append(f"  text: `{str(p.free_text)[:200]}`")
-        if p.blob_guid:
-            lines.append(f"  blob_guid: `{p.blob_guid}`")
-            if captions and p.blob_guid in captions:
-                lines.append(f"  caption: `{captions[p.blob_guid][:200]}`")
+        key = p.get("image_key") if "image_key" in p.index else None
+        if (key is None or (isinstance(key, float) and __import__("math").isnan(key))) and "blob_guid" in p.index:
+            key = p.get("blob_guid")
+        if key and not (isinstance(key, float) and __import__("math").isnan(key)):
+            lines.append(f"  image_key: `{key}`")
+            if captions and str(key) in captions:
+                lines.append(f"  caption: `[image] {captions[str(key)][:200]}`")
     lines.append("")
 
     lines.append("## 2. Assembled corpus (truncated)\n")
@@ -210,7 +213,7 @@ def main(argv=None):
         elif args.command == "captions" or (
             args.command == "all" and cfg.corpus.get("include_images", True)
         ):
-            captions = cmd_captions(cfg, posts)
+            captions = cmd_captions(cfg, posts, force=args.force)
         else:
             from ssr.caption.run import load_captions
 
@@ -220,13 +223,13 @@ def main(argv=None):
         return
 
     if args.command in ("corpus", "represent", "train", "report", "all"):
-        corpora = cmd_corpus(cfg, cohort, posts, captions)
+        corpora = cmd_corpus(cfg, cohort, posts, captions, force=args.force)
 
     if args.command == "corpus":
         return
 
     if args.command in ("represent", "train", "report", "all"):
-        rep_roots = cmd_represent(cfg, corpora)
+        rep_roots = cmd_represent(cfg, corpora, force=args.force)
 
     if args.command == "represent":
         return

@@ -15,7 +15,7 @@ cohort:
   min_status_posts: 10
   groups: [0, 1]
   n_users: null
-  stratify_on: y_general
+  stratify_on: y_high
 
 posts:
   include_post_description: false
@@ -41,7 +41,7 @@ corpus:
   include_images: true
   include_subject_details: false
   post_marker: "[post]"
-  image_marker: "IMAGE_DESCRIPTIONS:"
+  image_marker: "[image]"
   subject_marker: "[subject details]"
 
 represent:
@@ -113,9 +113,7 @@ train:
     epochs: [1000, 2500, 5000]
   early_stop_patience: 200
   variants:
-    - {model: stm, target: general}
     - {model: stm, target: high}
-    - {model: mtm, target: general}
     - {model: mtm, target: high}
   aux_targets:
     - PHQ9

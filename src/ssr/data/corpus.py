@@ -12,15 +12,15 @@ from ssr.io_utils import atomic_write_json, exists_nonempty
 
 
 def _format_post(free_text: str, image_descs: list[str], post_marker: str, image_marker: str) -> str:
+    """Format one post. Each image caption is prefixed individually, e.g. `[image] <desc>`."""
     text = (free_text or "").strip()
-    if image_descs:
-        joined = " ".join(d.strip() for d in image_descs if d and d.strip())
-        if text:
-            body = f"{text} {image_marker} {joined}"
-        else:
-            body = f"{image_marker} {joined}"
-    else:
-        body = text
+    img_parts = [
+        f"{image_marker} {d.strip()}".strip()
+        for d in image_descs
+        if d and str(d).strip()
+    ]
+    parts = [p for p in [text, *img_parts] if p]
+    body = " ".join(parts)
     return f"{post_marker} {body}".strip()
 
 
@@ -43,18 +43,20 @@ def build_corpora(
     cohort: pd.DataFrame,
     posts: pd.DataFrame,
     captions: dict[str, str] | None = None,
+    *,
+    force: bool = False,
 ) -> pd.DataFrame:
     """Return DataFrame with columns UserId, corpus, n_posts, n_images, n_chars."""
     out = cfg.exp_dir("corpora.parquet")
     meta_path = cfg.exp_dir("corpora_meta.json")
-    if exists_nonempty(out):
+    if exists_nonempty(out) and not force:
         return pd.read_parquet(out)
 
     captions = captions or {}
     include_images = bool(cfg.corpus.get("include_images", True))
     include_subj = bool(cfg.corpus.get("include_subject_details", False))
     post_marker = cfg.corpus.get("post_marker", "[post]")
-    image_marker = cfg.corpus.get("image_marker", "IMAGE_DESCRIPTIONS:")
+    image_marker = cfg.corpus.get("image_marker", "[image]")
     subject_marker = cfg.corpus.get("subject_marker", "[subject details]")
     seed = int(cfg.posts.get("shuffle_seed", cfg.seed))
     max_posts = cfg.posts.get("max_posts_per_user")
