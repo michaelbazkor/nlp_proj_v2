@@ -1,44 +1,63 @@
-# Suicide-risk representations (SSR)
+# SSR — Suicide-risk representations (H100 full cohort)
 
-LLM hidden-state representations → STM/MTM classifiers for suicide-risk prediction,
-modernizing Ophir et al. (2020).
+Modernizes Ophir et al. (2020): LLM hidden states → fused vectors → STM/MTM classifiers.
 
-## Quick start (POC on CPU)
+## H100 full run (single command)
 
 ```bash
-pip install -e .
-python -m ssr.cli --config configs/poc.yaml all --skip-captions
+pip install -e ".[h100]"
+export HF_TOKEN=...                    # for gated models (Llama-3.3-70B)
+python scripts/run_h100_full.py
 ```
 
-## Stages
+### What it does
 
-| Command | What it does |
-|---------|--------------|
-| `cohort` | Filter users, build `y_high` (suicide >= 3) |
-| `posts` | Decode & clean Facebook posts |
-| `captions` | VLM image captions (cached by blob GUID) |
-| `corpus` | Build per-user `[post] ...` corpora |
-| `represent` | Extract hidden-state blocks from LLMs |
-| `train` | 5-fold CV STM/MTM + metrics |
-| `all` | Run the full pipeline |
-| `report` | Write `reports/stage_examples.md` |
+**Phase 1 — represent (~3–5 h on H100)**  
+Cohort (N≈1006) → posts → VLM captions → corpora → sequential LLM extraction to `.npz`:
+- Qwen3-32B, DeepSeek-R1-Distill-32B, Gemma-3-27B — BF16 + FlashAttention-2
+- Llama-3.3-70B — 4-bit NF4 on single 80 GB H100 (change to `dtype: bfloat16` on dual-GPU)
 
-## Configs
+**Phase 2 — train matrix (~15–30 min)**  
+8 configurations on cached reps (all evaluated on binary `suicide >= 3`):
 
-- `configs/poc.yaml` — 30 users, tiny models, CPU
-- `configs/real.yaml` — full cohort, Llama-3.3-70B / Qwen3-32B / R1-Distill / Gemma, H100
+| Fusion | Train target | Architecture |
+|--------|-------------|--------------|
+| PCA | Ordinal (0–6) | STM / MTM |
+| PCA | Binary (≥3) | STM / MTM |
+| Attention | Ordinal (0–6) | STM / MTM |
+| Attention | Binary (≥3) | STM / MTM |
 
-## Labels / cohort filter
+### Outputs
 
-```python
-df_users = df_metadata[(grp.isin([0, 1])) & (status_posts > 9)]
-             .sort_values(by=['status_posts', 'sui_cat']).reset_index()
-df_profiles = df_profiles[df_profiles['UserId'].isin(df_users['UserId'])]
+```
+artifacts/h100_full/
+  reps/{model}/*.npz          # cached hidden states (reuse for all 8 trains)
+  train_matrix/{run_id}/      # per-experiment checkpoints + metrics.json
+  matrix_comparison.json      # aggregated results
+reports/h100_matrix_comparison.md
 ```
 
-- Yields **N=1006** on this CSV (paper text says 1002; post total **83292** matches the paper).
-- **High risk only:** `y_high = (suicide >= 3)` → 132
-- STM/MTM train and evaluate on `y_high` only
+### Options
+
+```bash
+python scripts/run_h100_full.py --phase train          # skip extraction
+python scripts/run_h100_full.py --phase represent      # extract only
+python scripts/run_h100_full.py --skip-captions        # text-only corpus
+python scripts/run_h100_full.py --force                # re-extract all users
+```
+
+### Dual H100 (160 GB) — run Llama-3.3-70B in BF16
+
+In `configs/h100_full.yaml`, for `llama_3_3_70b`:
+```yaml
+dtype: bfloat16
+load_in_4bit: false
+device_map: auto
+```
+
+## Config
+
+Primary config: `configs/h100_full.yaml`
 
 ## Ethics
 

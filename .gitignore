@@ -14,6 +14,11 @@ __pycache__/
 *.tmp
 *.partial
 
+# H100 full run — reps are large; keep comparison JSON/MD only
+artifacts/h100_full/reps/
+artifacts/h100_full/posts_capped.parquet
+artifacts/posts.parquet
+
 # IDE
 .idea/
 .vscode/
