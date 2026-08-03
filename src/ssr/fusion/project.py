@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 
 @dataclass
 class BlockSpec:
-    key: str  # e.g. "qwen3_0_6b:12:input_only"
+    key: str  # e.g. "qwen3_32b:12:input_only"
     dim: int
 
 

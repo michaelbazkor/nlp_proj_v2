@@ -34,11 +34,17 @@ images:
   max_images_per_user: null
   caption_model: Qwen/Qwen2.5-VL-7B-Instruct
   caption_prompt: >
-    Describe this social-media image briefly (1-2 sentences).
-    Focus on visual cues that may relate to emotional distress,
-    isolation, self-harm, substance use, or overall mood.
-    Do not invent details that are not visible.
-  max_new_tokens: 80
+    You are analyzing a social media image for an academic mental health research dataset.
+    Provide a clear, objective, and detailed description of the image in 2-4 sentences.
+
+    Your description should cover:
+    - Main Content: Objects, scene/environment, people present and actions.
+    - Mood & Atmosphere: The visual tone, lighting, and overall aesthetic (e.g., somber/isolated, bright/festive, dark, chaotic).
+    - Text in Image: Transcribe any visible text, quotes, or meme text verbatim (you can exceed the 2-4 sentence limit if necessary).
+
+    Do not invent details that are not visible, focus on what is visually present.
+    Do not make clinical diagnoses, maintain objective tone.
+  max_new_tokens: 128
   batch_size: 8
   device: cuda
   dtype: bfloat16
@@ -98,15 +104,23 @@ represent:
       enable_thinking: false
       max_new_tokens: 256
   positions: [input_only, last_prompt, cot, final_pred]
+  # Posts are substituted at [insert posts here] by build_user_prompt
   task_prompt: |
-    You are assisting a research study on suicide-risk signals in social media language.
-    Below is one user's Facebook posts (order is arbitrary; treat them as a set).
-    Identify trends that might indicate development of suicidal ideation.
-    Example trends include hopelessness, isolation, references to death,
-    substance use, or mental health treatment.
+    You are an expert supervisor evaluating suicide-risk signals in social media language.
+    Input: a collection of Facebook posts authored by a single user. (order is arbitrary)
+    Asses if language indicates an evolving trajectory of suicidal ideation.
+
+    Suicidal ideation often manifests as severe social isolation, thwarted belongingness, or perceiving oneself as a burden to others.
+    Look for expressions of intense emotional pain, inescapable entrapment, or severe hopelessness regarding the future.
+    Pay close attention to explicit or implicit references to death, self-harm, or escalating mental health distress.
+    Remember that majority of users do not have suicidal ideation, do not overinterpret posts that are not overtly suicidal.
+
+    User posts:
+    [insert posts here]
+
     Format your answer exactly as:
-    Rationale: <a few sentences>
-    Prediction: RISK=<1 for elevated risk, 0 for no/low risk>
+    Rationale: <2-3 sentences>
+    Prediction: RISK=<1 for elevated risk, 0 for low risk>
 
 fusion:
   target_dim: 1024

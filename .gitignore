@@ -19,6 +19,29 @@ artifacts/h100_full/reps/
 artifacts/h100_full/posts_capped.parquet
 artifacts/posts.parquet
 
+# Legacy POC / small-model runs (do not commit)
+artifacts/standard/
+artifacts/text_only/
+artifacts/baseline_original/
+artifacts/cohort_n30.*
+artifacts/captions_poc.log
+artifacts/represent_poc.log
+artifacts/train_poc.log
+artifacts/*_poc.log
+artifacts/prompt_*comparison.json
+artifacts/prompt_*.log
+artifacts/rerun_*.log
+artifacts/download_*.log
+artifacts/wait_images.log
+artifacts/smoke_*
+artifacts/train_curves*
+configs/poc*.yaml
+configs/real*.yaml
+reports/prompt_*.md
+reports/stage_examples.md
+scripts/wait_and_run_images.sh
+scripts/free_disk.sh
+
 # IDE
 .idea/
 .vscode/

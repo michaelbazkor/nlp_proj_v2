@@ -69,9 +69,12 @@ def _load_causal_lm(hf_id: str, model_cfg: dict):
         tok.pad_token = tok.eos_token
 
     common: dict[str, Any] = {"trust_remote_code": True}
+    attn_impl = model_cfg.get("attn_implementation")
     if use_flash:
         common["attn_implementation"] = "flash_attention_2"
         print(f"[represent] FlashAttention-2 enabled for {hf_id}")
+    elif attn_impl:
+        common["attn_implementation"] = attn_impl
 
     device_map = model_cfg.get("device_map", "auto")
 
@@ -195,6 +198,7 @@ def _extract_chunk(
     positions: list[str],
     max_new_tokens: int,
     device: str,
+    corpus_char_hint: str = "",
 ) -> dict[str, np.ndarray]:
     enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
     input_ids = enc["input_ids"].to(device)
@@ -203,12 +207,17 @@ def _extract_chunk(
         attn = attn.to(device)
 
     prompt_len = input_ids.shape[-1]
-    corpus_start = prompt_text.find("--- USER POSTS ---")
-    corpus_end = prompt_text.find("--- END ---")
-    if corpus_start < 0:
-        corpus_start = 0
-    if corpus_end < 0:
-        corpus_end = len(prompt_text)
+    hint = (corpus_char_hint or "").strip()
+    corpus_start = prompt_text.find(hint) if hint else -1
+    if corpus_start >= 0:
+        corpus_end = corpus_start + len(hint)
+    else:
+        corpus_start = prompt_text.find("--- USER POSTS ---")
+        corpus_end = prompt_text.find("--- END ---")
+        if corpus_start < 0:
+            corpus_start = 0
+        if corpus_end < 0:
+            corpus_end = len(prompt_text)
 
     enc_off = tok(
         prompt_text,
@@ -355,7 +364,9 @@ def extract_for_model(
                 max_length=max_prompt_tokens,
             )
             prompt_text = tok.decode(enc["input_ids"][0], skip_special_tokens=False)
-            res = _extract_chunk(tok, model, prompt_text, layer_idxs, positions, max_new, run_device)
+            res = _extract_chunk(
+                tok, model, prompt_text, layer_idxs, positions, max_new, run_device, ch
+            )
             gen_texts.append(str(res.pop("__gen_text__", np.array([""]))[0]))
             chunk_results.append(res)
 
