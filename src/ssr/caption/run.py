@@ -1,6 +1,12 @@
-"""Stage 1: image captioning with a VLM. Cache keyed by PostId (image_key)."""
+"""Stage 1: image captioning with a VLM.
+
+Cache is model-scoped under ``artifacts/captions/{model_slug}/`` so POC
+SmolVLM captions cannot be reused for a different VLM on the real run.
+"""
 from __future__ import annotations
 
+import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -13,12 +19,33 @@ from ssr.data.images import ImageStore
 from ssr.io_utils import atomic_write_json, exists_nonempty
 
 
+def _model_slug(model_id: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", model_id.replace("/", "__"))
+
+
+def caption_paths(cfg: Config) -> tuple[Path, Path]:
+    """Return (parquet_path, meta_path) for the configured caption model."""
+    model_id = cfg.images["caption_model"]
+    slug = _model_slug(model_id)
+    root = cfg.art("captions", slug)
+    root.mkdir(parents=True, exist_ok=True)
+    return root / "captions.parquet", root / "captions_meta.json"
+
+
 def _load_caption_model(model_id: str, device: str, dtype_name: str):
     from transformers import AutoProcessor
 
-    dtype = {"float32": torch.float32, "float16": torch.float16, "bfloat16": torch.bfloat16}.get(
-        dtype_name, torch.float32
-    )
+    dtype_map = {
+        "float32": torch.float32,
+        "float16": torch.float16,
+        "bfloat16": torch.bfloat16,
+    }
+    if dtype_name not in dtype_map:
+        raise ValueError(
+            f"Unsupported caption dtype {dtype_name!r}; "
+            f"expected one of {sorted(dtype_map)}"
+        )
+    dtype = dtype_map[dtype_name]
     processor = AutoProcessor.from_pretrained(model_id)
     try:
         from transformers import AutoModelForImageTextToText as _AutoVLM
@@ -67,11 +94,18 @@ def run_captions(
     force: bool = False,
 ) -> dict[str, str]:
     """Caption unique image_key (PostId) values present in posts."""
-    out = cfg.art("captions.parquet")
-    meta_path = cfg.art("captions_meta.json")
+    model_id = cfg.images["caption_model"]
+    out, meta_path = caption_paths(cfg)
 
     existing: dict[str, str] = {}
-    if exists_nonempty(out) and not force:
+    if exists_nonempty(out) and exists_nonempty(meta_path) and not force:
+        meta = json.loads(meta_path.read_text())
+        cached_model = meta.get("model")
+        if cached_model != model_id:
+            raise RuntimeError(
+                f"Caption cache model mismatch: cache has {cached_model!r}, "
+                f"config requests {model_id!r}. Use --force or delete {out.parent}."
+            )
         df = pd.read_parquet(out)
         if len(df) and ("image_key" in df.columns or "blob_guid" in df.columns):
             key_col = "image_key" if "image_key" in df.columns else "blob_guid"
@@ -90,7 +124,13 @@ def run_captions(
     if not todo:
         atomic_write_json(
             meta_path,
-            {"n_cached": len(existing), "n_requested": len(keys), "n_new": 0, "skipped": True},
+            {
+                "model": model_id,
+                "n_cached": len(existing),
+                "n_requested": len(keys),
+                "n_new": 0,
+                "skipped": True,
+            },
         )
         return {k: existing[k] for k in keys if k in existing}
 
@@ -99,12 +139,17 @@ def run_captions(
         print(f"[captions] pics.zip not ready at {cfg.paths.pics_zip}; returning empty captions")
         atomic_write_json(
             meta_path,
-            {"n_cached": len(existing), "n_requested": len(keys), "n_new": 0, "zip_ready": False},
+            {
+                "model": model_id,
+                "n_cached": len(existing),
+                "n_requested": len(keys),
+                "n_new": 0,
+                "zip_ready": False,
+            },
         )
         return existing
 
     device = cfg.images.get("device", "cpu")
-    model_id = cfg.images["caption_model"]
     prompt = cfg.images["caption_prompt"].strip()
     max_new = int(cfg.images.get("max_new_tokens", 64))
     dtype_name = cfg.images.get("dtype", "float32")
@@ -145,10 +190,48 @@ def run_captions(
     return {k: existing[k] for k in keys if k in existing}
 
 
-def load_captions(cfg: Config) -> dict[str, str]:
-    out = cfg.art("captions.parquet")
-    if not exists_nonempty(out):
+def load_captions(cfg: Config, *, require: bool = False) -> dict[str, str]:
+    """Load captions for the configured VLM.
+
+    If ``require`` is True, raise when the cache is missing or for the wrong model.
+    """
+    model_id = cfg.images["caption_model"]
+    out, meta_path = caption_paths(cfg)
+
+    # Legacy flat path (POC) — only accept if meta model matches
+    legacy = cfg.art("captions.parquet")
+    legacy_meta = cfg.art("captions_meta.json")
+
+    if exists_nonempty(out) and exists_nonempty(meta_path):
+        meta = json.loads(meta_path.read_text())
+        if meta.get("model") != model_id:
+            if require:
+                raise RuntimeError(
+                    f"Caption cache model mismatch: {meta.get('model')!r} vs {model_id!r}"
+                )
+            return {}
+        df = pd.read_parquet(out)
+        key_col = "image_key" if "image_key" in df.columns else "blob_guid"
+        return dict(zip(df[key_col], df["caption"]))
+
+    if exists_nonempty(legacy):
+        cached_model = None
+        if exists_nonempty(legacy_meta):
+            cached_model = json.loads(legacy_meta.read_text()).get("model")
+        if cached_model == model_id:
+            df = pd.read_parquet(legacy)
+            key_col = "image_key" if "image_key" in df.columns else "blob_guid"
+            return dict(zip(df[key_col], df["caption"]))
+        if require:
+            raise RuntimeError(
+                f"Legacy captions at {legacy} are for model {cached_model!r}, "
+                f"not {model_id!r}. Re-run captions --force."
+            )
         return {}
-    df = pd.read_parquet(out)
-    key_col = "image_key" if "image_key" in df.columns else "blob_guid"
-    return dict(zip(df[key_col], df["caption"]))
+
+    if require:
+        raise RuntimeError(
+            f"No captions found for {model_id!r} at {out}. Run: "
+            f"python -m ssr.cli --config <cfg> captions --force"
+        )
+    return {}

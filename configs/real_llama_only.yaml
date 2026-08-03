@@ -1,9 +1,8 @@
-# Full H100 run — standard (text + image captions).
-# Same pipeline code as POC; only knobs change.
-# Artifacts land under artifacts/real_standard/ (does not collide with POC `standard`).
+# Full H100 run — Llama-only ablation (experiment name filters models).
+# Artifacts: artifacts/llama_only/
 
 seed: 42
-experiment: real_standard
+experiment: llama_only
 
 paths:
   root: .
@@ -56,39 +55,6 @@ represent:
   models:
     - name: llama_3_3_70b
       hf_id: meta-llama/Llama-3.3-70B-Instruct
-      max_context: 131072
-      layer_taps: null
-      layer_stride: 20
-      dtype: bfloat16
-      device: cuda
-      device_map: auto
-      attn_implementation: sdpa
-      enable_thinking: false
-      max_new_tokens: 256
-    - name: qwen3_32b
-      hf_id: Qwen/Qwen3-32B
-      max_context: 131072
-      layer_taps: null
-      layer_stride: 20
-      dtype: bfloat16
-      device: cuda
-      device_map: auto
-      attn_implementation: sdpa
-      enable_thinking: true
-      max_new_tokens: 512
-    - name: deepseek_r1_distill_qwen_32b
-      hf_id: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
-      max_context: 131072
-      layer_taps: null
-      layer_stride: 20
-      dtype: bfloat16
-      device: cuda
-      device_map: auto
-      attn_implementation: sdpa
-      enable_thinking: true
-      max_new_tokens: 512
-    - name: gemma4_26b_moe
-      hf_id: google/gemma-4-26b-it
       max_context: 131072
       layer_taps: null
       layer_stride: 20

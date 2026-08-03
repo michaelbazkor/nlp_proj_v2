@@ -11,22 +11,71 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
-from ssr.config import load_config
+from ssr.config import Config, load_config
 from ssr.data.cohort import build_cohort
 from ssr.data.corpus import build_corpora
 from ssr.data.posts import build_posts, cap_posts_per_user
-from ssr.io_utils import atomic_write_text
+from ssr.io_utils import atomic_write_text, exists_nonempty
 
 
-def cmd_cohort(cfg):
-    c = build_cohort(cfg, assert_paper=cfg.cohort.get("n_users") is None)
+def _preflight(cfg: Config) -> None:
+    """Warn about POC-contaminated caches that would break a full-cohort run."""
+    n_users = cfg.cohort.get("n_users")
+    posts_path = cfg.art("posts.parquet")
+    posts_meta = cfg.art("posts_meta.json")
+    if n_users is None and exists_nonempty(posts_meta):
+        meta = json.loads(posts_meta.read_text())
+        n = int(meta.get("n_users", 0))
+        if n < 1000:
+            print(
+                f"[preflight] WARNING: posts cache has only {n} users "
+                f"({posts_path}). Full-cohort runs need a full posts rebuild: "
+                f"rm {posts_path} {posts_meta} then re-run with --force."
+            )
+
+    corp_path = cfg.exp_dir("corpora.parquet")
+    if exists_nonempty(corp_path):
+        try:
+            import pandas as pd
+
+            n_corp = len(pd.read_parquet(corp_path))
+            if n_users is None and n_corp <= 30:
+                print(
+                    f"[preflight] WARNING: experiment '{cfg.experiment}' corpora "
+                    f"has n={n_corp} (POC-sized). Use --force or a distinct "
+                    f"experiment name (e.g. real_standard)."
+                )
+        except Exception:
+            pass
+
+    if cfg.corpus.get("include_images", True):
+        from ssr.caption.run import caption_paths
+
+        _, meta_path = caption_paths(cfg)
+        if exists_nonempty(meta_path):
+            meta = json.loads(meta_path.read_text())
+            want = cfg.images["caption_model"]
+            got = meta.get("model")
+            if got and got != want:
+                print(
+                    f"[preflight] WARNING: caption cache model {got!r} != "
+                    f"config {want!r}. Re-run captions --force."
+                )
+
+
+def cmd_cohort(cfg, *, force: bool = False):
+    c = build_cohort(
+        cfg,
+        assert_paper=cfg.cohort.get("n_users") is None,
+        force=force,
+    )
     print(f"[cohort] n={len(c)} high={int(c.y_high.sum())} ({100*c.y_high.mean():.1f}%)")
     print(c[["UserId", "suicide", "y_high", "status_posts"]].head(5).to_string(index=False))
     return c
 
 
-def cmd_posts(cfg, cohort):
-    posts = build_posts(cfg, set(cohort["UserId"]))
+def cmd_posts(cfg, cohort, *, force: bool = False):
+    posts = build_posts(cfg, set(cohort["UserId"]), force=force)
     posts = cap_posts_per_user(
         posts,
         cfg.posts.get("max_posts_per_user"),
@@ -68,7 +117,7 @@ def cmd_corpus(cfg, cohort, posts, captions, *, force: bool = False):
 def cmd_represent(cfg, corpora, *, force: bool = False):
     from ssr.represent.extract import run_representations
 
-    roots = run_representations(cfg, corpora, force=force)
+    roots = run_nxt(cfg, corpora, force=force)
     for name, root in roots.items():
         n = len(list(root.glob("*.npz")))
         print(f"[represent] {name}: {n} user files in {root}")
@@ -90,11 +139,11 @@ def cmd_train(cfg, cohort, rep_roots):
 
 
 def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
-    """Write reports/stage_examples.md with real data at every stage."""
+    """Write reports/{experiment}/stage_examples.md with real data at every stage."""
     from ssr.fusion.project import collect_user_blocks, fit_fusion
     from ssr.represent.store import load_user_reps
 
-    lines = ["# Stage examples (POC run)\n"]
+    lines = [f"# Stage examples ({cfg.experiment})\n"]
     uid = cohort.iloc[0]["UserId"]
     lines.append("## 0. Cohort row\n")
     row = cohort[cohort.UserId == uid].iloc[0]
@@ -146,7 +195,7 @@ def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
                 lines.append(f"- `{k}`: shape={v.shape} mean={v.mean():.4f} std={v.std():.4f}")
             lines.append("")
 
-        lines.append("## 4. Fused 1024-d vector (fit on all POC users for illustration)\n")
+        lines.append("## 4. Fused 1024-d vector (fit on cohort for illustration)\n")
         try:
             blocks_all = [collect_user_blocks(rep_roots, u) for u in cohort.UserId.tolist()]
             fusion = fit_fusion(blocks_all, target_dim=int(cfg.fusion["target_dim"]))
@@ -161,7 +210,6 @@ def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
     if results is None:
         metrics_path = cfg.exp_dir("train", "metrics.json")
         if metrics_path.exists():
-            import json
             results = json.loads(metrics_path.read_text())
 
     if results is not None:
@@ -175,7 +223,7 @@ def cmd_report(cfg, cohort, posts, corpora, captions, results=None):
             )
         lines.append("")
 
-    path = cfg.report("stage_examples.md")
+    path = cfg.report(cfg.experiment, "stage_examples.md")
     atomic_write_text(path, "\n".join(lines))
     print(f"[report] wrote {path}")
     return path
@@ -194,30 +242,39 @@ def main(argv=None):
 
     cfg = load_config(args.config)
     print(f"[ssr] experiment={cfg.experiment} config={args.config}")
+    _preflight(cfg)
 
     if args.command == "cohort":
-        cmd_cohort(cfg)
+        cmd_cohort(cfg, force=args.force)
         return
 
-    cohort = cmd_cohort(cfg)
+    cohort = cmd_cohort(cfg, force=args.force)
     if args.command == "posts":
-        cmd_posts(cfg, cohort)
+        cmd_posts(cfg, cohort, force=args.force)
         return
 
-    posts = cmd_posts(cfg, cohort)
+    posts = cmd_posts(cfg, cohort, force=args.force)
 
     captions = {}
+    need_images = bool(cfg.corpus.get("include_images", True)) and not args.skip_captions
     if args.command in ("captions", "all", "corpus", "represent", "train", "report"):
         if args.skip_captions or not cfg.corpus.get("include_images", True):
             print("[captions] skipped (text-only / --skip-captions)")
         elif args.command == "captions" or (
-            args.command == "all" and cfg.corpus.get("include_images", True)
+            args.command == "all" and need_images
         ):
             captions = cmd_captions(cfg, posts, force=args.force)
         else:
             from ssr.caption.run import load_captions
 
-            captions = load_captions(cfg)
+            # Fail closed when images are required for corpus/represent/train/report
+            require = args.command in ("corpus", "represent", "train", "all") and need_images
+            captions = load_captions(cfg, require=require)
+            if require and not captions:
+                raise RuntimeError(
+                    "include_images=true but no captions loaded for the configured VLM. "
+                    "Run captions first (with --force if switching models)."
+                )
 
     if args.command == "captions":
         return

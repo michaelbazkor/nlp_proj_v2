@@ -1,9 +1,8 @@
-# Full H100 run — standard (text + image captions).
-# Same pipeline code as POC; only knobs change.
-# Artifacts land under artifacts/real_standard/ (does not collide with POC `standard`).
+# Full H100 run — subject-details prefix ablation.
+# Artifacts: artifacts/real_subject_details/
 
 seed: 42
-experiment: real_standard
+experiment: real_subject_details
 
 paths:
   root: .
@@ -47,7 +46,7 @@ images:
 
 corpus:
   include_images: true
-  include_subject_details: false
+  include_subject_details: true
   post_marker: "[post]"
   image_marker: "[image]"
   subject_marker: "[subject details]"

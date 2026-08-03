@@ -1,9 +1,8 @@
-# Full H100 run — standard (text + image captions).
-# Same pipeline code as POC; only knobs change.
-# Artifacts land under artifacts/real_standard/ (does not collide with POC `standard`).
+# Full H100 run — text-only ablation (no image captions).
+# Artifacts: artifacts/real_text_only/
 
 seed: 42
-experiment: real_standard
+experiment: real_text_only
 
 paths:
   root: .
@@ -46,7 +45,7 @@ images:
   dtype: bfloat16
 
 corpus:
-  include_images: true
+  include_images: false
   include_subject_details: false
   post_marker: "[post]"
   image_marker: "[image]"

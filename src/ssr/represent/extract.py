@@ -28,11 +28,25 @@ POST_SPLIT_RE = re.compile(r"(?=\[post\])")
 
 
 def _dtype(name: str):
-    return {
+    mapping = {
         "float32": torch.float32,
         "float16": torch.float16,
         "bfloat16": torch.bfloat16,
-    }.get(name, torch.float32)
+    }
+    if name not in mapping:
+        raise ValueError(
+            f"Unsupported dtype {name!r}. Supported: {sorted(mapping)}. "
+            f"(float8 / FP8 is not implemented — use bfloat16 with device_map: auto.)"
+        )
+    return mapping[name]
+
+
+def _model_input_device(model) -> torch.device:
+    """First parameter device (works with device_map / multi-GPU)."""
+    try:
+        return next(model.parameters()).device
+    except StopIteration:
+        return torch.device("cpu")
 
 
 def _layer_indices(n_layers: int, taps: int | None, stride: int | None) -> list[int]:
@@ -89,18 +103,38 @@ def _split_corpus_into_chunks(corpus: str, max_chars: int) -> list[str]:
     return final
 
 
-def _load_causal_lm(hf_id: str, device: str, dtype_name: str):
+def _load_causal_lm(
+    hf_id: str,
+    device: str,
+    dtype_name: str,
+    *,
+    device_map: str | dict | None = None,
+    attn_implementation: str | None = "sdpa",
+):
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     tok = AutoTokenizer.from_pretrained(hf_id, trust_remote_code=True)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(
-        hf_id,
-        torch_dtype=_dtype(dtype_name),
-        trust_remote_code=True,
-    )
-    model.to(device)
+
+    kwargs: dict[str, Any] = {
+        "torch_dtype": _dtype(dtype_name),
+        "trust_remote_code": True,
+    }
+    if attn_implementation:
+        kwargs["attn_implementation"] = attn_implementation
+    if device_map is not None:
+        kwargs["device_map"] = device_map
+
+    try:
+        model = AutoModelForCausalLM.from_pretrained(hf_id, **kwargs)
+    except TypeError:
+        # Older transformers may not accept attn_implementation
+        kwargs.pop("attn_implementation", None)
+        model = AutoModelForCausalLM.from_pretrained(hf_id, **kwargs)
+
+    if device_map is None:
+        model.to(device)
     model.eval()
     return tok, model
 
@@ -126,13 +160,14 @@ def _extract_chunk(
     layer_idxs: list[int],
     positions: list[str],
     max_new_tokens: int,
-    device: str,
+    device: str | torch.device,
     corpus_char_hint: str,
 ) -> dict[str, np.ndarray]:
     """Extract representation blocks for one prompt chunk.
 
     Returns dict keyed by '{layer}:{position}' -> (hidden_dim,) float32.
     """
+    device = torch.device(device) if not isinstance(device, torch.device) else device
     enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
     input_ids = enc["input_ids"].to(device)
     attn = enc.get("attention_mask")
@@ -263,6 +298,8 @@ def extract_for_model(
     hf_id = model_cfg["hf_id"]
     device = model_cfg.get("device", "cpu")
     dtype_name = model_cfg.get("dtype", "float32")
+    device_map = model_cfg.get("device_map", None)
+    attn_implementation = model_cfg.get("attn_implementation", "sdpa")
     max_ctx = int(model_cfg.get("max_context", 4096))
     max_new = int(model_cfg.get("max_new_tokens", 128))
     enable_thinking = bool(model_cfg.get("enable_thinking", False))
@@ -284,15 +321,23 @@ def extract_for_model(
         print(f"[represent:{name}] all {len(corpora)} users cached")
         return rep_root
 
-    print(f"[represent:{name}] loading {hf_id} on {device} ({len(todo)} users) ...")
-    tok, model = _load_causal_lm(hf_id, device, dtype_name)
+    print(f"[represent:{name}] loading {hf_id} on {device} "
+          f"dtype={dtype_name} device_map={device_map!r} ({len(todo)} users) ...")
+    tok, model = _load_causal_lm(
+        hf_id,
+        device,
+        dtype_name,
+        device_map=device_map,
+        attn_implementation=attn_implementation,
+    )
+    input_device = _model_input_device(model)
     n_layers = int(getattr(model.config, "num_hidden_layers", getattr(model.config, "n_layer", 12)))
     layer_idxs = _layer_indices(
         n_layers,
         model_cfg.get("layer_taps"),
         model_cfg.get("layer_stride"),
     )
-    print(f"[represent:{name}] n_layers={n_layers} tapping={layer_idxs}")
+    print(f"[represent:{name}] n_layers={n_layers} tapping={layer_idxs} input_device={input_device}")
 
     # Reserve tokens for generation + template overhead
     # Rough char budget: ~3 chars/token for English social media
@@ -306,6 +351,10 @@ def extract_for_model(
         "layer_idxs": layer_idxs,
         "positions": positions,
         "hidden_size": int(getattr(model.config, "hidden_size", 0)),
+        "dtype": dtype_name,
+        "device_map": device_map,
+        "max_context": max_ctx,
+        "max_new_tokens": max_new,
     }
     atomic_write_json(rep_root / "meta.json", meta_global)
 
@@ -326,7 +375,7 @@ def extract_for_model(
             enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False, truncation=True, max_length=max_prompt_tokens)
             prompt_text = tok.decode(enc["input_ids"][0], skip_special_tokens=False)
             res = _extract_chunk(
-                tok, model, prompt_text, layer_idxs, positions, max_new, device, ch
+                tok, model, prompt_text, layer_idxs, positions, max_new, input_device, ch
             )
             gen_texts.append(str(res.pop("__gen_text__", np.array([""]))[0]))
             chunk_results.append(res)

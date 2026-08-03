@@ -57,14 +57,14 @@ def filter_users(df_metadata: pd.DataFrame) -> pd.DataFrame:
     return df_users
 
 
-def build_cohort(cfg: Config, *, assert_paper: bool = True) -> pd.DataFrame:
+def build_cohort(cfg: Config, *, assert_paper: bool = True, force: bool = False) -> pd.DataFrame:
     """Return filtered cohort with y_high labels."""
     n_users = cfg.cohort.get("n_users")
     tag = f"n{n_users}" if n_users is not None else "full"
     out = cfg.art(f"cohort_{tag}.parquet")
     meta_path = cfg.art(f"cohort_{tag}_meta.json")
 
-    if exists_nonempty(out) and exists_nonempty(meta_path):
+    if exists_nonempty(out) and exists_nonempty(meta_path) and not force:
         return pd.read_parquet(out)
 
     u = load_users(cfg.paths.user_csv)
