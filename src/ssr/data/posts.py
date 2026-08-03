@@ -133,10 +133,14 @@ def cap_posts_per_user(posts: pd.DataFrame, max_posts: int | None, seed: int) ->
         return posts
     rng = __import__("numpy").random.default_rng(seed)
 
-    def _cap(g: pd.DataFrame) -> pd.DataFrame:
+    parts: list[pd.DataFrame] = []
+    for _, g in posts.groupby("UserId", sort=False):
         if len(g) <= max_posts:
-            return g
+            parts.append(g)
+            continue
         idx = rng.choice(g.index.to_numpy(), size=max_posts, replace=False)
-        return g.loc[sorted(idx)]
+        parts.append(g.loc[sorted(idx)])
 
-    return posts.groupby("UserId", group_keys=False).apply(_cap).reset_index(drop=True)
+    if not parts:
+        return posts.iloc[0:0].copy()
+    return pd.concat(parts, ignore_index=True)

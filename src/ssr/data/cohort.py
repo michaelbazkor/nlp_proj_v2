@@ -57,44 +57,70 @@ def filter_users(df_metadata: pd.DataFrame) -> pd.DataFrame:
     return df_users
 
 
+def _load_parent_cohort(cfg: Config, subset_of: str) -> pd.DataFrame:
+    """Load a parent cohort parquet, rebuilding from CSV if LFS pointer/corrupt."""
+    parent_path = cfg.art(f"cohort_{subset_of}.parquet")
+    if exists_nonempty(parent_path):
+        try:
+            return pd.read_parquet(parent_path)
+        except Exception as exc:
+            print(f"[cohort] could not read {parent_path} ({exc}); rebuilding from CSV")
+
+    if not subset_of.startswith("n") or not subset_of[1:].isdigit():
+        raise FileNotFoundError(f"Cannot rebuild parent cohort {subset_of!r}")
+
+    parent_n = int(subset_of[1:])
+    u = load_users(cfg.paths.user_csv)
+    c_all = filter_users(u)
+    c = c_all[c_all["suicide"].notna()].copy()
+    c = c.dropna(subset=AUX_TARGETS).copy()
+    c["y_high"] = (c["suicide"] >= 3).astype(int)
+    c = _stratified_sample(c, parent_n, cfg.seed, cfg.cohort.get("stratify_on", "y_high"))
+    return c
+
+
 def build_cohort(cfg: Config, *, assert_paper: bool = True) -> pd.DataFrame:
     """Return filtered cohort with y_high labels."""
     n_users = cfg.cohort.get("n_users")
+    subset_of = cfg.cohort.get("subset_of")
     tag = f"n{n_users}" if n_users is not None else "full"
+    if subset_of:
+        tag = f"{subset_of}_sub{tag}"
     out = cfg.art(f"cohort_{tag}.parquet")
     meta_path = cfg.art(f"cohort_{tag}_meta.json")
 
     if exists_nonempty(out) and exists_nonempty(meta_path):
         return pd.read_parquet(out)
 
-    u = load_users(cfg.paths.user_csv)
-    c_all = filter_users(u)
+    if subset_of:
+        c = _load_parent_cohort(cfg, subset_of)
+        paper_meta: dict[str, Any] = {"parent_cohort": subset_of, "n_parent": int(len(c))}
+        assert_paper = False
+    else:
+        u = load_users(cfg.paths.user_csv)
+        c_all = filter_users(u)
 
-    paper_meta = {
-        "n_users_filtered": int(len(c_all)),
-        "sum_status_posts": int(c_all["status_posts"].sum()),
-        "n_high": int((c_all["suicide"] >= 3).sum()),
-        "n_sui_cat_null": int(c_all["sui_cat"].isna().sum()),
-        "n_suicide_null": int(c_all["suicide"].isna().sum()),
-    }
-    if assert_paper and cfg.cohort.get("n_users") is None:
-        assert paper_meta["n_users_filtered"] == PAPER_CHECKS["n_users"], paper_meta
-        assert paper_meta["n_high"] == PAPER_CHECKS["n_high"], paper_meta
-        assert paper_meta["sum_status_posts"] == PAPER_CHECKS["sum_status_posts"], paper_meta
+        paper_meta = {
+            "n_users_filtered": int(len(c_all)),
+            "sum_status_posts": int(c_all["status_posts"].sum()),
+            "n_high": int((c_all["suicide"] >= 3).sum()),
+            "n_sui_cat_null": int(c_all["sui_cat"].isna().sum()),
+            "n_suicide_null": int(c_all["suicide"].isna().sum()),
+        }
+        if assert_paper and cfg.cohort.get("n_users") is None:
+            assert paper_meta["n_users_filtered"] == PAPER_CHECKS["n_users"], paper_meta
+            assert paper_meta["n_high"] == PAPER_CHECKS["n_high"], paper_meta
+            assert paper_meta["sum_status_posts"] == PAPER_CHECKS["sum_status_posts"], paper_meta
 
-    # Keep labeled users for training (null suicide/sui_cat cannot form y_high)
-    c = c_all[c_all["suicide"].notna()].copy()
-    for col in AUX_TARGETS:
-        if col not in c.columns:
-            raise KeyError(f"Missing auxiliary target column: {col}")
-    c = c.dropna(subset=AUX_TARGETS).copy()
+        c = c_all[c_all["suicide"].notna()].copy()
+        for col in AUX_TARGETS:
+            if col not in c.columns:
+                raise KeyError(f"Missing auxiliary target column: {col}")
+        c = c.dropna(subset=AUX_TARGETS).copy()
 
     c["y_high"] = (c["suicide"] >= 3).astype(int)
-    # Kept for diagnostics / optional subject-details; not used for training.
     c["y_general"] = (c["suicide"] >= 1).astype(int)
 
-    # Gender: column named `female` but mean matches paper "% male"
-    # so 1 => Male, 0 => Female for experiment-3 subject details.
     c["gender_label"] = c["female"].map({1.0: "Male", 0.0: "Female", 1: "Male", 0: "Female"})
     c["gender_label"] = c["gender_label"].fillna("Unknown")
 
@@ -108,11 +134,11 @@ def build_cohort(cfg: Config, *, assert_paper: bool = True) -> pd.DataFrame:
         "pos_rate_high": float(c["y_high"].mean()),
     }
 
-    # Optional stratified subsample for POC
     if n_users is not None:
         c = _stratified_sample(c, int(n_users), cfg.seed, cfg.cohort.get("stratify_on", "y_high"))
         meta["n_users_sampled"] = int(len(c))
         meta["n_high_sampled"] = int(c["y_high"].sum())
+        meta["n_users"] = int(len(c))
 
     keep = [
         "UserId",

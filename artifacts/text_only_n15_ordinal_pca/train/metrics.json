@@ -1,0 +1,268 @@
+{
+  "train_target": "ordinal",
+  "eval_target": "high",
+  "fusion_method": "per_block_pca",
+  "folds": [],
+  "summary": {
+    "stm_ordinal": {
+      "auc_roc": {
+        "mean": 0.5,
+        "std": 0.7071067811865476,
+        "ci95": [
+          -0.48,
+          1.48
+        ],
+        "values": [
+          0.0,
+          1.0
+        ]
+      },
+      "pr_auc": {
+        "mean": 0.6666666666666666,
+        "std": 0.4714045207910317,
+        "ci95": [
+          0.013333333333333308,
+          1.3199999999999998
+        ],
+        "values": [
+          0.3333333333333333,
+          1.0
+        ]
+      },
+      "f1": {
+        "mean": 0.13333333333333333,
+        "std": 0.29814239699997197,
+        "ci95": [
+          -0.12799999999999997,
+          0.3946666666666666
+        ],
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.6666666666666666
+        ]
+      },
+      "cohens_d": {
+        "mean": -4.109157458742629e-12,
+        "std": 9.506848617639987,
+        "ci95": [
+          -13.1758199654886,
+          13.175819965480382
+        ],
+        "values": [
+          -6.722357125251299,
+          6.7223571252430805
+        ]
+      },
+      "folds": [
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 0,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 1,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 2,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": 0.0,
+          "pr_auc": 0.3333333333333333,
+          "f1": 0.0,
+          "cohens_d": -6.722357125251299,
+          "n": 3,
+          "n_pos": 1,
+          "fold": 3,
+          "dev_auc": 1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": 1.0,
+          "pr_auc": 1.0,
+          "f1": 0.6666666666666666,
+          "cohens_d": 6.7223571252430805,
+          "n": 3,
+          "n_pos": 1,
+          "fold": 4,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        }
+      ]
+    },
+    "mtm_ordinal": {
+      "auc_roc": {
+        "mean": 0.5,
+        "std": 0.7071067811865476,
+        "ci95": [
+          -0.48,
+          1.48
+        ],
+        "values": [
+          0.0,
+          1.0
+        ]
+      },
+      "pr_auc": {
+        "mean": 0.6666666666666666,
+        "std": 0.4714045207910317,
+        "ci95": [
+          0.013333333333333308,
+          1.3199999999999998
+        ],
+        "values": [
+          0.3333333333333333,
+          1.0
+        ]
+      },
+      "f1": {
+        "mean": 0.1,
+        "std": 0.223606797749979,
+        "ci95": [
+          -0.096,
+          0.29600000000000004
+        ],
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5
+        ]
+      },
+      "cohens_d": {
+        "mean": -4.109157458742629e-12,
+        "std": 9.506848617639987,
+        "ci95": [
+          -13.1758199654886,
+          13.175819965480382
+        ],
+        "values": [
+          -6.722357125251299,
+          6.7223571252430805
+        ]
+      },
+      "folds": [
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 0,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 1,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": NaN,
+          "pr_auc": NaN,
+          "f1": 0.0,
+          "cohens_d": NaN,
+          "n": 3,
+          "n_pos": 0,
+          "fold": 2,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": 0.0,
+          "pr_auc": 0.3333333333333333,
+          "f1": 0.0,
+          "cohens_d": -6.722357125251299,
+          "n": 3,
+          "n_pos": 1,
+          "fold": 3,
+          "dev_auc": 1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        },
+        {
+          "auc_roc": 1.0,
+          "pr_auc": 1.0,
+          "f1": 0.5,
+          "cohens_d": 6.7223571252430805,
+          "n": 3,
+          "n_pos": 1,
+          "fold": 4,
+          "dev_auc": -1.0,
+          "p_n_layers": 1,
+          "p_n_neurons": 16,
+          "p_activation": "tanh",
+          "p_lr": 0.001,
+          "p_epochs": 200
+        }
+      ]
+    }
+  }
+}

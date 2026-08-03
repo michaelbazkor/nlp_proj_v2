@@ -15,6 +15,10 @@ def stm_loss(suicide_logit: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
     return F.binary_cross_entropy_with_logits(suicide_logit, y.float())
 
 
+def stm_loss_ordinal(suicide_pred: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+    return F.mse_loss(suicide_pred, y.float())
+
+
 def mtm_loss(
     outputs: dict[str, torch.Tensor],
     y_suicide: torch.Tensor,
@@ -28,6 +32,27 @@ def mtm_loss(
     L_psy = F.mse_loss(outputs["psychosocial"], y_psychosocial)
     L_psych = F.mse_loss(outputs["psychiatric"], y_psychiatric)
     # Paper: L = L_suicide + L_aux where L_aux = sum_a MSE (with 1/2N factor absorbed)
+    total = L_sui + L_pers + L_psy + L_psych
+    parts = {
+        "loss_suicide": float(L_sui.detach()),
+        "loss_personality": float(L_pers.detach()),
+        "loss_psychosocial": float(L_psy.detach()),
+        "loss_psychiatric": float(L_psych.detach()),
+    }
+    return total, parts
+
+
+def mtm_loss_ordinal(
+    outputs: dict[str, torch.Tensor],
+    y_suicide: torch.Tensor,
+    y_personality: torch.Tensor,
+    y_psychosocial: torch.Tensor,
+    y_psychiatric: torch.Tensor,
+) -> tuple[torch.Tensor, dict[str, float]]:
+    L_sui = F.mse_loss(outputs["suicide_logit"], y_suicide.float())
+    L_pers = F.mse_loss(outputs["personality"], y_personality)
+    L_psy = F.mse_loss(outputs["psychosocial"], y_psychosocial)
+    L_psych = F.mse_loss(outputs["psychiatric"], y_psychiatric)
     total = L_sui + L_pers + L_psy + L_psych
     parts = {
         "loss_suicide": float(L_sui.detach()),

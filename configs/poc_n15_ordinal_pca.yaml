@@ -1,0 +1,41 @@
+# 15-user subset, ordinal train (suicide 0-6), binary test (>=3), PCA fusion.
+seed: 42
+experiment: text_only_n15_ordinal_pca
+
+paths:
+  root: .
+  user_csv: material/user_data (1).csv
+  posts_csv: material/facebook_data.csv
+  pics_zip: pics.zip
+  artifacts: artifacts
+  reports: reports
+
+cohort:
+  subset_of: n30
+  n_users: 15
+  stratify_on: y_high
+
+fusion:
+  method: per_block_pca
+  target_dim: 1024
+
+train:
+  train_target: ordinal
+  eval_target: high
+  n_folds: 5
+  train_frac: 0.70
+  dev_frac: 0.15
+  test_frac: 0.15
+  batch_size: 8
+  optimizer: rmsprop
+  momentum: 0.9
+  grid:
+    n_layers: [1, 2]
+    n_neurons: [16, 32]
+    activation: [tanh, sigmoid]
+    lr: [0.001, 0.01]
+    epochs: [200, 500]
+  early_stop_patience: 50
+  variants:
+    - {model: stm}
+    - {model: mtm}
