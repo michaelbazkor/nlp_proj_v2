@@ -39,37 +39,37 @@ n_posts=25 n_images=0 n_chars=1110
 
 ### Model `qwen3_0_6b`
 
-- `1:input_only`: shape=(1024,) mean=-0.0002 std=0.1163
-- `1:last_prompt`: shape=(1024,) mean=0.0033 std=0.2210
-- `1:cot`: shape=(1024,) mean=-0.0003 std=0.1210
-- `1:final_pred`: shape=(1024,) mean=-0.0021 std=0.2590
-- `10:input_only`: shape=(1024,) mean=0.0120 std=0.6161
-- `10:last_prompt`: shape=(1024,) mean=0.0228 std=0.7454
-- `10:cot`: shape=(1024,) mean=0.0114 std=0.6420
-- `10:final_pred`: shape=(1024,) mean=-0.0332 std=0.9643
+- `1:input_only`: shape=(1024,) mean=-0.0001 std=0.1169
+- `1:last_prompt`: shape=(1024,) mean=0.0015 std=0.2083
+- `1:cot`: shape=(1024,) mean=-0.0000 std=0.1232
+- `1:final_pred`: shape=(1024,) mean=0.0167 std=0.2424
+- `10:input_only`: shape=(1024,) mean=0.0131 std=0.6198
+- `10:last_prompt`: shape=(1024,) mean=0.0242 std=0.7889
+- `10:cot`: shape=(1024,) mean=0.0119 std=0.6550
+- `10:final_pred`: shape=(1024,) mean=0.0241 std=0.9166
 
 ### Model `smollm2_360m`
 
-- `1:input_only`: shape=(960,) mean=-0.0464 std=1.3322
-- `1:last_prompt`: shape=(960,) mean=-0.0768 std=1.6019
-- `1:cot`: shape=(960,) mean=-0.0633 std=1.4175
-- `1:final_pred`: shape=(960,) mean=-0.0204 std=1.8878
-- `11:input_only`: shape=(960,) mean=-0.0895 std=4.4381
-- `11:last_prompt`: shape=(960,) mean=-0.2525 std=4.1970
-- `11:cot`: shape=(960,) mean=-0.1190 std=4.1377
-- `11:final_pred`: shape=(960,) mean=-0.1565 std=7.3772
+- `1:input_only`: shape=(960,) mean=-0.0456 std=1.3273
+- `1:last_prompt`: shape=(960,) mean=-0.0756 std=1.5657
+- `1:cot`: shape=(960,) mean=-0.0593 std=1.3459
+- `1:final_pred`: shape=(960,) mean=-0.0345 std=1.8481
+- `11:input_only`: shape=(960,) mean=-0.0829 std=4.5117
+- `11:last_prompt`: shape=(960,) mean=-0.2575 std=4.2642
+- `11:cot`: shape=(960,) mean=-0.0959 std=4.3830
+- `11:final_pred`: shape=(960,) mean=-0.0625 std=8.1065
 
 ## 4. Fused 1024-d vector (fit on all POC users for illustration)
 
 k_per_block=29 n_blocks=32 out_dim=1024
 
-vector[:16] = `[4.600985527038574, -2.510861396789551, 15.906209945678711, 5.410788059234619, -2.823784589767456, -8.831552505493164, 5.3534040451049805, -6.751702308654785, -0.5116231441497803, 1.3828368186950684, -1.7290759086608887, 1.5013114213943481, -5.162143707275391, -0.5264931917190552, 0.0784616470336914, -0.5954151749610901]`
+vector[:16] = `[-3.0741000175476074, 0.5492134094238281, 7.270153522491455, 4.686683177947998, -6.906124114990234, 1.985206961631775, 4.904317378997803, -3.808490753173828, 0.3050362765789032, 5.745912075042725, 11.04626178741455, 5.053055763244629, 4.647622108459473, 0.6936990022659302, -6.092545509338379, -1.478501319885254]`
 
-vector mean=-0.0677 std=6.9692 l2=223.0239
+vector mean=0.0257 std=7.2831 l2=233.0622
 
 ## 5. CV metrics summary
 
 | Variant | AUC-ROC | PR-AUC | F1 | Cohen's d |
 |---------|---------|--------|----|-----------|
-| stm_high | 0.520 | 0.440 | 0.233 | 0.072 |
-| mtm_high | 0.520 | 0.417 | 0.213 | 0.072 |
+| stm_high | 0.560 | 0.447 | 0.280 | 1.178 |
+| mtm_high | 0.560 | 0.530 | 0.100 | 2.141 |

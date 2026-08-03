@@ -30,15 +30,17 @@ images:
   max_images_per_user: 10       # POC cap
   caption_model: HuggingFaceTB/SmolVLM-256M-Instruct
   caption_prompt: >
-    You are assisting a research study on suicide-risk signals in social media language.
-    Below is an image from one user's Facebook post.
-    Describe this image briefly, on a low and a high level.
-    Focus on visual cues that may relate to emotional distress,
-    isolation, self-harm, substance use, or overall mood.
-    If the image contains text, transcribe it.
-    Do not invent details that are not visible.
-    Do not get emotional, remain objective in the description.
-  max_new_tokens: 64
+    You are analyzing a social media image for an academic mental health research dataset.
+    Provide a clear, objective, and detailed description of the image in 2-4 sentences.
+
+    Your description should cover:
+    - Main Content: Objects, scene/environment, people present and actions.
+    - Mood & Atmosphere: The visual tone, lighting, and overall aesthetic (e.g., somber/isolated, bright/festive, dark, chaotic).
+    - Text in Image: Transcribe any visible text, quotes, or meme text verbatim (you can exceed the 2-4 sentence limit if necessary).
+
+    Do not invent details that are not visible, focus on what is visually present.
+    Do not make clinical diagnoses, maintain objective tone.
+  max_new_tokens: 128
   batch_size: 1
   device: cpu
   dtype: float32
@@ -60,7 +62,7 @@ represent:
       dtype: float32
       device: cpu
       enable_thinking: true
-      max_new_tokens: 128
+      max_new_tokens: 256
     - name: smollm2_360m
       hf_id: HuggingFaceTB/SmolLM2-360M-Instruct
       max_context: 4096
@@ -69,22 +71,25 @@ represent:
       dtype: float32
       device: cpu
       enable_thinking: false
-      max_new_tokens: 128
+      max_new_tokens: 256
   positions: [input_only, last_prompt, cot, final_pred]
-  # Prompt asks for rationale then final prediction
+  # Posts are substituted at [insert posts here] by build_user_prompt
   task_prompt: |
-    You are assisting a research study on suicide-risk signals in social media language.
-    Below is one user's Facebook posts (order is arbitrary; treat them as a set).
-    Identify trends that might indicate a development of suicidial ideation.
-    Example trends include:
-    - Expressions of hopelessness or despair
-    - Statements about feeling isolated or alone
-    - References to death or dying
-    - References to substance use or abuse
-    - References to mental health issues or treatment
+    You are an expert supervisor evaluating suicide-risk signals in social media language.
+    Input: a collection of Facebook posts authored by a single user. (order is arbitrary)
+    Asses if language indicates an evolving trajectory of suicidal ideation.
+
+    Suicidal ideation often manifests as severe social isolation, thwarted belongingness, or perceiving oneself as a burden to others. 
+    Look for expressions of intense emotional pain, inescapable entrapment, or severe hopelessness regarding the future.
+    Pay close attention to explicit or implicit references to death, self-harm, or escalating mental health distress.
+    Remember that majority of users do not have suicidal ideation, do not overinterpret posts that are not overtly suicidal.
+    
+    User posts:
+    [insert posts here]
+    
     Format your answer exactly as:
-    Rationale: <a few sentences>
-    Prediction: RISK=<1 for elevated risk, 0 for no/low risk>
+    Rationale: <2-3 sentences>
+    Prediction: RISK=<1 for elevated risk, 0 for low risk>
   target_dim: 1024
 
 fusion:

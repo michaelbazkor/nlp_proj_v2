@@ -142,13 +142,18 @@ def _extract_chunk(
     prompt_len = input_ids.shape[-1]
 
     # Locate approximate corpus span inside the prompt for input_only pooling.
-    # Heuristic: tokens covering the corpus substring.
-    corpus_start = prompt_text.find("--- USER POSTS ---")
-    corpus_end = prompt_text.find("--- END ---")
-    if corpus_start < 0:
-        corpus_start = 0
-    if corpus_end < 0:
-        corpus_end = len(prompt_text)
+    # Prefer the actual corpus/chunk text; fall back to legacy markers.
+    hint = (corpus_char_hint or "").strip()
+    corpus_start = prompt_text.find(hint) if hint else -1
+    if corpus_start >= 0:
+        corpus_end = corpus_start + len(hint)
+    else:
+        corpus_start = prompt_text.find("--- USER POSTS ---")
+        corpus_end = prompt_text.find("--- END ---")
+        if corpus_start < 0:
+            corpus_start = 0
+        if corpus_end < 0:
+            corpus_end = len(prompt_text)
     # Map char offsets -> token indices via offset mapping if available
     enc_off = tok(
         prompt_text,
@@ -340,7 +345,7 @@ def extract_for_model(
                 **meta_global,
                 "UserId": uid,
                 "n_chunks": len(chunks),
-                "gen_text": gen_texts[0][:500] if gen_texts else "",
+                "gen_text": gen_texts[0][:2000] if gen_texts else "",
             },
         )
 
