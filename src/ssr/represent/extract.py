@@ -119,9 +119,17 @@ def _load_causal_lm(hf_id: str, model_cfg: dict):
         )
 
     model.eval()
-    run_device = str(next(model.parameters()).device)
-    print(f"[represent] loaded {hf_id} dtype={dtype_name} device={run_device}")
-    return tok, model, run_device
+    input_device = _model_input_device(model)
+    print(f"[represent] loaded {hf_id} dtype={dtype_name} device={input_device}")
+    return tok, model, input_device
+
+
+def _model_input_device(model) -> torch.device:
+    """First parameter device (works with device_map / multi-GPU)."""
+    try:
+        return next(model.parameters()).device
+    except StopIteration:
+        return torch.device("cpu")
 
 
 def _free_model(model, tok=None) -> None:
@@ -197,9 +205,10 @@ def _extract_chunk(
     layer_idxs: list[int],
     positions: list[str],
     max_new_tokens: int,
-    device: str,
+    device: str | torch.device,
     corpus_char_hint: str = "",
 ) -> dict[str, np.ndarray]:
+    device = torch.device(device) if not isinstance(device, torch.device) else device
     enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
     input_ids = enc["input_ids"].to(device)
     attn = enc.get("attention_mask")
@@ -326,7 +335,7 @@ def extract_for_model(
         return rep_root
 
     print(f"[represent:{name}] loading {hf_id} ({len(todo)} users todo) ...")
-    tok, model, run_device = _load_causal_lm(hf_id, model_cfg)
+    tok, model, input_device = _load_causal_lm(hf_id, model_cfg)
     n_layers = int(getattr(model.config, "num_hidden_layers", getattr(model.config, "n_layer", 12)))
     layer_idxs = _layer_indices(n_layers, model_cfg.get("layer_taps"), model_cfg.get("layer_stride"))
     print(f"[represent:{name}] n_layers={n_layers} tapping={layer_idxs}")
@@ -365,7 +374,7 @@ def extract_for_model(
             )
             prompt_text = tok.decode(enc["input_ids"][0], skip_special_tokens=False)
             res = _extract_chunk(
-                tok, model, prompt_text, layer_idxs, positions, max_new, run_device, ch
+                tok, model, prompt_text, layer_idxs, positions, max_new, input_device, ch
             )
             gen_texts.append(str(res.pop("__gen_text__", np.array([""]))[0]))
             chunk_results.append(res)

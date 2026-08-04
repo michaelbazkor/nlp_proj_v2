@@ -79,7 +79,7 @@ def _load_parent_cohort(cfg: Config, subset_of: str) -> pd.DataFrame:
     return c
 
 
-def build_cohort(cfg: Config, *, assert_paper: bool = True) -> pd.DataFrame:
+def build_cohort(cfg: Config, *, assert_paper: bool = True, force: bool = False) -> pd.DataFrame:
     """Return filtered cohort with y_high labels."""
     n_users = cfg.cohort.get("n_users")
     subset_of = cfg.cohort.get("subset_of")
@@ -89,7 +89,7 @@ def build_cohort(cfg: Config, *, assert_paper: bool = True) -> pd.DataFrame:
     out = cfg.art(f"cohort_{tag}.parquet")
     meta_path = cfg.art(f"cohort_{tag}_meta.json")
 
-    if exists_nonempty(out) and exists_nonempty(meta_path):
+    if exists_nonempty(out) and exists_nonempty(meta_path) and not force:
         return pd.read_parquet(out)
 
     if subset_of:

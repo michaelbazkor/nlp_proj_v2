@@ -2,6 +2,9 @@
 
 Handles non-clean UTF-8 (`encoding_errors='replace'`), drops malformed rows,
 and selects posts that have text and/or an image attachment.
+
+The on-disk cache is always the *full* cleaned posts table so a POC subset
+cannot poison a later full-cohort run.
 """
 from __future__ import annotations
 
@@ -46,19 +49,27 @@ def load_raw_posts(path: Path) -> pd.DataFrame:
     return df
 
 
-def build_posts(cfg: Config, user_ids: set[str] | None = None) -> pd.DataFrame:
-    """Build cleaned post table for the (optional) user subset."""
+def build_posts(
+    cfg: Config,
+    user_ids: set[str] | None = None,
+    *,
+    force: bool = False,
+) -> pd.DataFrame:
+    """Build cleaned post table.
+
+    Always caches the full cleaned table under ``artifacts/posts.parquet``.
+    When ``user_ids`` is given, returns only that subset (cache stays full).
+    """
     out = cfg.art("posts.parquet")
     meta_path = cfg.art("posts_meta.json")
-    if exists_nonempty(out) and exists_nonempty(meta_path):
+    if exists_nonempty(out) and exists_nonempty(meta_path) and not force:
         posts = pd.read_parquet(out)
         if user_ids is not None:
             return posts[posts["UserId"].isin(user_ids)].reset_index(drop=True)
         return posts
 
     raw = load_raw_posts(cfg.paths.posts_csv)
-    if user_ids is not None:
-        raw = raw[raw["UserId"].isin(user_ids)].copy()
+    # Never subset before writing the global cache.
 
     include_desc = bool(cfg.posts.get("include_post_description", False))
     include_title = bool(cfg.posts.get("include_attachment_title", False))
@@ -119,6 +130,7 @@ def build_posts(cfg: Config, user_ids: set[str] | None = None) -> pd.DataFrame:
         "n_with_image": int(posts["has_image"].sum()),
         "n_unique_images": int(posts["image_key"].nunique(dropna=True)),
         "post_type_counts": posts["PostType"].value_counts(dropna=False).head(10).to_dict(),
+        "full_cache": True,
     }
     posts.to_parquet(out, index=False)
     atomic_write_json(meta_path, meta)

@@ -59,6 +59,12 @@ device_map: auto
 
 Primary config: `configs/h100_full.yaml`
 
+## Cohort (paper filter)
+
+- Yields **N=1006** on this CSV (paper text says 1002; post total **83292** matches the paper).
+- After dropping null labels/aux: **~1003** training users.
+- **High risk:** `y_high = (suicide >= 3)` → 132
+
 ## Ethics
 
 Research use only. Not a clinical tool. Participant data must stay private.
