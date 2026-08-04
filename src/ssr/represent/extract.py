@@ -1,16 +1,13 @@
-"""Hidden-state representation extraction from open-source LLMs.
+"""Hidden-state representation extraction from open-source LLMs (H100-ready).
 
-For each (model, layer, position) we mean-pool / select a vector:
-  - input_only:  mean-pool over the user-corpus token span
-  - last_prompt: hidden state at the final prompt token
-  - cot:         mean-pool over generated reasoning tokens
-  - final_pred:  hidden state at the final generated token
-
-If the corpus exceeds the model context window, split on whole-post
-boundaries, extract per chunk, and average across chunks.
+H100 rules enforced here:
+  - One LLM loaded at a time; explicit VRAM cleanup between models
+  - FlashAttention-2 when installed
+  - FP8 / 4-bit / BF16 per model config (70B -> quantized on 80 GB)
 """
 from __future__ import annotations
 
+import gc
 import re
 from typing import Any
 
@@ -22,7 +19,7 @@ from tqdm import tqdm
 from ssr.config import Config
 from ssr.io_utils import atomic_write_json
 from ssr.represent.prompts import build_user_prompt
-from ssr.represent.store import has_user_reps, load_user_reps, rep_path, save_user_reps
+from ssr.represent.store import has_user_reps, save_user_reps
 
 POST_SPLIT_RE = re.compile(r"(?=\[post\])")
 
@@ -32,13 +29,99 @@ def _dtype(name: str):
         "float32": torch.float32,
         "float16": torch.float16,
         "bfloat16": torch.bfloat16,
+        "fp16": torch.float16,
+        "bf16": torch.bfloat16,
     }
-    if name not in mapping:
-        raise ValueError(
-            f"Unsupported dtype {name!r}. Supported: {sorted(mapping)}. "
-            f"(float8 / FP8 is not implemented — use bfloat16 with device_map: auto.)"
+    if hasattr(torch, "float8_e4m3fn"):
+        mapping["float8_e4m3fn"] = torch.float8_e4m3fn
+        mapping["fp8"] = torch.float8_e4m3fn
+    return mapping.get(str(name).lower(), torch.bfloat16)
+
+
+def _has_flash_attn() -> bool:
+    try:
+        import flash_attn  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+def _is_4bit(dtype_name: str, model_cfg: dict) -> bool:
+    if model_cfg.get("load_in_4bit") or model_cfg.get("quantize") in ("4bit", "nf4", True):
+        return True
+    return str(dtype_name).lower() in ("4bit", "nf4", "int4")
+
+
+def _is_8bit(dtype_name: str, model_cfg: dict) -> bool:
+    if model_cfg.get("load_in_8bit"):
+        return True
+    return str(dtype_name).lower() in ("8bit", "int8", "fp8_weight_only")
+
+
+def _load_causal_lm(hf_id: str, model_cfg: dict):
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    dtype_name = str(model_cfg.get("dtype", "bfloat16"))
+    use_flash = bool(model_cfg.get("flash_attention", True)) and _has_flash_attn()
+
+    tok = AutoTokenizer.from_pretrained(hf_id, trust_remote_code=True)
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+
+    common: dict[str, Any] = {"trust_remote_code": True}
+    attn_impl = model_cfg.get("attn_implementation")
+    if use_flash:
+        common["attn_implementation"] = "flash_attention_2"
+        print(f"[represent] FlashAttention-2 enabled for {hf_id}")
+    elif attn_impl:
+        common["attn_implementation"] = attn_impl
+
+    device_map = model_cfg.get("device_map", "auto")
+
+    if _is_4bit(dtype_name, model_cfg):
+        from transformers import BitsAndBytesConfig
+
+        try:
+            import bitsandbytes  # noqa: F401
+        except ImportError as e:
+            raise ImportError("4-bit loading requires: pip install bitsandbytes") from e
+
+        compute = _dtype(str(model_cfg.get("bnb_compute_dtype", "bfloat16")))
+        bnb = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=compute,
+            bnb_4bit_use_double_quant=bool(model_cfg.get("bnb_double_quant", True)),
+            bnb_4bit_quant_type=str(model_cfg.get("bnb_quant_type", "nf4")),
         )
-    return mapping[name]
+        model = AutoModelForCausalLM.from_pretrained(
+            hf_id,
+            quantization_config=bnb,
+            device_map=device_map,
+            **common,
+        )
+    elif _is_8bit(dtype_name, model_cfg):
+        from transformers import BitsAndBytesConfig
+
+        bnb = BitsAndBytesConfig(load_in_8bit=True)
+        model = AutoModelForCausalLM.from_pretrained(
+            hf_id,
+            quantization_config=bnb,
+            device_map=device_map,
+            **common,
+        )
+    else:
+        torch_dtype = _dtype(dtype_name)
+        model = AutoModelForCausalLM.from_pretrained(
+            hf_id,
+            torch_dtype=torch_dtype,
+            device_map=device_map,
+            **common,
+        )
+
+    model.eval()
+    input_device = _model_input_device(model)
+    print(f"[represent] loaded {hf_id} dtype={dtype_name} device={input_device}")
+    return tok, model, input_device
 
 
 def _model_input_device(model) -> torch.device:
@@ -49,18 +132,20 @@ def _model_input_device(model) -> torch.device:
         return torch.device("cpu")
 
 
-def _layer_indices(n_layers: int, taps: int | None, stride: int | None) -> list[int]:
-    """Return 0-indexed hidden_states indices (excluding embedding at 0).
+def _free_model(model, tok=None) -> None:
+    del model
+    if tok is not None:
+        del tok
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.synchronize()
 
-    transformers returns hidden_states as tuple length n_layers+1 where
-    index 0 is the embedding output and 1..n_layers are transformer blocks.
-    We tap transformer blocks only.
-    """
+
+def _layer_indices(n_layers: int, taps: int | None, stride: int | None) -> list[int]:
     if taps is not None:
-        # Evenly spaced across blocks 1..n_layers
         if taps >= n_layers:
             return list(range(1, n_layers + 1))
-        # Include early, mid, late
         idxs = np.linspace(1, n_layers, num=taps, dtype=int)
         return sorted(set(int(i) for i in idxs))
     if stride is not None:
@@ -69,16 +154,14 @@ def _layer_indices(n_layers: int, taps: int | None, stride: int | None) -> list[
         if n_layers not in idxs:
             idxs.append(n_layers)
         return idxs
-    return [n_layers]  # last layer only
+    return [n_layers]
 
 
 def _split_corpus_into_chunks(corpus: str, max_chars: int) -> list[str]:
-    """Split on [post] boundaries so no chunk exceeds ~max_chars."""
     if len(corpus) <= max_chars:
         return [corpus]
     parts = [p for p in POST_SPLIT_RE.split(corpus) if p.strip()]
     if not parts:
-        # Hard char split fallback
         return [corpus[i : i + max_chars] for i in range(0, len(corpus), max_chars)]
     chunks: list[str] = []
     cur = ""
@@ -92,7 +175,6 @@ def _split_corpus_into_chunks(corpus: str, max_chars: int) -> list[str]:
             cur = p
     if cur:
         chunks.append(cur)
-    # If a single post is still too long, hard-split it
     final = []
     for c in chunks:
         if len(c) <= max_chars:
@@ -103,46 +185,9 @@ def _split_corpus_into_chunks(corpus: str, max_chars: int) -> list[str]:
     return final
 
 
-def _load_causal_lm(
-    hf_id: str,
-    device: str,
-    dtype_name: str,
-    *,
-    device_map: str | dict | None = None,
-    attn_implementation: str | None = "sdpa",
-):
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-
-    tok = AutoTokenizer.from_pretrained(hf_id, trust_remote_code=True)
-    if tok.pad_token is None:
-        tok.pad_token = tok.eos_token
-
-    kwargs: dict[str, Any] = {
-        "torch_dtype": _dtype(dtype_name),
-        "trust_remote_code": True,
-    }
-    if attn_implementation:
-        kwargs["attn_implementation"] = attn_implementation
-    if device_map is not None:
-        kwargs["device_map"] = device_map
-
-    try:
-        model = AutoModelForCausalLM.from_pretrained(hf_id, **kwargs)
-    except TypeError:
-        # Older transformers may not accept attn_implementation
-        kwargs.pop("attn_implementation", None)
-        model = AutoModelForCausalLM.from_pretrained(hf_id, **kwargs)
-
-    if device_map is None:
-        model.to(device)
-    model.eval()
-    return tok, model
-
-
 def _apply_chat(tok, user_text: str, enable_thinking: bool) -> str:
     messages = [{"role": "user", "content": user_text}]
     kwargs: dict[str, Any] = {"tokenize": False, "add_generation_prompt": True}
-    # Qwen3 thinking mode
     try:
         return tok.apply_chat_template(messages, enable_thinking=enable_thinking, **kwargs)
     except TypeError:
@@ -161,12 +206,8 @@ def _extract_chunk(
     positions: list[str],
     max_new_tokens: int,
     device: str | torch.device,
-    corpus_char_hint: str,
+    corpus_char_hint: str = "",
 ) -> dict[str, np.ndarray]:
-    """Extract representation blocks for one prompt chunk.
-
-    Returns dict keyed by '{layer}:{position}' -> (hidden_dim,) float32.
-    """
     device = torch.device(device) if not isinstance(device, torch.device) else device
     enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
     input_ids = enc["input_ids"].to(device)
@@ -175,9 +216,6 @@ def _extract_chunk(
         attn = attn.to(device)
 
     prompt_len = input_ids.shape[-1]
-
-    # Locate approximate corpus span inside the prompt for input_only pooling.
-    # Prefer the actual corpus/chunk text; fall back to legacy markers.
     hint = (corpus_char_hint or "").strip()
     corpus_start = prompt_text.find(hint) if hint else -1
     if corpus_start >= 0:
@@ -189,7 +227,7 @@ def _extract_chunk(
             corpus_start = 0
         if corpus_end < 0:
             corpus_end = len(prompt_text)
-    # Map char offsets -> token indices via offset mapping if available
+
     enc_off = tok(
         prompt_text,
         return_tensors="pt",
@@ -199,8 +237,7 @@ def _extract_chunk(
     offsets = enc_off.get("offset_mapping")
     if offsets is not None:
         offsets = offsets[0].tolist()
-        tok_start = 0
-        tok_end = prompt_len - 1
+        tok_start, tok_end = 0, prompt_len - 1
         for i, (a, b) in enumerate(offsets):
             if a <= corpus_start < b or (a >= corpus_start and tok_start == 0 and i > 0):
                 if a >= corpus_start and tok_start == 0:
@@ -212,16 +249,14 @@ def _extract_chunk(
     else:
         tok_start, tok_end = 0, prompt_len - 1
 
-    # Forward with hidden states for the prompt (for input_only + last_prompt)
     out_prompt = model(
         input_ids=input_ids,
         attention_mask=attn,
         output_hidden_states=True,
         use_cache=True,
     )
-    hs_prompt = out_prompt.hidden_states  # tuple (n_layers+1,)
+    hs_prompt = out_prompt.hidden_states
 
-    # Generate continuation for CoT / final_pred
     gen_out = model.generate(
         input_ids=input_ids,
         attention_mask=attn,
@@ -231,27 +266,21 @@ def _extract_chunk(
         return_dict_in_generate=True,
         pad_token_id=tok.pad_token_id,
     )
-    # gen_out.sequences: (1, prompt_len + gen_len)
     sequences = gen_out.sequences
     gen_len = sequences.shape[-1] - prompt_len
 
-    # Collect per-step hidden states for generated tokens.
-    # transformers: generate with output_hidden_states gives a tuple of length gen_len,
-    # each entry is a tuple of layer hidden states for that step, shape (batch, 1, dim)
-    # OR for some versions (batch, seq, dim). Handle both.
     gen_hs_by_layer: dict[int, list[torch.Tensor]] = {li: [] for li in layer_idxs}
     if gen_len > 0 and getattr(gen_out, "hidden_states", None) is not None:
         for step_hs in gen_out.hidden_states:
-            # step_hs: tuple of layers
             for li in layer_idxs:
                 if li >= len(step_hs):
                     continue
-                t = step_hs[li]  # (batch, seq_or_1, dim)
-                gen_hs_by_layer[li].append(t[:, -1, :])  # last pos of this step
+                t = step_hs[li]
+                gen_hs_by_layer[li].append(t[:, -1, :])
 
     results: dict[str, np.ndarray] = {}
     for li in layer_idxs:
-        h = hs_prompt[li][0]  # (prompt_len, dim)
+        h = hs_prompt[li][0]
         for pos in positions:
             if pos == "input_only":
                 vec = h[tok_start : tok_end + 1].mean(dim=0)
@@ -259,25 +288,16 @@ def _extract_chunk(
                 vec = h[prompt_len - 1]
             elif pos == "cot":
                 if gen_hs_by_layer[li]:
-                    stacked = torch.cat(gen_hs_by_layer[li], dim=0)  # (gen_len, dim)
-                    # Mean-pool all generated tokens as CoT proxy
-                    # Prefer all but last for cot; last reserved for final_pred
-                    if stacked.shape[0] > 1:
-                        vec = stacked[:-1].mean(dim=0)
-                    else:
-                        vec = stacked[0]
-                else:
-                    vec = h[prompt_len - 1]  # fallback
-            elif pos == "final_pred":
-                if gen_hs_by_layer[li]:
-                    vec = gen_hs_by_layer[li][-1][0]
+                    stacked = torch.cat(gen_hs_by_layer[li], dim=0)
+                    vec = stacked[:-1].mean(dim=0) if stacked.shape[0] > 1 else stacked[0]
                 else:
                     vec = h[prompt_len - 1]
+            elif pos == "final_pred":
+                vec = gen_hs_by_layer[li][-1][0] if gen_hs_by_layer[li] else h[prompt_len - 1]
             else:
                 raise ValueError(f"Unknown position: {pos}")
             results[f"{li}:{pos}"] = vec.detach().float().cpu().numpy()
 
-    # Also store generated text for debugging (not used as feature)
     if gen_len > 0:
         gen_ids = sequences[0, prompt_len:]
         results["__gen_text__"] = np.array([tok.decode(gen_ids, skip_special_tokens=True)])
@@ -293,15 +313,10 @@ def extract_for_model(
     *,
     force: bool = False,
 ) -> Path:
-    """Extract & cache representations for all users for one LLM. Returns rep root."""
     name = model_cfg["name"]
     hf_id = model_cfg["hf_id"]
-    device = model_cfg.get("device", "cpu")
-    dtype_name = model_cfg.get("dtype", "float32")
-    device_map = model_cfg.get("device_map", None)
-    attn_implementation = model_cfg.get("attn_implementation", "sdpa")
-    max_ctx = int(model_cfg.get("max_context", 4096))
-    max_new = int(model_cfg.get("max_new_tokens", 128))
+    max_ctx = int(model_cfg.get("max_context", 8192))
+    max_new = int(model_cfg.get("max_new_tokens", 256))
     enable_thinking = bool(model_cfg.get("enable_thinking", False))
     positions = list(cfg.represent.get("positions", ["input_only", "last_prompt", "cot", "final_pred"]))
     task_prompt = cfg.represent["task_prompt"]
@@ -311,8 +326,6 @@ def extract_for_model(
 
     todo = []
     for _, row in corpora.iterrows():
-        p = rep_path(rep_root, name, row["UserId"])
-        # rep_path already includes model name — fix: store directly under rep_root
         p = rep_root / f"{str(row['UserId']).replace('/', '_').replace(' ', '')}.npz"
         if force or not has_user_reps(p):
             todo.append(row)
@@ -321,26 +334,12 @@ def extract_for_model(
         print(f"[represent:{name}] all {len(corpora)} users cached")
         return rep_root
 
-    print(f"[represent:{name}] loading {hf_id} on {device} "
-          f"dtype={dtype_name} device_map={device_map!r} ({len(todo)} users) ...")
-    tok, model = _load_causal_lm(
-        hf_id,
-        device,
-        dtype_name,
-        device_map=device_map,
-        attn_implementation=attn_implementation,
-    )
-    input_device = _model_input_device(model)
+    print(f"[represent:{name}] loading {hf_id} ({len(todo)} users todo) ...")
+    tok, model, input_device = _load_causal_lm(hf_id, model_cfg)
     n_layers = int(getattr(model.config, "num_hidden_layers", getattr(model.config, "n_layer", 12)))
-    layer_idxs = _layer_indices(
-        n_layers,
-        model_cfg.get("layer_taps"),
-        model_cfg.get("layer_stride"),
-    )
-    print(f"[represent:{name}] n_layers={n_layers} tapping={layer_idxs} input_device={input_device}")
+    layer_idxs = _layer_indices(n_layers, model_cfg.get("layer_taps"), model_cfg.get("layer_stride"))
+    print(f"[represent:{name}] n_layers={n_layers} tapping={layer_idxs}")
 
-    # Reserve tokens for generation + template overhead
-    # Rough char budget: ~3 chars/token for English social media
     max_prompt_tokens = max_ctx - max_new - 64
     max_chars = max_prompt_tokens * 3
 
@@ -351,10 +350,8 @@ def extract_for_model(
         "layer_idxs": layer_idxs,
         "positions": positions,
         "hidden_size": int(getattr(model.config, "hidden_size", 0)),
-        "dtype": dtype_name,
-        "device_map": device_map,
-        "max_context": max_ctx,
-        "max_new_tokens": max_new,
+        "dtype": model_cfg.get("dtype"),
+        "flash_attention": bool(model_cfg.get("flash_attention", True)) and _has_flash_attn(),
     }
     atomic_write_json(rep_root / "meta.json", meta_global)
 
@@ -362,17 +359,19 @@ def extract_for_model(
         uid = row["UserId"]
         corpus = str(row.get("corpus") or "")
         out_path = rep_root / f"{str(uid).replace('/', '_').replace(' ', '')}.npz"
-
-        user_text = build_user_prompt(task_prompt, corpus if corpus else "(no posts)")
-        # Chunk if needed (on corpus portion)
         chunks = _split_corpus_into_chunks(corpus if corpus else "(no posts)", max_chars)
         chunk_results: list[dict[str, np.ndarray]] = []
         gen_texts = []
         for ch in chunks:
             ut = build_user_prompt(task_prompt, ch)
             prompt_text = _apply_chat(tok, ut, enable_thinking)
-            # Truncate tokens hard if still over
-            enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False, truncation=True, max_length=max_prompt_tokens)
+            enc = tok(
+                prompt_text,
+                return_tensors="pt",
+                add_special_tokens=False,
+                truncation=True,
+                max_length=max_prompt_tokens,
+            )
             prompt_text = tok.decode(enc["input_ids"][0], skip_special_tokens=False)
             res = _extract_chunk(
                 tok, model, prompt_text, layer_idxs, positions, max_new, input_device, ch
@@ -380,42 +379,26 @@ def extract_for_model(
             gen_texts.append(str(res.pop("__gen_text__", np.array([""]))[0]))
             chunk_results.append(res)
 
-        # Average across chunks
         keys = chunk_results[0].keys()
-        averaged = {}
-        for k in keys:
-            stacked = np.stack([c[k] for c in chunk_results], axis=0)
-            averaged[k] = stacked.mean(axis=0)
-
+        averaged = {k: np.stack([c[k] for c in chunk_results], axis=0).mean(axis=0) for k in keys}
         save_user_reps(
             out_path,
             averaged,
-            meta={
-                **meta_global,
-                "UserId": uid,
-                "n_chunks": len(chunks),
-                "gen_text": gen_texts[0][:2000] if gen_texts else "",
-            },
+            meta={**meta_global, "UserId": uid, "n_chunks": len(chunks), "gen_text": gen_texts[0][:500]},
         )
 
-    # Free memory
-    del model
-    if device == "cuda":
-        torch.cuda.empty_cache()
+    _free_model(model, tok)
     return rep_root
 
 
 def run_representations(cfg: Config, corpora: pd.DataFrame, *, force: bool = False) -> dict[str, Path]:
+    """Extract one model at a time; clear VRAM between models."""
     models = cfg.represent["models"]
-    # Experiment 4: llama_only — keep only llama-named models
-    if cfg.experiment == "llama_only":
-        models = [m for m in models if "llama" in m["name"].lower()]
-        if not models:
-            # Fall back to first model with a note
-            print("[represent] llama_only requested but no llama model in config; using all")
-            models = cfg.represent["models"]
-
-    roots = {}
-    for mcfg in models:
+    roots: dict[str, Path] = {}
+    for i, mcfg in enumerate(models):
+        print(f"\n[represent] === model {i + 1}/{len(models)}: {mcfg['name']} ===")
         roots[mcfg["name"]] = extract_for_model(cfg, mcfg, corpora, force=force)
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
     return roots

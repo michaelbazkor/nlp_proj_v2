@@ -1,323 +1,0 @@
-===== START 2026-08-01T16:12:53+03:00 =====
-cohort check:
-30 high 5 ['204720893660851 -id', '462105087565740 -id', '10216350023240597 -id']
-===== CAPTIONS --force =====
-[transformers] Model config: pad_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 128002. This may result in unexpected behavior.
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-[ssr] experiment=standard config=configs/poc_standard.yaml
-[cohort] n=30 high=5 (16.7%)
-               UserId  suicide  y_high  status_posts
-  204720893660851 -id      2.0       0            34
-  462105087565740 -id      0.0       0           382
-10216350023240597 -id      3.0       1           227
-10212079190999992 -id      0.0       0            14
-10101246572396157 -id      0.0       0            32
-[posts] rows=1200 users=30 with_text=844 with_image=817
-               UserId PostType                                                                                                                 free_text                            blob_guid
-10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
-[captions] loading HuggingFaceTB/SmolVLM-256M-Instruct on cpu ...
-Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]Loading weights:   0%|          | 1/471 [00:01<10:57,  1.40s/it]Loading weights:   3%|▎         | 16/471 [00:01<00:35, 12.88it/s]Loading weights:   5%|▌         | 24/471 [00:01<00:24, 18.03it/s]Loading weights:   6%|▌         | 29/471 [00:01<00:21, 20.73it/s]Loading weights:   7%|▋         | 33/471 [00:02<00:19, 22.19it/s]Loading weights:   8%|▊         | 37/471 [00:02<00:18, 24.11it/s]Loading weights:   9%|▊         | 41/471 [00:02<00:18, 23.19it/s]Loading weights:  10%|▉         | 47/471 [00:02<00:16, 25.03it/s]Loading weights:  11%|█▏        | 54/471 [00:02<00:13, 31.81it/s]Loading weights:  13%|█▎        | 60/471 [00:03<00:14, 29.28it/s]Loading weights:  15%|█▍        | 69/471 [00:03<00:11, 35.05it/s]Loading weights:  16%|█▌        | 74/471 [00:03<00:11, 35.93it/s]Loading weights:  17%|█▋        | 78/471 [00:03<00:11, 34.66it/s]Loading weights:  18%|█▊        | 83/471 [00:03<00:12, 31.96it/s]Loading weights:  19%|█▊        | 88/471 [00:03<00:11, 33.75it/s]Loading weights:  20%|██        | 96/471 [00:03<00:09, 41.11it/s]Loading weights:  21%|██▏       | 101/471 [00:04<00:10, 36.84it/s]Loading weights:  23%|██▎       | 109/471 [00:04<00:09, 36.95it/s]Loading weights:  24%|██▍       | 114/471 [00:04<00:09, 37.90it/s]Loading weights:  26%|██▌       | 121/471 [00:04<00:09, 37.47it/s]Loading weights:  27%|██▋       | 125/471 [00:04<00:11, 30.82it/s]Loading weights:  28%|██▊       | 132/471 [00:04<00:09, 34.42it/s]Loading weights:  29%|██▉       | 136/471 [00:05<00:11, 28.62it/s]Loading weights:  30%|██▉       | 141/471 [00:05<00:10, 31.60it/s]Loading weights:  32%|███▏      | 150/471 [00:05<00:10, 32.01it/s]Loading weights:  33%|███▎      | 155/471 [00:05<00:09, 34.77it/s]Loading weights:  34%|███▍      | 160/471 [00:05<00:08, 35.43it/s]Loading weights:  36%|███▌      | 168/471 [00:06<00:08, 36.98it/s]Loading weights:  37%|███▋      | 173/471 [00:06<00:07, 38.22it/s]Loading weights:  38%|███▊      | 181/471 [00:06<00:06, 41.69it/s]Loading weights:  39%|███▉      | 186/471 [00:06<00:07, 38.85it/s]Loading weights:  40%|████      | 190/471 [00:06<00:07, 36.22it/s]Loading weights:  41%|████▏     | 195/471 [00:06<00:07, 37.24it/s]Loading weights:  43%|████▎     | 204/471 [00:06<00:05, 45.64it/s]Loading weights:  44%|████▍     | 209/471 [00:07<00:07, 34.61it/s]Loading weights:  45%|████▌     | 213/471 [00:07<00:08, 30.25it/s]Loading weights:  46%|████▌     | 217/471 [00:07<00:08, 29.31it/s]Loading weights:  47%|████▋     | 222/471 [00:07<00:08, 29.93it/s]Loading weights:  49%|████▉     | 232/471 [00:07<00:07, 30.01it/s]Loading weights:  51%|█████     | 241/471 [00:08<00:06, 33.93it/s]Loading weights:  52%|█████▏    | 246/471 [00:08<00:06, 34.74it/s]Loading weights:  53%|█████▎    | 250/471 [00:08<00:07, 30.55it/s]Loading weights:  54%|█████▍    | 254/471 [00:08<00:07, 30.47it/s]Loading weights:  55%|█████▍    | 258/471 [00:08<00:07, 30.06it/s]Loading weights:  56%|█████▌    | 264/471 [00:08<00:05, 35.69it/s]Loading weights:  57%|█████▋    | 268/471 [00:09<00:06, 29.49it/s]Loading weights:  59%|█████▉    | 277/471 [00:09<00:04, 41.79it/s]Loading weights:  60%|██████    | 283/471 [00:09<00:05, 35.07it/s]Loading weights:  62%|██████▏   | 293/471 [00:09<00:03, 46.11it/s]Loading weights:  63%|██████▎   | 299/471 [00:09<00:03, 48.37it/s]Loading weights:  65%|██████▍   | 305/471 [00:09<00:04, 35.63it/s]Loading weights:  67%|██████▋   | 315/471 [00:10<00:04, 36.86it/s]Loading weights:  69%|██████▉   | 325/471 [00:10<00:03, 39.00it/s]Loading weights:  70%|███████   | 331/471 [00:10<00:04, 33.46it/s]Loading weights:  73%|███████▎  | 345/471 [00:10<00:03, 37.29it/s]Loading weights:  75%|███████▌  | 354/471 [00:11<00:02, 40.43it/s]Loading weights:  76%|███████▌  | 359/471 [00:11<00:02, 41.86it/s]Loading weights:  77%|███████▋  | 364/471 [00:11<00:02, 43.02it/s]Loading weights:  78%|███████▊  | 369/471 [00:11<00:02, 36.23it/s]Loading weights:  79%|███████▉  | 373/471 [00:11<00:02, 33.66it/s]Loading weights:  81%|████████  | 381/471 [00:12<00:03, 29.46it/s]Loading weights:  84%|████████▍ | 397/471 [00:12<00:01, 39.67it/s]Loading weights:  86%|████████▌ | 405/471 [00:12<00:01, 39.09it/s]Loading weights:  87%|████████▋ | 411/471 [00:12<00:01, 37.09it/s]Loading weights:  88%|████████▊ | 415/471 [00:12<00:01, 33.18it/s]Loading weights:  89%|████████▉ | 419/471 [00:13<00:01, 28.39it/s]Loading weights:  91%|█████████ | 427/471 [00:13<00:01, 36.04it/s]Loading weights:  92%|█████████▏| 432/471 [00:13<00:01, 33.64it/s]Loading weights:  93%|█████████▎| 436/471 [00:13<00:01, 27.88it/s]Loading weights:  94%|█████████▍| 445/471 [00:13<00:00, 28.01it/s]Loading weights:  96%|█████████▌| 453/471 [00:14<00:00, 35.72it/s]Loading weights:  98%|█████████▊| 461/471 [00:14<00:00, 38.14it/s]Loading weights: 100%|██████████| 471/471 [00:14<00:00, 32.95it/s]
-captioning:   0%|          | 0/261 [00:00<?, ?it/s]captioning:   1%|          | 2/261 [00:12<28:01,  6.49s/it]captioning:   1%|          | 3/261 [00:23<35:45,  8.32s/it]captioning:   2%|▏         | 4/261 [00:32<36:29,  8.52s/it]captioning:   2%|▏         | 6/261 [00:41<27:15,  6.42s/it]captioning:   3%|▎         | 7/261 [00:50<30:03,  7.10s/it]captioning:   3%|▎         | 8/261 [00:55<27:30,  6.52s/it]captioning:   4%|▍         | 11/261 [01:04<19:06,  4.59s/it]captioning:   5%|▍         | 12/261 [01:14<23:26,  5.65s/it]captioning:   6%|▌         | 16/261 [01:23<15:34,  3.81s/it]captioning:   7%|▋         | 17/261 [01:30<17:45,  4.37s/it]captioning:   7%|▋         | 18/261 [01:39<21:14,  5.24s/it]captioning:   8%|▊         | 20/261 [01:50<21:32,  5.36s/it]captioning:   8%|▊         | 21/261 [01:58<23:17,  5.82s/it]captioning:   8%|▊         | 22/261 [02:07<26:18,  6.60s/it]captioning:   9%|▉         | 23/261 [02:19<31:11,  7.86s/it]captioning:   9%|▉         | 24/261 [02:30<34:28,  8.73s/it]captioning:  10%|▉         | 25/261 [02:40<35:05,  8.92s/it]captioning:  10%|▉         | 26/261 [02:49<35:13,  8.99s/it]captioning:  11%|█         | 28/261 [02:56<25:41,  6.62s/it]captioning:  11%|█         | 29/261 [03:07<29:23,  7.60s/it]captioning:  11%|█▏        | 30/261 [03:17<31:35,  8.20s/it]captioning:  12%|█▏        | 32/261 [03:26<25:25,  6.66s/it]captioning:  13%|█▎        | 33/261 [03:35<27:27,  7.22s/it]captioning:  13%|█▎        | 35/261 [03:44<23:14,  6.17s/it]captioning:  14%|█▍        | 36/261 [03:53<25:27,  6.79s/it]captioning:  14%|█▍        | 37/261 [04:04<29:07,  7.80s/it]captioning:  15%|█▍        | 38/261 [04:14<30:37,  8.24s/it]captioning:  15%|█▌        | 40/261 [04:23<24:34,  6.67s/it]captioning:  16%|█▌        | 41/261 [04:33<27:28,  7.49s/it]captioning:  16%|█▌        | 42/261 [04:42<28:32,  7.82s/it]captioning:  17%|█▋        | 44/261 [04:51<23:21,  6.46s/it]captioning:  17%|█▋        | 45/261 [05:00<25:26,  7.07s/it]captioning:  18%|█▊        | 46/261 [05:11<29:16,  8.17s/it]captioning:  18%|█▊        | 47/261 [05:22<31:43,  8.89s/it]captioning:  18%|█▊        | 48/261 [05:30<30:03,  8.47s/it]captioning:  19%|█▉        | 49/261 [05:38<30:13,  8.55s/it]captioning:  19%|█▉        | 50/261 [05:46<28:44,  8.17s/it]captioning:  20%|█▉        | 51/261 [05:55<29:25,  8.41s/it]captioning:  20%|█▉        | 52/261 [06:04<29:43,  8.53s/it]captioning:  20%|██        | 53/261 [06:11<28:38,  8.26s/it]captioning:  21%|██        | 54/261 [06:22<31:12,  9.05s/it]captioning:  21%|██        | 55/261 [06:31<30:54,  9.00s/it]captioning:  21%|██▏       | 56/261 [06:40<31:00,  9.08s/it]captioning:  22%|██▏       | 57/261 [06:47<28:53,  8.50s/it]captioning:  22%|██▏       | 58/261 [06:56<29:07,  8.61s/it]captioning:  23%|██▎       | 60/261 [07:05<22:37,  6.75s/it]captioning:  24%|██▍       | 62/261 [07:15<19:59,  6.03s/it]captioning:  24%|██▍       | 63/261 [07:26<23:25,  7.10s/it]captioning:  25%|██▍       | 64/261 [07:35<24:51,  7.57s/it]captioning:  25%|██▍       | 65/261 [07:44<25:51,  7.92s/it]captioning:  26%|██▌       | 67/261 [07:52<19:52,  6.15s/it]captioning:  26%|██▋       | 69/261 [08:00<17:35,  5.50s/it]captioning:  27%|██▋       | 70/261 [08:09<19:43,  6.20s/it]captioning:  29%|██▊       | 75/261 [08:19<11:14,  3.62s/it]captioning:  29%|██▉       | 76/261 [08:28<13:41,  4.44s/it]captioning:  31%|███       | 80/261 [08:37<10:25,  3.46s/it]captioning:  31%|███       | 81/261 [08:47<12:58,  4.32s/it]captioning:  32%|███▏      | 83/261 [08:56<12:59,  4.38s/it]captioning:  32%|███▏      | 84/261 [09:05<15:10,  5.15s/it]captioning:  33%|███▎      | 86/261 [09:15<14:55,  5.12s/it]captioning:  33%|███▎      | 87/261 [09:24<17:01,  5.87s/it]captioning:  34%|███▍      | 89/261 [09:35<16:32,  5.77s/it]captioning:  34%|███▍      | 90/261 [09:44<18:25,  6.47s/it]captioning:  35%|███▍      | 91/261 [09:54<20:02,  7.07s/it]captioning:  35%|███▌      | 92/261 [10:02<21:11,  7.52s/it]captioning:  36%|███▌      | 93/261 [10:10<20:48,  7.43s/it]captioning:  36%|███▌      | 94/261 [10:21<23:33,  8.47s/it]captioning:  36%|███▋      | 95/261 [10:30<23:44,  8.58s/it]captioning:  37%|███▋      | 96/261 [10:39<23:55,  8.70s/it]captioning:  38%|███▊      | 98/261 [10:50<19:35,  7.21s/it]captioning:  38%|███▊      | 99/261 [11:01<21:57,  8.13s/it]captioning:  38%|███▊      | 100/261 [11:09<22:22,  8.34s/it]captioning:  39%|███▉      | 102/261 [11:19<18:06,  6.83s/it]captioning:  39%|███▉      | 103/261 [11:30<20:28,  7.77s/it]captioning:  40%|████      | 105/261 [11:39<16:59,  6.53s/it]captioning:  41%|████      | 106/261 [11:48<18:17,  7.08s/it]captioning:  43%|████▎     | 111/261 [11:59<10:14,  4.10s/it]captioning:  43%|████▎     | 112/261 [12:10<12:43,  5.12s/it]captioning:  44%|████▍     | 116/261 [12:18<08:47,  3.64s/it]captioning:  46%|████▌     | 120/261 [12:29<07:42,  3.28s/it]captioning:  46%|████▋     | 121/261 [12:38<09:23,  4.03s/it]captioning:  47%|████▋     | 122/261 [12:47<11:03,  4.77s/it]captioning:  47%|████▋     | 123/261 [12:57<13:15,  5.76s/it]captioning:  48%|████▊     | 125/261 [13:06<11:59,  5.29s/it]captioning:  49%|████▉     | 128/261 [13:14<09:05,  4.10s/it]captioning:  49%|████▉     | 129/261 [13:21<10:12,  4.64s/it]captioning:  50%|████▉     | 130/261 [13:28<11:14,  5.15s/it]captioning:  50%|█████     | 131/261 [13:39<13:57,  6.45s/it]captioning:  51%|█████     | 133/261 [13:46<11:24,  5.35s/it]captioning:  53%|█████▎    | 139/261 [13:55<05:54,  2.91s/it]captioning:  54%|█████▍    | 141/261 [14:06<07:00,  3.51s/it]captioning:  54%|█████▍    | 142/261 [14:16<08:39,  4.37s/it]captioning:  55%|█████▍    | 143/261 [14:25<10:08,  5.16s/it]captioning:  56%|█████▌    | 145/261 [14:34<09:36,  4.97s/it]captioning:  56%|█████▌    | 146/261 [14:45<11:39,  6.08s/it]captioning:  57%|█████▋    | 148/261 [14:54<10:27,  5.55s/it]captioning:  57%|█████▋    | 149/261 [15:03<11:41,  6.27s/it]captioning:  57%|█████▋    | 150/261 [15:15<13:47,  7.46s/it]captioning:  58%|█████▊    | 151/261 [15:24<14:23,  7.85s/it]captioning:  58%|█████▊    | 152/261 [15:33<14:43,  8.11s/it]captioning:  59%|█████▊    | 153/261 [15:42<14:57,  8.31s/it]captioning:  59%|█████▉    | 154/261 [15:51<15:10,  8.51s/it]captioning:  60%|██████    | 157/261 [16:00<09:36,  5.54s/it]captioning:  61%|██████    | 158/261 [16:09<10:45,  6.27s/it]captioning:  62%|██████▏   | 161/261 [16:16<07:28,  4.48s/it]captioning:  62%|██████▏   | 163/261 [16:25<07:23,  4.53s/it]captioning:  63%|██████▎   | 164/261 [16:34<08:39,  5.36s/it]captioning:  63%|██████▎   | 165/261 [16:45<10:24,  6.51s/it]captioning:  65%|██████▌   | 170/261 [16:54<05:37,  3.71s/it]captioning:  66%|██████▌   | 172/261 [17:05<06:08,  4.14s/it]captioning:  66%|██████▋   | 173/261 [17:17<07:50,  5.34s/it]captioning:  67%|██████▋   | 174/261 [17:28<09:13,  6.36s/it]captioning:  67%|██████▋   | 175/261 [17:39<10:32,  7.35s/it]captioning:  67%|██████▋   | 176/261 [17:49<11:01,  7.78s/it]captioning:  68%|██████▊   | 177/261 [17:58<11:14,  8.03s/it]captioning:  68%|██████▊   | 178/261 [18:04<10:32,  7.62s/it]captioning:  69%|██████▊   | 179/261 [18:16<11:57,  8.75s/it]captioning:  70%|███████   | 183/261 [18:25<06:17,  4.84s/it]captioning:  70%|███████   | 184/261 [18:34<07:07,  5.55s/it]captioning:  71%|███████   | 185/261 [18:43<07:54,  6.24s/it]captioning:  75%|███████▍  | 195/261 [18:52<02:32,  2.30s/it]captioning:  75%|███████▌  | 197/261 [19:01<02:52,  2.70s/it]captioning:  77%|███████▋  | 200/261 [19:13<03:04,  3.02s/it]captioning:  77%|███████▋  | 201/261 [19:22<03:43,  3.73s/it]captioning:  77%|███████▋  | 202/261 [19:33<04:42,  4.78s/it]captioning:  79%|███████▉  | 207/261 [19:42<02:57,  3.29s/it]captioning:  80%|███████▉  | 208/261 [19:52<03:35,  4.07s/it]captioning:  80%|████████  | 209/261 [20:01<04:12,  4.86s/it]captioning:  80%|████████  | 210/261 [20:08<04:29,  5.28s/it]captioning:  81%|████████  | 212/261 [20:18<04:12,  5.16s/it]captioning:  82%|████████▏ | 213/261 [20:27<04:42,  5.88s/it]captioning:  82%|████████▏ | 214/261 [20:36<05:08,  6.57s/it]captioning:  82%|████████▏ | 215/261 [20:45<05:26,  7.11s/it]captioning:  83%|████████▎ | 216/261 [20:54<05:42,  7.61s/it]captioning:  84%|████████▎ | 218/261 [21:03<04:32,  6.35s/it]captioning:  85%|████████▍ | 221/261 [21:09<02:52,  4.31s/it]captioning:  85%|████████▌ | 223/261 [21:16<02:34,  4.07s/it]captioning:  86%|████████▌ | 224/261 [21:25<03:03,  4.97s/it]captioning:  86%|████████▌ | 225/261 [21:35<03:30,  5.86s/it]captioning:  87%|████████▋ | 227/261 [21:42<02:51,  5.05s/it]captioning:  88%|████████▊ | 229/261 [21:53<02:46,  5.21s/it]captioning:  89%|████████▉ | 233/261 [22:04<01:51,  3.98s/it]captioning:  90%|████████▉ | 234/261 [22:12<02:04,  4.60s/it]captioning:  90%|█████████ | 235/261 [22:23<02:28,  5.72s/it]captioning:  90%|█████████ | 236/261 [22:34<02:49,  6.78s/it]captioning:  91%|█████████ | 237/261 [22:43<02:55,  7.30s/it]captioning:  91%|█████████ | 238/261 [22:54<03:09,  8.22s/it]captioning:  92%|█████████▏| 240/261 [23:03<02:20,  6.68s/it]captioning:  92%|█████████▏| 241/261 [23:15<02:36,  7.80s/it]captioning:  95%|█████████▌| 248/261 [23:26<00:44,  3.46s/it]captioning:  95%|█████████▌| 249/261 [23:35<00:50,  4.19s/it]captioning:  96%|█████████▌| 250/261 [23:44<00:54,  4.98s/it]captioning:  97%|█████████▋| 252/261 [23:51<00:40,  4.46s/it]captioning:  97%|█████████▋| 253/261 [23:59<00:41,  5.19s/it]captioning:  97%|█████████▋| 254/261 [24:11<00:45,  6.43s/it]captioning:  98%|█████████▊| 255/261 [24:21<00:43,  7.25s/it]captioning:  98%|█████████▊| 257/261 [24:29<00:24,  6.07s/it]captioning: 100%|██████████| 261/261 [24:37<00:00,  3.87s/it]captioning: 100%|██████████| 261/261 [24:37<00:00,  5.66s/it]
-[captions] n=158
-  10101246572396157_10101188700546807 -id... -> The image is a graphic post on Facebook. The post is titled "What is a Rare Disease?" and it is written by "Rare Disease
-  10101246572396157_10101208120184697 -id... -> The image is a photo of a man and a child. The man is wearing sunglasses and has a headband on. The child is wearing a g
-  10101246572396157_10101214704599477 -id... -> The image is a photograph of three girls sitting on a brown, cushioned armchair. The girl on the left is wearing a light
-===== TEXT_ONLY all --force =====
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-[ssr] experiment=text_only config=configs/poc.yaml
-[cohort] n=30 high=5 (16.7%)
-               UserId  suicide  y_high  status_posts
-  204720893660851 -id      2.0       0            34
-  462105087565740 -id      0.0       0           382
-10216350023240597 -id      3.0       1           227
-10212079190999992 -id      0.0       0            14
-10101246572396157 -id      0.0       0            32
-[posts] rows=1200 users=30 with_text=844 with_image=817
-               UserId PostType                                                                                                                 free_text                            blob_guid
-10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
-[captions] skipped (text-only / --skip-captions)
-[corpus] users=30 mean_posts=28.1 mean_chars=3526
-  sample UserId=10101246572396157 -id n_posts=30
-  snippet: [post] Just submitted a grant I have been working on since October........time to celebrate by staring at my office wall for 5 minutes before I need to start working on one of the next 20 things that need my immediate attention........academia is a blast! [post] Excited to give a talk about brown fat at the American Diabetes Association meeting tomorrow .....because everyone loves some good brown fat [post] The dude.... [post] The girls out on the field before the Trenton Thunder game......... [...
-[represent:qwen3_0_6b] loading Qwen/Qwen3-0.6B on cpu (30 users) ...
-Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 1/311 [00:07<38:55,  7.54s/it]Loading weights:  18%|█▊        | 57/311 [00:07<00:24, 10.28it/s]Loading weights:  23%|██▎       | 71/311 [00:08<00:19, 12.14it/s]Loading weights:  26%|██▌       | 80/311 [00:08<00:16, 14.04it/s]Loading weights:  28%|██▊       | 87/311 [00:08<00:15, 14.72it/s]Loading weights:  30%|██▉       | 93/311 [00:09<00:14, 15.34it/s]Loading weights:  32%|███▏      | 98/311 [00:09<00:14, 14.74it/s]Loading weights:  33%|███▎      | 104/311 [00:10<00:13, 14.95it/s]Loading weights:  36%|███▌      | 112/311 [00:10<00:10, 19.62it/s]Loading weights:  37%|███▋      | 116/311 [00:10<00:10, 17.78it/s]Loading weights:  39%|███▊      | 120/311 [00:10<00:10, 18.95it/s]Loading weights:  40%|███▉      | 123/311 [00:10<00:10, 18.54it/s]Loading weights:  41%|████      | 126/311 [00:11<00:11, 16.12it/s]Loading weights:  41%|████▏     | 129/311 [00:11<00:10, 17.68it/s]Loading weights:  42%|████▏     | 132/311 [00:11<00:09, 18.65it/s]Loading weights:  44%|████▍     | 137/311 [00:11<00:09, 18.21it/s]Loading weights:  47%|████▋     | 145/311 [00:11<00:06, 23.76it/s]Loading weights:  49%|████▉     | 152/311 [00:12<00:05, 27.92it/s]Loading weights:  50%|█████     | 156/311 [00:12<00:05, 26.36it/s]Loading weights:  51%|█████     | 159/311 [00:12<00:06, 24.26it/s]Loading weights:  52%|█████▏    | 162/311 [00:12<00:06, 23.48it/s]Loading weights:  53%|█████▎    | 166/311 [00:12<00:05, 26.03it/s]Loading weights:  54%|█████▍    | 169/311 [00:12<00:05, 24.69it/s]Loading weights:  55%|█████▌    | 172/311 [00:12<00:05, 23.97it/s]Loading weights:  56%|█████▋    | 175/311 [00:13<00:07, 19.04it/s]Loading weights:  58%|█████▊    | 180/311 [00:13<00:08, 16.34it/s]Loading weights:  61%|██████    | 189/311 [00:13<00:05, 21.32it/s]Loading weights:  62%|██████▏   | 194/311 [00:13<00:04, 23.88it/s]Loading weights:  63%|██████▎   | 197/311 [00:14<00:05, 20.84it/s]Loading weights:  64%|██████▍   | 200/311 [00:14<00:06, 17.66it/s]Loading weights:  67%|██████▋   | 207/311 [00:14<00:06, 16.47it/s]Loading weights:  69%|██████▉   | 214/311 [00:15<00:04, 20.92it/s]Loading weights:  70%|███████   | 218/311 [00:15<00:05, 18.24it/s]Loading weights:  74%|███████▎  | 229/311 [00:15<00:02, 27.39it/s]Loading weights:  75%|███████▍  | 233/311 [00:15<00:03, 22.90it/s]Loading weights:  76%|███████▌  | 237/311 [00:16<00:03, 21.11it/s]Loading weights:  77%|███████▋  | 240/311 [00:16<00:03, 20.73it/s]Loading weights:  78%|███████▊  | 243/311 [00:16<00:03, 20.46it/s]Loading weights:  79%|███████▉  | 246/311 [00:16<00:03, 20.02it/s]Loading weights:  80%|████████  | 249/311 [00:16<00:04, 15.46it/s]Loading weights:  81%|████████  | 251/311 [00:16<00:03, 16.14it/s]Loading weights:  82%|████████▏ | 254/311 [00:17<00:03, 14.51it/s]Loading weights:  83%|████████▎ | 258/311 [00:17<00:03, 16.56it/s]Loading weights:  84%|████████▎ | 260/311 [00:17<00:03, 14.10it/s]Loading weights:  86%|████████▌ | 268/311 [00:18<00:02, 16.69it/s]Loading weights:  88%|████████▊ | 274/311 [00:18<00:01, 20.27it/s]Loading weights:  89%|████████▉ | 278/311 [00:18<00:01, 22.26it/s]Loading weights:  90%|█████████ | 281/311 [00:18<00:01, 21.28it/s]Loading weights:  92%|█████████▏| 285/311 [00:18<00:01, 22.90it/s]Loading weights:  94%|█████████▎| 291/311 [00:19<00:00, 20.91it/s]Loading weights:  96%|█████████▌| 299/311 [00:19<00:00, 29.13it/s]Loading weights:  97%|█████████▋| 303/311 [00:19<00:00, 26.63it/s]Loading weights:  99%|█████████▊| 307/311 [00:19<00:00, 25.28it/s]Loading weights: 100%|██████████| 311/311 [00:19<00:00, 15.94it/s]
-[represent:qwen3_0_6b] n_layers=28 tapping=[1, 10, 19, 28]
-represent:qwen3_0_6b:   0%|          | 0/30 [00:00<?, ?it/s]represent:qwen3_0_6b:   3%|▎         | 1/30 [00:21<10:18, 21.34s/it]represent:qwen3_0_6b:   7%|▋         | 2/30 [00:46<10:53, 23.34s/it]represent:qwen3_0_6b:  10%|█         | 3/30 [01:35<15:51, 35.23s/it]represent:qwen3_0_6b:  13%|█▎        | 4/30 [02:02<13:48, 31.86s/it]represent:qwen3_0_6b:  17%|█▋        | 5/30 [02:19<11:04, 26.59s/it]represent:qwen3_0_6b:  20%|██        | 6/30 [02:41<10:04, 25.18s/it]represent:qwen3_0_6b:  23%|██▎       | 7/30 [02:59<08:42, 22.73s/it]represent:qwen3_0_6b:  27%|██▋       | 8/30 [03:15<07:30, 20.46s/it]represent:qwen3_0_6b:  30%|███       | 9/30 [03:30<06:33, 18.74s/it]represent:qwen3_0_6b:  33%|███▎      | 10/30 [03:52<06:35, 19.76s/it]represent:qwen3_0_6b:  37%|███▋      | 11/30 [04:09<05:58, 18.88s/it]represent:qwen3_0_6b:  40%|████      | 12/30 [04:25<05:27, 18.19s/it]represent:qwen3_0_6b:  43%|████▎     | 13/30 [04:46<05:23, 19.02s/it]represent:qwen3_0_6b:  47%|████▋     | 14/30 [05:00<04:38, 17.39s/it]represent:qwen3_0_6b:  50%|█████     | 15/30 [05:14<04:05, 16.34s/it]represent:qwen3_0_6b:  53%|█████▎    | 16/30 [05:32<03:56, 16.89s/it]represent:qwen3_0_6b:  57%|█████▋    | 17/30 [05:47<03:31, 16.29s/it]represent:qwen3_0_6b:  60%|██████    | 18/30 [06:02<03:13, 16.10s/it]represent:qwen3_0_6b:  63%|██████▎   | 19/30 [06:19<02:59, 16.33s/it]represent:qwen3_0_6b:  67%|██████▋   | 20/30 [06:34<02:38, 15.90s/it]represent:qwen3_0_6b:  70%|███████   | 21/30 [06:48<02:18, 15.44s/it]represent:qwen3_0_6b:  73%|███████▎  | 22/30 [07:05<02:05, 15.64s/it]represent:qwen3_0_6b:  77%|███████▋  | 23/30 [07:21<01:50, 15.83s/it]represent:qwen3_0_6b:  80%|████████  | 24/30 [07:39<01:39, 16.56s/it]represent:qwen3_0_6b:  83%|████████▎ | 25/30 [08:04<01:34, 18.97s/it]represent:qwen3_0_6b:  87%|████████▋ | 26/30 [08:32<01:27, 21.89s/it]represent:qwen3_0_6b:  90%|█████████ | 27/30 [08:48<00:59, 19.94s/it]represent:qwen3_0_6b:  93%|█████████▎| 28/30 [09:13<00:43, 21.61s/it]represent:qwen3_0_6b:  97%|█████████▋| 29/30 [09:35<00:21, 21.52s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [09:54<00:00, 20.89s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [09:54<00:00, 19.82s/it]
-[represent:smollm2_360m] loading HuggingFaceTB/SmolLM2-360M-Instruct on cpu (30 users) ...
-Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:   0%|          | 1/290 [00:01<07:35,  1.58s/it]Loading weights:   7%|▋         | 20/290 [00:01<00:17, 15.35it/s]Loading weights:   9%|▉         | 27/290 [00:02<00:15, 16.61it/s]Loading weights:  11%|█         | 32/290 [00:02<00:14, 18.38it/s]Loading weights:  12%|█▏        | 36/290 [00:02<00:14, 17.93it/s]Loading weights:  14%|█▍        | 40/290 [00:02<00:16, 14.80it/s]Loading weights:  17%|█▋        | 49/290 [00:03<00:12, 20.00it/s]Loading weights:  19%|█▊        | 54/290 [00:03<00:10, 21.79it/s]Loading weights:  20%|██        | 59/290 [00:03<00:09, 23.73it/s]Loading weights:  21%|██▏       | 62/290 [00:03<00:12, 18.48it/s]Loading weights:  23%|██▎       | 67/290 [00:03<00:10, 22.16it/s]Loading weights:  25%|██▌       | 73/290 [00:04<00:08, 24.60it/s]Loading weights:  26%|██▌       | 76/290 [00:04<00:09, 22.24it/s]Loading weights:  28%|██▊       | 81/290 [00:04<00:08, 24.31it/s]Loading weights:  29%|██▉       | 85/290 [00:04<00:08, 24.20it/s]Loading weights:  31%|███       | 89/290 [00:04<00:07, 25.81it/s]Loading weights:  32%|███▏      | 94/290 [00:05<00:07, 25.27it/s]Loading weights:  34%|███▍      | 99/290 [00:05<00:06, 27.63it/s]Loading weights:  36%|███▌      | 103/290 [00:05<00:09, 20.32it/s]Loading weights:  38%|███▊      | 111/290 [00:05<00:07, 22.52it/s]Loading weights:  40%|████      | 117/290 [00:06<00:07, 24.57it/s]Loading weights:  42%|████▏     | 121/290 [00:06<00:07, 22.33it/s]Loading weights:  43%|████▎     | 126/290 [00:06<00:06, 25.02it/s]Loading weights:  45%|████▌     | 131/290 [00:06<00:06, 24.99it/s]Loading weights:  46%|████▌     | 134/290 [00:06<00:06, 25.14it/s]Loading weights:  48%|████▊     | 139/290 [00:07<00:07, 21.44it/s]Loading weights:  50%|█████     | 145/290 [00:07<00:05, 26.11it/s]Loading weights:  51%|█████     | 148/290 [00:07<00:06, 21.39it/s]Loading weights:  52%|█████▏    | 152/290 [00:07<00:06, 20.12it/s]Loading weights:  54%|█████▍    | 157/290 [00:07<00:05, 23.32it/s]Loading weights:  56%|█████▌    | 161/290 [00:07<00:05, 25.30it/s]Loading weights:  57%|█████▋    | 164/290 [00:08<00:05, 22.04it/s]Loading weights:  58%|█████▊    | 167/290 [00:08<00:06, 19.57it/s]Loading weights:  59%|█████▊    | 170/290 [00:08<00:05, 20.35it/s]Loading weights:  60%|█████▉    | 173/290 [00:08<00:05, 21.96it/s]Loading weights:  61%|██████    | 176/290 [00:08<00:06, 17.17it/s]Loading weights:  63%|██████▎   | 183/290 [00:09<00:05, 18.76it/s]Loading weights:  64%|██████▍   | 186/290 [00:09<00:05, 20.15it/s]Loading weights:  65%|██████▌   | 189/290 [00:09<00:04, 21.46it/s]Loading weights:  66%|██████▌   | 192/290 [00:09<00:04, 20.73it/s]Loading weights:  67%|██████▋   | 195/290 [00:09<00:05, 18.15it/s]Loading weights:  70%|██████▉   | 202/290 [00:09<00:03, 27.01it/s]Loading weights:  71%|███████   | 206/290 [00:10<00:03, 23.74it/s]Loading weights:  73%|███████▎  | 211/290 [00:10<00:03, 21.53it/s]Loading weights:  74%|███████▍  | 216/290 [00:10<00:03, 21.93it/s]Loading weights:  76%|███████▌  | 219/290 [00:10<00:03, 17.98it/s]Loading weights:  78%|███████▊  | 225/290 [00:11<00:02, 21.74it/s]Loading weights:  79%|███████▉  | 229/290 [00:11<00:03, 19.80it/s]Loading weights:  82%|████████▏ | 237/290 [00:11<00:01, 27.83it/s]Loading weights:  83%|████████▎ | 241/290 [00:11<00:01, 29.59it/s]Loading weights:  84%|████████▍ | 245/290 [00:11<00:01, 29.88it/s]Loading weights:  86%|████████▌ | 249/290 [00:11<00:01, 26.38it/s]Loading weights:  88%|████████▊ | 254/290 [00:12<00:01, 27.30it/s]Loading weights:  89%|████████▊ | 257/290 [00:12<00:01, 20.13it/s]Loading weights:  90%|█████████ | 261/290 [00:12<00:01, 23.25it/s]Loading weights:  91%|█████████ | 264/290 [00:12<00:01, 23.39it/s]Loading weights:  92%|█████████▏| 267/290 [00:12<00:00, 23.64it/s]Loading weights:  93%|█████████▎| 270/290 [00:12<00:00, 20.14it/s]Loading weights:  95%|█████████▍| 275/290 [00:13<00:00, 22.23it/s]Loading weights:  96%|█████████▌| 279/290 [00:13<00:00, 25.04it/s]Loading weights:  98%|█████████▊| 283/290 [00:13<00:00, 26.44it/s]Loading weights: 100%|██████████| 290/290 [00:13<00:00, 21.65it/s]
-[represent:smollm2_360m] n_layers=32 tapping=[1, 11, 21, 32]
-represent:smollm2_360m:   0%|          | 0/30 [00:00<?, ?it/s]represent:smollm2_360m:   3%|▎         | 1/30 [00:13<06:26, 13.31s/it]represent:smollm2_360m:   7%|▋         | 2/30 [00:23<05:19, 11.41s/it]represent:smollm2_360m:  10%|█         | 3/30 [00:54<09:06, 20.25s/it]represent:smollm2_360m:  13%|█▎        | 4/30 [01:12<08:23, 19.36s/it]represent:smollm2_360m:  17%|█▋        | 5/30 [01:20<06:28, 15.53s/it]represent:smollm2_360m:  20%|██        | 6/30 [01:36<06:09, 15.41s/it]represent:smollm2_360m:  23%|██▎       | 7/30 [01:48<05:29, 14.34s/it]represent:smollm2_360m:  27%|██▋       | 8/30 [01:57<04:41, 12.78s/it]represent:smollm2_360m:  30%|███       | 9/30 [02:08<04:13, 12.06s/it]represent:smollm2_360m:  33%|███▎      | 10/30 [02:22<04:16, 12.85s/it]represent:smollm2_360m:  37%|███▋      | 11/30 [02:34<03:58, 12.54s/it]represent:smollm2_360m:  40%|████      | 12/30 [02:45<03:39, 12.19s/it]represent:smollm2_360m:  43%|████▎     | 13/30 [03:00<03:37, 12.81s/it]represent:smollm2_360m:  47%|████▋     | 14/30 [03:09<03:09, 11.86s/it]represent:smollm2_360m:  50%|█████     | 15/30 [03:14<02:24,  9.60s/it]represent:smollm2_360m:  53%|█████▎    | 16/30 [03:26<02:26, 10.45s/it]represent:smollm2_360m:  57%|█████▋    | 17/30 [03:37<02:17, 10.58s/it]represent:smollm2_360m:  60%|██████    | 18/30 [03:41<01:42,  8.51s/it]represent:smollm2_360m:  63%|██████▎   | 19/30 [03:47<01:27,  7.96s/it]represent:smollm2_360m:  67%|██████▋   | 20/30 [03:54<01:14,  7.49s/it]represent:smollm2_360m:  70%|███████   | 21/30 [04:05<01:16,  8.51s/it]represent:smollm2_360m:  73%|███████▎  | 22/30 [04:16<01:14,  9.26s/it]represent:smollm2_360m:  77%|███████▋  | 23/30 [04:24<01:02,  8.93s/it]represent:smollm2_360m:  80%|████████  | 24/30 [04:34<00:56,  9.35s/it]represent:smollm2_360m:  83%|████████▎ | 25/30 [04:50<00:56, 11.34s/it]represent:smollm2_360m:  87%|████████▋ | 26/30 [05:09<00:54, 13.52s/it]represent:smollm2_360m:  90%|█████████ | 27/30 [05:20<00:38, 12.81s/it]represent:smollm2_360m:  93%|█████████▎| 28/30 [05:29<00:23, 11.72s/it]represent:smollm2_360m:  97%|█████████▋| 29/30 [05:43<00:12, 12.43s/it]represent:smollm2_360m: 100%|██████████| 30/30 [05:52<00:00, 11.44s/it]represent:smollm2_360m: 100%|██████████| 30/30 [05:52<00:00, 11.76s/it]
-/anaconda/envs/py38_default/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12020). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
-  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-[represent] qwen3_0_6b: 30 user files in /home/student/nlp_proj_v2/artifacts/text_only/reps/qwen3_0_6b
-[represent] smollm2_360m: 30 user files in /home/student/nlp_proj_v2/artifacts/text_only/reps/smollm2_360m
-[train] loading blocks for 30 users ...
-[train] stm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 0: test AUC=0.600 PR-AUC=0.333 F1=0.000 d=0.358
-[train] stm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 1: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
-[train] stm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 2: test AUC=0.200 PR-AUC=0.200 F1=0.000 d=-1.190
-[train] stm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 3: test AUC=0.800 PR-AUC=0.500 F1=0.500 d=1.190
-[train] stm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 4: test AUC=1.000 PR-AUC=1.000 F1=0.667 d=6.722
-[train] mtm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 0: test AUC=0.600 PR-AUC=0.333 F1=0.400 d=0.358
-[train] mtm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 1: test AUC=0.400 PR-AUC=0.250 F1=0.000 d=-0.358
-[train] mtm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 2: test AUC=0.600 PR-AUC=0.333 F1=0.000 d=0.358
-[train] mtm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 3: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
-[train] mtm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 4: test AUC=1.000 PR-AUC=1.000 F1=0.667 d=6.722
-
-=== SUMMARY ===
-  stm_high: AUC=0.520 [0.156, 0.884]  PR=0.440  F1=0.233  d=0.072
-  mtm_high: AUC=0.520 [0.202, 0.838]  PR=0.417  F1=0.213  d=0.072
-[report] wrote /home/student/nlp_proj_v2/reports/stage_examples.md
-===== STANDARD corpus/represent/train --force =====
-[ssr] experiment=standard config=configs/poc_standard.yaml
-[cohort] n=30 high=5 (16.7%)
-               UserId  suicide  y_high  status_posts
-  204720893660851 -id      2.0       0            34
-  462105087565740 -id      0.0       0           382
-10216350023240597 -id      3.0       1           227
-10212079190999992 -id      0.0       0            14
-10101246572396157 -id      0.0       0            32
-[posts] rows=1200 users=30 with_text=844 with_image=817
-               UserId PostType                                                                                                                 free_text                            blob_guid
-10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
-[corpus] users=30 mean_posts=30.1 mean_chars=4746
-  sample UserId=10101246572396157 -id n_posts=32
-  snippet: [post] Just submitted a grant I have been working on since October........time to celebrate by staring at my office wall for 5 minutes before I need to start working on one of the next 20 things that need my immediate attention........academia is a blast! [post] [image] The image is a photo of a man and a child. The man is wearing sunglasses and has a headband on. The child is wearing a green and white patterned scarf and a green headband. The man is holding the child close to him. The child is ...
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-[ssr] experiment=standard config=configs/poc_standard.yaml
-[cohort] n=30 high=5 (16.7%)
-               UserId  suicide  y_high  status_posts
-  204720893660851 -id      2.0       0            34
-  462105087565740 -id      0.0       0           382
-10216350023240597 -id      3.0       1           227
-10212079190999992 -id      0.0       0            14
-10101246572396157 -id      0.0       0            32
-[posts] rows=1200 users=30 with_text=844 with_image=817
-               UserId PostType                                                                                                                 free_text                            blob_guid
-10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
-[corpus] users=30 mean_posts=30.1 mean_chars=4746
-  sample UserId=10101246572396157 -id n_posts=32
-  snippet: [post] Just submitted a grant I have been working on since October........time to celebrate by staring at my office wall for 5 minutes before I need to start working on one of the next 20 things that need my immediate attention........academia is a blast! [post] [image] The image is a photo of a man and a child. The man is wearing sunglasses and has a headband on. The child is wearing a green and white patterned scarf and a green headband. The man is holding the child close to him. The child is ...
-[represent:qwen3_0_6b] loading Qwen/Qwen3-0.6B on cpu (30 users) ...
-Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  64%|██████▍   | 199/311 [00:00<00:00, 1989.29it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1995.83it/s]
-[represent:qwen3_0_6b] n_layers=28 tapping=[1, 10, 19, 28]
-represent:qwen3_0_6b:   0%|          | 0/30 [00:00<?, ?it/s]represent:qwen3_0_6b:   3%|▎         | 1/30 [00:23<11:17, 23.36s/it]represent:qwen3_0_6b:   7%|▋         | 2/30 [00:48<11:29, 24.64s/it]represent:qwen3_0_6b:  10%|█         | 3/30 [01:35<15:34, 34.60s/it]represent:qwen3_0_6b:  13%|█▎        | 4/30 [02:06<14:20, 33.10s/it]represent:qwen3_0_6b:  17%|█▋        | 5/30 [02:27<11:59, 28.77s/it]represent:qwen3_0_6b:  20%|██        | 6/30 [02:52<11:01, 27.55s/it]represent:qwen3_0_6b:  23%|██▎       | 7/30 [03:13<09:42, 25.31s/it]represent:qwen3_0_6b:  27%|██▋       | 8/30 [03:30<08:18, 22.67s/it]represent:qwen3_0_6b:  30%|███       | 9/30 [03:46<07:17, 20.82s/it]represent:qwen3_0_6b:  33%|███▎      | 10/30 [04:11<07:22, 22.12s/it]represent:qwen3_0_6b:  37%|███▋      | 11/30 [04:32<06:51, 21.64s/it]represent:qwen3_0_6b:  40%|████      | 12/30 [04:50<06:11, 20.65s/it]represent:qwen3_0_6b:  43%|████▎     | 13/30 [05:12<05:57, 21.02s/it]represent:qwen3_0_6b:  47%|████▋     | 14/30 [05:28<05:08, 19.29s/it]represent:qwen3_0_6b:  50%|█████     | 15/30 [05:43<04:32, 18.16s/it]represent:qwen3_0_6b:  53%|█████▎    | 16/30 [06:01<04:14, 18.16s/it]represent:qwen3_0_6b:  57%|█████▋    | 17/30 [06:19<03:56, 18.19s/it]represent:qwen3_0_6b:  60%|██████    | 18/30 [06:38<03:37, 18.15s/it]represent:qwen3_0_6b:  63%|██████▎   | 19/30 [06:55<03:18, 18.05s/it]represent:qwen3_0_6b:  67%|██████▋   | 20/30 [07:12<02:55, 17.54s/it]represent:qwen3_0_6b:  70%|███████   | 21/30 [07:26<02:28, 16.54s/it]represent:qwen3_0_6b:  73%|███████▎  | 22/30 [07:42<02:12, 16.54s/it]represent:qwen3_0_6b:  77%|███████▋  | 23/30 [08:00<01:57, 16.82s/it]represent:qwen3_0_6b:  80%|████████  | 24/30 [08:18<01:43, 17.21s/it]represent:qwen3_0_6b:  83%|████████▎ | 25/30 [08:47<01:43, 20.79s/it]represent:qwen3_0_6b:  87%|████████▋ | 26/30 [09:17<01:33, 23.42s/it]represent:qwen3_0_6b:  90%|█████████ | 27/30 [09:36<01:06, 22.02s/it]represent:qwen3_0_6b:  93%|█████████▎| 28/30 [10:02<00:46, 23.29s/it]represent:qwen3_0_6b:  97%|█████████▋| 29/30 [10:23<00:22, 22.64s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [10:43<00:00, 21.91s/it]represent:qwen3_0_6b: 100%|██████████| 30/30 [10:43<00:00, 21.45s/it]
-[represent:smollm2_360m] loading HuggingFaceTB/SmolLM2-360M-Instruct on cpu (30 users) ...
-Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  68%|██████▊   | 198/290 [00:00<00:00, 1970.87it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 2023.94it/s]
-[represent:smollm2_360m] n_layers=32 tapping=[1, 11, 21, 32]
-represent:smollm2_360m:   0%|          | 0/30 [00:00<?, ?it/s]represent:smollm2_360m:   3%|▎         | 1/30 [00:14<06:54, 14.28s/it]represent:smollm2_360m:   7%|▋         | 2/30 [00:30<07:12, 15.45s/it]represent:smollm2_360m:  10%|█         | 3/30 [01:01<10:07, 22.49s/it]represent:smollm2_360m:  13%|█▎        | 4/30 [01:20<09:06, 21.02s/it]represent:smollm2_360m:  17%|█▋        | 5/30 [01:28<06:52, 16.50s/it]represent:smollm2_360m:  20%|██        | 6/30 [01:45<06:41, 16.75s/it]represent:smollm2_360m:  23%|██▎       | 7/30 [01:59<06:05, 15.87s/it]represent:smollm2_360m:  27%|██▋       | 8/30 [02:10<05:10, 14.10s/it]represent:smollm2_360m:  30%|███       | 9/30 [02:21<04:36, 13.18s/it]represent:smollm2_360m:  33%|███▎      | 10/30 [02:37<04:41, 14.07s/it]represent:smollm2_360m:  37%|███▋      | 11/30 [02:46<03:58, 12.56s/it]represent:smollm2_360m:  40%|████      | 12/30 [02:58<03:43, 12.43s/it]represent:smollm2_360m:  43%|████▎     | 13/30 [03:12<03:38, 12.84s/it]represent:smollm2_360m:  47%|████▋     | 14/30 [03:22<03:09, 11.84s/it]represent:smollm2_360m:  50%|█████     | 15/30 [03:27<02:30, 10.01s/it]represent:smollm2_360m:  53%|█████▎    | 16/30 [03:34<02:04,  8.88s/it]represent:smollm2_360m:  57%|█████▋    | 17/30 [03:47<02:13, 10.25s/it]represent:smollm2_360m:  60%|██████    | 18/30 [03:55<01:54,  9.53s/it]represent:smollm2_360m:  63%|██████▎   | 19/30 [04:07<01:54, 10.44s/it]represent:smollm2_360m:  67%|██████▋   | 20/30 [04:19<01:48, 10.83s/it]represent:smollm2_360m:  70%|███████   | 21/30 [04:24<01:20,  8.95s/it]represent:smollm2_360m:  73%|███████▎  | 22/30 [04:35<01:17,  9.73s/it]represent:smollm2_360m:  77%|███████▋  | 23/30 [04:43<01:03,  9.01s/it]represent:smollm2_360m:  80%|████████  | 24/30 [04:53<00:56,  9.37s/it]represent:smollm2_360m:  83%|████████▎ | 25/30 [05:11<00:59, 11.93s/it]represent:smollm2_360m:  87%|████████▋ | 26/30 [05:29<00:55, 13.97s/it]represent:smollm2_360m:  90%|█████████ | 27/30 [05:40<00:39, 13.06s/it]represent:smollm2_360m:  93%|█████████▎| 28/30 [05:57<00:28, 14.05s/it]represent:smollm2_360m:  97%|█████████▋| 29/30 [06:11<00:14, 14.07s/it]represent:smollm2_360m: 100%|██████████| 30/30 [06:25<00:00, 14.20s/it]represent:smollm2_360m: 100%|██████████| 30/30 [06:25<00:00, 12.86s/it]
-[represent] qwen3_0_6b: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/qwen3_0_6b
-[represent] smollm2_360m: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/smollm2_360m
-/anaconda/envs/py38_default/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12020). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
-  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-[ssr] experiment=standard config=configs/poc_standard.yaml
-[cohort] n=30 high=5 (16.7%)
-               UserId  suicide  y_high  status_posts
-  204720893660851 -id      2.0       0            34
-  462105087565740 -id      0.0       0           382
-10216350023240597 -id      3.0       1           227
-10212079190999992 -id      0.0       0            14
-10101246572396157 -id      0.0       0            32
-[posts] rows=1200 users=30 with_text=844 with_image=817
-               UserId PostType                                                                                                                 free_text                            blob_guid
-10101246572396157 -id     link                                                  Last day before Drew’s Fun Run......help her raise money for her school! 8b67d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id     link                                                                                                How about this guy........ 9267d957-c565-e811-80c3-000d3a12fa8b
-10101246572396157 -id    photo Great way to end my first year at Stockton......the university is expanding rapdily and it is great to be a part of that! 9867d957-c565-e811-80c3-000d3a12fa8b
-[corpus] users=30 mean_posts=30.1 mean_chars=4746
-  sample UserId=10101246572396157 -id n_posts=32
-  snippet: [post] Just submitted a grant I have been working on since October........time to celebrate by staring at my office wall for 5 minutes before I need to start working on one of the next 20 things that need my immediate attention........academia is a blast! [post] [image] The image is a photo of a man and a child. The man is wearing sunglasses and has a headband on. The child is wearing a green and white patterned scarf and a green headband. The man is holding the child close to him. The child is ...
-[represent:qwen3_0_6b] all 30 users cached
-[represent:smollm2_360m] all 30 users cached
-[represent] qwen3_0_6b: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/qwen3_0_6b
-[represent] smollm2_360m: 30 user files in /home/student/nlp_proj_v2/artifacts/standard/reps/smollm2_360m
-[train] loading blocks for 30 users ...
-[train] stm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 0: test AUC=1.000 PR-AUC=1.000 F1=0.500 d=6.722
-[train] stm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 1: test AUC=0.600 PR-AUC=0.333 F1=0.000 d=0.358
-[train] stm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 2: test AUC=0.800 PR-AUC=0.500 F1=0.000 d=1.190
-[train] stm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 3: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
-[train] stm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] stm_high fold 4: test AUC=0.800 PR-AUC=0.500 F1=0.667 d=1.190
-[train] mtm_high fold 0: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 0: test AUC=0.400 PR-AUC=0.250 F1=0.000 d=-0.358
-[train] mtm_high fold 1: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 1: test AUC=0.000 PR-AUC=0.167 F1=0.000 d=-6.722
-[train] mtm_high fold 2: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 2: test AUC=0.200 PR-AUC=0.200 F1=0.000 d=-1.190
-[train] mtm_high fold 3: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 3: test AUC=1.000 PR-AUC=1.000 F1=1.000 d=6.722
-[train] mtm_high fold 4: grid size 32, train=19 dev=5 test=6 in_dim=1024 k_block=18
-[train] mtm_high fold 4: test AUC=0.200 PR-AUC=0.200 F1=0.000 d=-1.190
-
-=== SUMMARY ===
-  stm_high: AUC=0.640 [0.303, 0.977]  PR=0.500  F1=0.233  d=0.548
-  mtm_high: AUC=0.360 [0.023, 0.697]  PR=0.363  F1=0.200  d=-0.548
-===== COMPARE =====
-{
-  "original": {
-    "text_only": {
-      "stm_high": {
-        "auc_mean": 0.55,
-        "auc_ci95": [
-          0.14593564868946923,
-          0.9540643513105309
-        ],
-        "auc_values": [
-          1.0,
-          0.8,
-          0.19999999999999996,
-          0.19999999999999996
-        ],
-        "pr_mean": 0.475,
-        "f1_mean": 0.26666666666666666,
-        "d_mean": 1.3830312405857725
-      },
-      "mtm_high": {
-        "auc_mean": 0.7375,
-        "auc_ci95": [
-          0.5525290563358667,
-          0.9224709436641334
-        ],
-        "auc_values": [
-          0.75,
-          1.0,
-          0.6,
-          0.6
-        ],
-        "pr_mean": 0.6041666666666667,
-        "f1_mean": 0.08,
-        "d_mean": 2.098200874034297
-      }
-    },
-    "standard": {
-      "stm_high": {
-        "auc_mean": 0.4125,
-        "auc_ci95": [
-          -0.0040000000000000036,
-          0.829
-        ],
-        "auc_values": [
-          0.25,
-          0.4,
-          1.0,
-          0.0
-        ],
-        "pr_mean": 0.4375,
-        "f1_mean": 0.2,
-        "d_mean": -0.32803986541493546
-      },
-      "mtm_high": {
-        "auc_mean": 0.2875,
-        "auc_ci95": [
-          0.046202983855995444,
-          0.5287970161440045
-        ],
-        "auc_values": [
-          0.25,
-          0.6,
-          0.0,
-          0.3
-        ],
-        "pr_mean": 0.25625,
-        "f1_mean": 0.08,
-        "d_mean": -2.014889271401193
-      }
-    }
-  },
-  "new_prompts": {
-    "text_only": {
-      "stm_high": {
-        "auc_mean": 0.52,
-        "auc_ci95": [
-          0.1564741549765684,
-          0.8835258450234316
-        ],
-        "auc_values": [
-          0.6,
-          0.0,
-          0.19999999999999996,
-          0.8,
-          1.0
-        ],
-        "pr_mean": 0.44000000000000006,
-        "f1_mean": 0.2333333333333333,
-        "d_mean": 0.07165738184687313
-      },
-      "mtm_high": {
-        "auc_mean": 0.52,
-        "auc_ci95": [
-          0.20153769453827036,
-          0.8384623054617297
-        ],
-        "auc_values": [
-          0.6,
-          0.4,
-          0.6,
-          0.0,
-          1.0
-        ],
-        "pr_mean": 0.41666666666666663,
-        "f1_mean": 0.21333333333333332,
-        "d_mean": 0.07165738184687295
-      }
-    },
-    "standard": {
-      "stm_high": {
-        "auc_mean": 0.64,
-        "auc_ci95": [
-          0.3027888495319291,
-          0.9772111504680709
-        ],
-        "auc_values": [
-          1.0,
-          0.6,
-          0.8,
-          0.0,
-          0.8
-        ],
-        "pr_mean": 0.5,
-        "f1_mean": 0.2333333333333333,
-        "d_mean": 0.547750247006869
-      },
-      "mtm_high": {
-        "auc_mean": 0.36,
-        "auc_ci95": [
-          0.022788849531929056,
-          0.6972111504680709
-        ],
-        "auc_values": [
-          0.4,
-          0.0,
-          0.19999999999999996,
-          1.0,
-          0.19999999999999996
-        ],
-        "pr_mean": 0.36333333333333334,
-        "f1_mean": 0.2,
-        "d_mean": -0.5477502470101562
-      }
-    }
-  }
-}
-wrote reports/prompt_rerun_comparison.md
-===== DONE 2026-08-01T17:19:15+03:00 =====

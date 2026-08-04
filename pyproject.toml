@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ssr"
-version = "0.1.0"
+version = "0.2.0"
 description = "Suicide-risk representations from LLM hidden states (STM/MTM)"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,10 +16,17 @@ dependencies = [
   "scikit-learn",
   "scipy",
   "torch",
-  "transformers",
+  "transformers>=4.45",
   "accelerate",
   "Pillow",
   "tqdm",
+  "bitsandbytes>=0.43.0",
+]
+
+[project.optional-dependencies]
+h100 = [
+  "bitsandbytes>=0.43.0",
+  "flash-attn>=2.5.0",
 ]
 
 [project.scripts]
