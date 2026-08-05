@@ -50,11 +50,41 @@ The CLI prints `[preflight] WARNING` if posts/corpora look POC-contaminated.
 
 ### Large-model loading
 
-Real configs set `device_map: auto`, `dtype: bfloat16`, `attn_implementation: sdpa`.
-Unknown dtypes (e.g. `float8_e4m3fn`) raise instead of silently falling back to float32.
+`dtype: bfloat16`, `attn_implementation: sdpa`. Unknown dtypes (e.g. `float8_e4m3fn`)
+raise instead of silently falling back to float32.
+
+**Do not use `device_map: auto` on the Blackwell node.** Sharding a model across the
+four RTX PRO 6000 cards produced numerically corrupt activations (NaN/Inf blocks and
+degenerate generations such as endless `.`) for both Llama-3.3-70B and Qwen3-32B.
+`configs/real_full.yaml` therefore pins one model per GPU (`device: cuda:0`,
+`device_map: null`) and runs Llama-3.3-70B with `load_in_8bit: true`, since it does not
+fit a single 98 GB card in bf16.
 
 Thinking models (Qwen3 / DeepSeek-R1) use `max_new_tokens: 512`; others 256.
-Context window is `131072` (no artificial 4096 clamp beyond config).
+`max_context: 32768` — longer corpora are split on `[post]` boundaries and averaged.
+
+### Full-cohort run (1003 users, 4 LLMs)
+
+```bash
+# captions: batched + one shard per GPU (~6x the serial captioner)
+for i in 0 1 2 3; do CUDA_VISIBLE_DEVICES=$i python scripts/caption_shard.py \
+    --config configs/real_full.yaml --shard $i --num-shards 4 --batch-size 48 & done
+bash scripts/run_full_pipeline.sh   # merge -> corpus -> represent -> train -> report
+```
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/caption_shard.py` | Batched VLM captioning, resumable, one shard per GPU |
+| `scripts/merge_caption_shards.py` | Folds shards into the model-scoped caption cache |
+| `scripts/run_full_pipeline.sh` | Drives all remaining stages, rebalances GPUs |
+| `scripts/train_parallel.py` | 504-point grid x 5 folds x 2 variants across GPUs+CPUs |
+| `scripts/make_report.py` | Writes `reports/{experiment}/final_report.md` |
+| `scripts/validate_taps.py` | Proves hook-based extraction matches the old code bit-for-bit |
+
+Representation extraction taps hidden states with forward hooks
+(`ssr.represent.extract._LayerTaps`) instead of `output_hidden_states=True`; the latter
+materializes every layer for the whole prompt (tens of GB at full corpus length) and
+needed two prefills per chunk.
 
 ## Stages
 

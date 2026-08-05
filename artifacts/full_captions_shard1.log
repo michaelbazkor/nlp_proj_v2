@@ -1,0 +1,94 @@
+[shard 1] total_keys=301324 mine=75331 cached=9 todo=75322
+[shard 1] loading Qwen/Qwen2.5-VL-7B-Instruct ...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:   0%|          | 1/729 [00:00<01:47,  6.80it/s]Loading weights:   0%|          | 2/729 [00:00<01:41,  7.14it/s]Loading weights:   1%|          | 6/729 [00:00<00:40, 17.79it/s]Loading weights:   4%|▎         | 27/729 [00:00<00:09, 75.58it/s]Loading weights:   7%|▋         | 48/729 [00:00<00:08, 80.79it/s]Loading weights:  11%|█         | 78/729 [00:00<00:05, 123.15it/s]Loading weights:  14%|█▍        | 101/729 [00:01<00:04, 143.95it/s]Loading weights:  16%|█▌        | 117/729 [00:01<00:04, 142.59it/s]Loading weights:  19%|█▉        | 139/729 [00:01<00:04, 145.56it/s]Loading weights:  24%|██▍       | 174/729 [00:01<00:02, 189.35it/s]Loading weights:  27%|██▋       | 194/729 [00:01<00:03, 175.03it/s]Loading weights:  30%|███       | 220/729 [00:01<00:02, 182.35it/s]Loading weights:  33%|███▎      | 244/729 [00:01<00:02, 195.95it/s]Loading weights:  36%|███▋      | 265/729 [00:01<00:02, 197.99it/s]Loading weights:  39%|███▉      | 286/729 [00:01<00:02, 185.34it/s]Loading weights:  42%|████▏     | 305/729 [00:02<00:02, 168.67it/s]Loading weights:  44%|████▍     | 324/729 [00:02<00:02, 155.66it/s]Loading weights:  67%|██████▋   | 487/729 [00:02<00:00, 502.37it/s]Loading weights:  96%|█████████▌| 701/729 [00:02<00:00, 912.87it/s]Loading weights: 100%|██████████| 729/729 [00:02<00:00, 289.70it/s]
+[shard 1] 480/75322 (0.6%) 5.20 img/s ETA 4.00h missing=273
+[shard 1] 960/75322 (1.3%) 5.24 img/s ETA 3.94h missing=732
+[shard 1] 1440/75322 (1.9%) 5.23 img/s ETA 3.92h missing=902
+[shard 1] 1920/75322 (2.5%) 5.25 img/s ETA 3.89h missing=1058
+[shard 1] 2400/75322 (3.2%) 5.27 img/s ETA 3.85h missing=1281
+[shard 1] 2880/75322 (3.8%) 5.27 img/s ETA 3.82h missing=1666
+[shard 1] 3360/75322 (4.5%) 5.29 img/s ETA 3.78h missing=2159
+[shard 1] 3840/75322 (5.1%) 5.29 img/s ETA 3.76h missing=2372
+[shard 1] 4320/75322 (5.7%) 5.29 img/s ETA 3.73h missing=2770
+[shard 1] 4800/75322 (6.4%) 5.30 img/s ETA 3.70h missing=3044
+[shard 1] 5280/75322 (7.0%) 5.30 img/s ETA 3.67h missing=3601
+[shard 1] 5760/75322 (7.6%) 5.31 img/s ETA 3.64h missing=3951
+[shard 1] 6240/75322 (8.3%) 5.31 img/s ETA 3.61h missing=4508
+[shard 1] 6720/75322 (8.9%) 5.31 img/s ETA 3.59h missing=4962
+[shard 1] 7200/75322 (9.6%) 5.32 img/s ETA 3.56h missing=5267
+[shard 1] 7680/75322 (10.2%) 5.32 img/s ETA 3.53h missing=5722
+[transformers] The channel dimension is ambiguous. Got image shape torch.Size([3, 1, 1]). Assuming channels are the first dimension. Use the [input_data_format](https://huggingface.co/docs/transformers/main/internal/image_processing_utils#transformers.image_transforms.rescale.input_data_format) parameter to assign the channel dimension.
+[shard 1] 8160/75322 (10.8%) 5.32 img/s ETA 3.51h missing=6134
+[shard 1] 8640/75322 (11.5%) 5.32 img/s ETA 3.48h missing=6401
+[shard 1] 9120/75322 (12.1%) 5.32 img/s ETA 3.46h missing=6975
+[shard 1] 9600/75322 (12.7%) 5.32 img/s ETA 3.43h missing=7195
+[shard 1] 10080/75322 (13.4%) 5.32 img/s ETA 3.40h missing=7666
+[shard 1] 10560/75322 (14.0%) 5.32 img/s ETA 3.38h missing=8208
+[shard 1] 11040/75322 (14.7%) 5.32 img/s ETA 3.35h missing=8698
+[shard 1] 11520/75322 (15.3%) 5.32 img/s ETA 3.33h missing=8952
+[shard 1] 12000/75322 (15.9%) 5.32 img/s ETA 3.30h missing=9375
+[shard 1] 12480/75322 (16.6%) 5.32 img/s ETA 3.28h missing=9896
+[shard 1] 12960/75322 (17.2%) 5.33 img/s ETA 3.25h missing=10348
+[shard 1] 13440/75322 (17.8%) 5.32 img/s ETA 3.23h missing=10530
+[shard 1] 13920/75322 (18.5%) 5.33 img/s ETA 3.20h missing=10823
+[shard 1] 14400/75322 (19.1%) 5.33 img/s ETA 3.18h missing=11371
+[shard 1] 14880/75322 (19.8%) 5.33 img/s ETA 3.15h missing=11878
+[shard 1] 15360/75322 (20.4%) 5.33 img/s ETA 3.13h missing=12476
+[shard 1] 15840/75322 (21.0%) 5.33 img/s ETA 3.10h missing=13285
+[shard 1] 16320/75322 (21.7%) 5.33 img/s ETA 3.08h missing=13600
+[shard 1] 16800/75322 (22.3%) 5.33 img/s ETA 3.05h missing=14231
+[shard 1] 17280/75322 (22.9%) 5.32 img/s ETA 3.03h missing=14665
+[shard 1] 17760/75322 (23.6%) 5.32 img/s ETA 3.00h missing=15033
+[shard 1] 18240/75322 (24.2%) 5.32 img/s ETA 2.98h missing=15434
+[transformers] The channel dimension is ambiguous. Got image shape torch.Size([3, 1, 1]). Assuming channels are the first dimension. Use the [input_data_format](https://huggingface.co/docs/transformers/main/internal/image_processing_utils#transformers.image_transforms.rescale.input_data_format) parameter to assign the channel dimension.
+[shard 1] 18720/75322 (24.9%) 5.32 img/s ETA 2.95h missing=16154
+[shard 1] 19200/75322 (25.5%) 5.32 img/s ETA 2.93h missing=16449
+[shard 1] 19680/75322 (26.1%) 5.32 img/s ETA 2.90h missing=16651
+[shard 1] 20160/75322 (26.8%) 5.32 img/s ETA 2.88h missing=16881
+[shard 1] 20640/75322 (27.4%) 5.32 img/s ETA 2.86h missing=17246
+[shard 1] 21120/75322 (28.0%) 5.32 img/s ETA 2.83h missing=17574
+[shard 1] 21600/75322 (28.7%) 5.32 img/s ETA 2.81h missing=18077
+[transformers] The channel dimension is ambiguous. Got image shape torch.Size([3, 1, 1]). Assuming channels are the first dimension. Use the [input_data_format](https://huggingface.co/docs/transformers/main/internal/image_processing_utils#transformers.image_transforms.rescale.input_data_format) parameter to assign the channel dimension.
+[shard 1] 22080/75322 (29.3%) 5.32 img/s ETA 2.78h missing=18209
+[shard 1] 22560/75322 (30.0%) 5.31 img/s ETA 2.76h missing=18729
+[shard 1] 23040/75322 (30.6%) 5.31 img/s ETA 2.73h missing=19021
+[shard 1] 23520/75322 (31.2%) 5.31 img/s ETA 2.71h missing=19256
+[shard 1] 24000/75322 (31.9%) 5.31 img/s ETA 2.68h missing=19745
+[shard 1] 24480/75322 (32.5%) 5.31 img/s ETA 2.66h missing=20327
+[shard 1] 24960/75322 (33.1%) 5.31 img/s ETA 2.63h missing=20725
+[shard 1] 25440/75322 (33.8%) 5.31 img/s ETA 2.61h missing=20932
+[shard 1] 25920/75322 (34.4%) 5.31 img/s ETA 2.58h missing=21275
+[shard 1] 26400/75322 (35.0%) 5.31 img/s ETA 2.56h missing=21577
+[shard 1] 26880/75322 (35.7%) 5.31 img/s ETA 2.54h missing=22134
+[shard 1] 27360/75322 (36.3%) 5.30 img/s ETA 2.51h missing=22402
+[shard 1] 27840/75322 (37.0%) 5.30 img/s ETA 2.49h missing=22664
+[shard 1] 28320/75322 (37.6%) 5.30 img/s ETA 2.46h missing=23207
+[shard 1] 28800/75322 (38.2%) 5.30 img/s ETA 2.44h missing=23732
+[shard 1] 29280/75322 (38.9%) 5.30 img/s ETA 2.41h missing=24398
+[shard 1] 29760/75322 (39.5%) 5.30 img/s ETA 2.39h missing=24460
+[shard 1] 30240/75322 (40.1%) 5.30 img/s ETA 2.36h missing=24708
+[shard 1] 30720/75322 (40.8%) 5.30 img/s ETA 2.34h missing=25111
+[shard 1] 31200/75322 (41.4%) 5.30 img/s ETA 2.31h missing=25493
+[shard 1] 31680/75322 (42.1%) 5.29 img/s ETA 2.29h missing=25709
+[shard 1] 32160/75322 (42.7%) 5.29 img/s ETA 2.26h missing=26229
+[shard 1] 32640/75322 (43.3%) 5.29 img/s ETA 2.24h missing=26816
+[shard 1] 33120/75322 (44.0%) 5.29 img/s ETA 2.22h missing=27188
+[shard 1] 33600/75322 (44.6%) 5.29 img/s ETA 2.19h missing=27561
+[shard 1] 34080/75322 (45.2%) 5.29 img/s ETA 2.17h missing=27980
+[shard 1] 34560/75322 (45.9%) 5.29 img/s ETA 2.14h missing=28527
+[shard 1] 35040/75322 (46.5%) 5.29 img/s ETA 2.12h missing=29221
+[shard 1] 35520/75322 (47.2%) 5.29 img/s ETA 2.09h missing=29384
+[shard 1] 36000/75322 (47.8%) 5.29 img/s ETA 2.07h missing=29704
+[shard 1] 36480/75322 (48.4%) 5.29 img/s ETA 2.04h missing=30242
+[shard 1] 36960/75322 (49.1%) 5.29 img/s ETA 2.02h missing=31105
+[shard 1] 37440/75322 (49.7%) 5.28 img/s ETA 1.99h missing=31502
+[shard 1] 37920/75322 (50.3%) 5.28 img/s ETA 1.97h missing=31839
+[transformers] The channel dimension is ambiguous. Got image shape torch.Size([3, 1, 1]). Assuming channels are the first dimension. Use the [input_data_format](https://huggingface.co/docs/transformers/main/internal/image_processing_utils#transformers.image_transforms.rescale.input_data_format) parameter to assign the channel dimension.
+[shard 1] 38400/75322 (51.0%) 5.28 img/s ETA 1.94h missing=32057
+[shard 1] 38880/75322 (51.6%) 5.28 img/s ETA 1.92h missing=32391
+[shard 1] 39360/75322 (52.3%) 5.28 img/s ETA 1.89h missing=33029
+[shard 1] 39840/75322 (52.9%) 5.28 img/s ETA 1.87h missing=33456
+[shard 1] 40320/75322 (53.5%) 5.28 img/s ETA 1.84h missing=33694
+[shard 1] 40800/75322 (54.2%) 5.28 img/s ETA 1.81h missing=33985
+[shard 1] DONE captioned=41137 missing_in_zip=34185 elapsed=2.16h rate=5.28 img/s -> /data/home/b.michael/nlp_proj_v2/artifacts/captions/Qwen__Qwen2.5-VL-7B-Instruct/shards/shard_01.parquet

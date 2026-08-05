@@ -1,0 +1,7 @@
+  shard_00.parquet: 41301 captions
+  shard_01.parquet: 41146 captions
+  shard_02.parquet: 41400 captions
+  shard_03.parquet: 41212 captions
+  shard_05.parquet: 179 captions
+merged -> /data/home/b.michael/nlp_proj_v2/artifacts/captions/Qwen__Qwen2.5-VL-7B-Instruct/captions.parquet
+  captions=165059 mean_chars=569 p10=468 p90=649

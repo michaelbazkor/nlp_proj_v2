@@ -1,0 +1,22 @@
+{
+  "model": "deepseek_r1_distill_qwen_32b",
+  "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+  "n_layers": 64,
+  "layer_idxs": [
+    20,
+    40,
+    60,
+    64
+  ],
+  "positions": [
+    "input_only",
+    "last_prompt",
+    "cot",
+    "final_pred"
+  ],
+  "hidden_size": 5120,
+  "dtype": "bfloat16",
+  "device_map": null,
+  "max_context": 32768,
+  "max_new_tokens": 512
+}

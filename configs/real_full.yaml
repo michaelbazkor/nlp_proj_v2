@@ -1,0 +1,157 @@
+# Full-cohort run (1003 users, text + image captions, all 4 LLMs, STM/MTM training).
+# Device settings reflect the n5 diagnosis: device_map=auto produces numerically
+# corrupt activations on this Blackwell node, so every LLM is loaded on a single GPU
+# (one model per GPU, four processes in parallel). Llama-70B does not fit a single
+# 98 GB card in bf16, so it runs 8-bit quantized.
+
+seed: 42
+experiment: full
+
+paths:
+  root: .
+  user_csv: material/user_data (1).csv
+  posts_csv: material/facebook_data.csv
+  pics_zip: material/pics.zip
+  artifacts: artifacts
+  reports: reports
+
+cohort:
+  min_status_posts: 10
+  groups: [0, 1]
+  n_users: null                 # full labeled cohort (~1003)
+  stratify_on: y_high
+
+posts:
+  include_post_description: false
+  include_attachment_title: false
+  require_text_or_image: true
+  max_posts_per_user: null      # no per-user post cap
+  shuffle_seed: 42
+
+images:
+  max_images_per_user: null     # no per-user image cap
+  caption_model: Qwen/Qwen2.5-VL-7B-Instruct
+  caption_prompt: >
+    You are analyzing a social media image for an academic mental health research dataset.
+    Provide a clear, objective, and detailed description of the image in 2-4 sentences.
+
+    Your description should cover:
+    - Main Content: Objects, scene/environment, people present and actions.
+    - Mood & Atmosphere: The visual tone, lighting, and overall aesthetic (e.g., somber/isolated, bright/festive, dark, chaotic).
+    - Text in Image: Transcribe any visible text, quotes, or meme text verbatim (you can exceed the 2-4 sentence limit if necessary).
+
+    Do not invent details that are not visible, focus on what is visually present.
+    Do not make clinical diagnoses, maintain objective tone.
+  max_new_tokens: 128
+  batch_size: 16
+  device: cuda
+  dtype: bfloat16
+
+corpus:
+  include_images: true
+  include_subject_details: false
+  post_marker: "[post]"
+  image_marker: "[image]"
+  subject_marker: "[subject details]"
+
+represent:
+  models:
+    - name: qwen3_32b
+      hf_id: Qwen/Qwen3-32B
+      max_context: 32768
+      layer_taps: null
+      layer_stride: 20
+      dtype: bfloat16
+      device: cuda:0
+      device_map: null
+      attn_implementation: sdpa
+      enable_thinking: true
+      max_new_tokens: 512
+    - name: deepseek_r1_distill_qwen_32b
+      hf_id: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+      max_context: 32768
+      layer_taps: null
+      layer_stride: 20
+      dtype: bfloat16
+      device: cuda:0
+      device_map: null
+      attn_implementation: sdpa
+      enable_thinking: true
+      max_new_tokens: 512
+    - name: gemma4_26b_moe
+      hf_id: google/gemma-4-26B-A4B-it
+      max_context: 32768
+      layer_taps: null
+      layer_stride: 20
+      dtype: bfloat16
+      device: cuda:0
+      device_map: null
+      attn_implementation: sdpa
+      enable_thinking: false
+      max_new_tokens: 256
+    - name: llama_3_3_70b
+      hf_id: meta-llama/Llama-3.3-70B-Instruct
+      max_context: 32768
+      layer_taps: null
+      layer_stride: 20
+      dtype: bfloat16
+      device: cuda:0
+      device_map: null
+      load_in_8bit: true
+      attn_implementation: sdpa
+      enable_thinking: false
+      max_new_tokens: 256
+  positions: [input_only, last_prompt, cot, final_pred]
+  # Posts are substituted at [insert posts here] by build_user_prompt
+  task_prompt: |
+    You are an expert supervisor evaluating suicide-risk signals in social media language.
+    Input: a collection of Facebook posts authored by a single user. (order is arbitrary)
+    Asses if language indicates an evolving trajectory of suicidal ideation.
+
+    Suicidal ideation often manifests as severe social isolation, thwarted belongingness, or perceiving oneself as a burden to others. 
+    Look for expressions of intense emotional pain, inescapable entrapment, or severe hopelessness regarding the future.
+    Pay close attention to explicit or implicit references to death, self-harm, or escalating mental health distress.
+    Remember that majority of users do not have suicidal ideation, do not overinterpret posts that are not overtly suicidal.
+    
+    User posts:
+    [insert posts here]
+    
+    Format your answer exactly as:
+    Rationale: <2-3 sentences>
+    Prediction: RISK=<1 for elevated risk, 0 for low risk>
+  target_dim: 1024
+
+fusion:
+  method: per_block_pca
+  target_dim: 1024
+
+train:
+  n_folds: 5
+  train_frac: 0.70
+  dev_frac: 0.15
+  test_frac: 0.15
+  batch_size: 32
+  optimizer: rmsprop
+  momentum: 0.9
+  grid:
+    n_layers: [1, 2, 3]
+    n_neurons: [16, 32, 64, 128, 256, 512, 1024]
+    activation: [tanh, sigmoid]
+    lr: [0.001, 0.005, 0.01, 0.05]
+    epochs: [1000, 2500, 5000]
+  early_stop_patience: 200
+  variants:
+    - {model: stm, target: high}
+    - {model: mtm, target: high}
+  aux_targets:
+    - PHQ9
+    - GAD
+    - Brooding
+    - Worry
+    - SWL
+    - Lonely
+    - BFI_O
+    - BFI_C
+    - BFI_E
+    - BFI_A
+    - BFI_N

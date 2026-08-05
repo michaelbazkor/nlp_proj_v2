@@ -1,0 +1,8 @@
+{
+  "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "n_cached": 165059,
+  "n_requested": 165059,
+  "n_new": 165059,
+  "zip_ready": true,
+  "source": "scripts/caption_shard.py (batched, 4-GPU sharded)"
+}

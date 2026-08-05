@@ -1,0 +1,57 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['qwen3_32b']
+[represent:qwen3_32b] user shard 0/2: 340 users
+[represent:qwen3_32b] loading Qwen/Qwen3-32B on cuda:0 dtype=bfloat16 device_map=None 8bit=False 4bit=False (340 users) ...
+Loading weights:   0%|          | 0/707 [00:00<?, ?it/s]Loading weights: 100%|██████████| 707/707 [00:00<00:00, 7838.66it/s]
+[represent:qwen3_32b] n_layers=64 tapping=[20, 40, 60, 64] input_device=cuda:0
+[represent:qwen3_32b] 10/340 users (2.9%) 74.3 s/user ETA 6.81h peak_gpu=71.6GiB
+[represent:qwen3_32b] 20/340 users (5.9%) 64.3 s/user ETA 5.72h peak_gpu=71.6GiB
+[represent:qwen3_32b] 30/340 users (8.8%) 59.5 s/user ETA 5.12h peak_gpu=71.6GiB
+[represent:qwen3_32b] 40/340 users (11.8%) 59.9 s/user ETA 5.00h peak_gpu=71.6GiB
+[represent:qwen3_32b] 50/340 users (14.7%) 55.6 s/user ETA 4.48h peak_gpu=71.6GiB
+[represent:qwen3_32b] 60/340 users (17.6%) 54.8 s/user ETA 4.26h peak_gpu=71.6GiB
+[represent:qwen3_32b] 70/340 users (20.6%) 55.5 s/user ETA 4.16h peak_gpu=71.6GiB
+[represent:qwen3_32b] 80/340 users (23.5%) 53.9 s/user ETA 3.89h peak_gpu=71.6GiB
+[represent:qwen3_32b] 90/340 users (26.5%) 54.1 s/user ETA 3.76h peak_gpu=71.6GiB
+[represent:qwen3_32b] 100/340 users (29.4%) 53.5 s/user ETA 3.57h peak_gpu=71.6GiB
+[represent:qwen3_32b] 110/340 users (32.4%) 52.8 s/user ETA 3.37h peak_gpu=71.6GiB
+[represent:qwen3_32b] 120/340 users (35.3%) 52.7 s/user ETA 3.22h peak_gpu=71.6GiB
+[represent:qwen3_32b] 130/340 users (38.2%) 55.1 s/user ETA 3.21h peak_gpu=71.6GiB
+[represent:qwen3_32b] 140/340 users (41.2%) 54.2 s/user ETA 3.01h peak_gpu=71.6GiB
+[represent:qwen3_32b] 150/340 users (44.1%) 55.4 s/user ETA 2.92h peak_gpu=71.6GiB
+[represent:qwen3_32b] 160/340 users (47.1%) 55.2 s/user ETA 2.76h peak_gpu=71.6GiB
+[represent:qwen3_32b] 170/340 users (50.0%) 53.8 s/user ETA 2.54h peak_gpu=71.6GiB
+[represent:qwen3_32b] 180/340 users (52.9%) 53.7 s/user ETA 2.39h peak_gpu=71.6GiB
+[represent:qwen3_32b] 190/340 users (55.9%) 53.5 s/user ETA 2.23h peak_gpu=74.4GiB
+[represent:qwen3_32b] 200/340 users (58.8%) 53.7 s/user ETA 2.09h peak_gpu=74.4GiB
+[represent:qwen3_32b] 210/340 users (61.8%) 53.2 s/user ETA 1.92h peak_gpu=74.4GiB
+[represent:qwen3_32b] 220/340 users (64.7%) 52.9 s/user ETA 1.76h peak_gpu=74.4GiB
+[represent:qwen3_32b] 230/340 users (67.6%) 52.7 s/user ETA 1.61h peak_gpu=74.4GiB
+[represent:qwen3_32b] 240/340 users (70.6%) 53.7 s/user ETA 1.49h peak_gpu=74.4GiB
+[represent:qwen3_32b] 250/340 users (73.5%) 53.9 s/user ETA 1.35h peak_gpu=74.4GiB
+[represent:qwen3_32b] 260/340 users (76.5%) 53.9 s/user ETA 1.20h peak_gpu=74.4GiB
+[represent:qwen3_32b] 270/340 users (79.4%) 53.0 s/user ETA 1.03h peak_gpu=74.4GiB
+[represent:qwen3_32b] 280/340 users (82.4%) 54.5 s/user ETA 0.91h peak_gpu=74.4GiB
+[represent:qwen3_32b] 290/340 users (85.3%) 53.9 s/user ETA 0.75h peak_gpu=74.4GiB
+[represent:qwen3_32b] 300/340 users (88.2%) 54.3 s/user ETA 0.60h peak_gpu=74.4GiB
+[represent:qwen3_32b] 310/340 users (91.2%) 54.4 s/user ETA 0.45h peak_gpu=74.4GiB
+[represent:qwen3_32b] 320/340 users (94.1%) 55.2 s/user ETA 0.31h peak_gpu=74.4GiB
+[represent:qwen3_32b] 330/340 users (97.1%) 55.0 s/user ETA 0.15h peak_gpu=74.4GiB
+[represent:qwen3_32b] 340/340 users (100.0%) 54.2 s/user ETA 0.00h peak_gpu=74.4GiB
+[represent] qwen3_32b: 1003 user files in /data/home/b.michael/nlp_proj_v2/artifacts/full/reps/qwen3_32b

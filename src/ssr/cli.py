@@ -117,7 +117,7 @@ def cmd_corpus(cfg, cohort, posts, captions, *, force: bool = False):
 def cmd_represent(cfg, corpora, *, force: bool = False):
     from ssr.represent.extract import run_representations
 
-    roots = run_nxt(cfg, corpora, force=force)
+    roots = run_representations(cfg, corpora, force=force)
     for name, root in roots.items():
         n = len(list(root.glob("*.npz")))
         print(f"[represent] {name}: {n} user files in {root}")

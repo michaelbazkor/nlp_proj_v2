@@ -1,0 +1,22 @@
+{
+  "model": "qwen3_32b",
+  "hf_id": "Qwen/Qwen3-32B",
+  "n_layers": 64,
+  "layer_idxs": [
+    20,
+    40,
+    60,
+    64
+  ],
+  "positions": [
+    "input_only",
+    "last_prompt",
+    "cot",
+    "final_pred"
+  ],
+  "hidden_size": 5120,
+  "dtype": "bfloat16",
+  "device_map": null,
+  "max_context": 32768,
+  "max_new_tokens": 512
+}

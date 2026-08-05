@@ -1,0 +1,153 @@
+[train] rep roots: ['qwen3_32b', 'deepseek_r1_distill_qwen_32b', 'gemma4_26b_moe', 'llama_3_3_70b']
+[train] loaded blocks 200/1003
+[train] loaded blocks 400/1003
+[train] loaded blocks 600/1003
+[train] loaded blocks 800/1003
+[train] loaded blocks 1000/1003
+[train] 1003 users x 56 blocks in 8s | workers=48 gpus=[0, 1, 2, 3]
+[train] stm_high fold 0: fusion 13s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] stm_high fold 0: 50/504 (91s, 1.8s/cfg, ETA 13.8m) best_dev_auc=0.829
+[train] stm_high fold 0: 100/504 (91s, 0.9s/cfg, ETA 6.1m) best_dev_auc=0.829
+[train] stm_high fold 0: 150/504 (91s, 0.6s/cfg, ETA 3.6m) best_dev_auc=0.829
+[train] stm_high fold 0: 200/504 (91s, 0.5s/cfg, ETA 2.3m) best_dev_auc=0.829
+[train] stm_high fold 0: 250/504 (96s, 0.4s/cfg, ETA 1.6m) best_dev_auc=0.829
+[train] stm_high fold 0: 300/504 (102s, 0.3s/cfg, ETA 1.2m) best_dev_auc=0.843
+[train] stm_high fold 0: 350/504 (111s, 0.3s/cfg, ETA 0.8m) best_dev_auc=0.843
+[train] stm_high fold 0: 400/504 (121s, 0.3s/cfg, ETA 0.5m) best_dev_auc=0.843
+[train] stm_high fold 0: 450/504 (127s, 0.3s/cfg, ETA 0.3m) best_dev_auc=0.843
+[train] stm_high fold 0: 500/504 (139s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.843
+[train] stm_high fold 0: 504/504 (159s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.843
+[train] stm_high fold 0 DONE test AUC=0.596 PR=0.193 F1=0.122 d=0.342 params={'n_layers': 2, 'n_neurons': 256, 'activation': 'tanh', 'lr': 0.005, 'epochs': 2500} (2.9m)
+[train] stm_high fold 1: fusion 14s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] stm_high fold 1: 50/504 (90s, 1.8s/cfg, ETA 13.6m) best_dev_auc=0.888
+[train] stm_high fold 1: 100/504 (90s, 0.9s/cfg, ETA 6.1m) best_dev_auc=0.888
+[train] stm_high fold 1: 150/504 (90s, 0.6s/cfg, ETA 3.5m) best_dev_auc=0.888
+[train] stm_high fold 1: 200/504 (90s, 0.5s/cfg, ETA 2.3m) best_dev_auc=0.888
+[train] stm_high fold 1: 250/504 (95s, 0.4s/cfg, ETA 1.6m) best_dev_auc=0.888
+[train] stm_high fold 1: 300/504 (100s, 0.3s/cfg, ETA 1.1m) best_dev_auc=0.888
+[train] stm_high fold 1: 350/504 (109s, 0.3s/cfg, ETA 0.8m) best_dev_auc=0.888
+[train] stm_high fold 1: 400/504 (120s, 0.3s/cfg, ETA 0.5m) best_dev_auc=0.888
+[train] stm_high fold 1: 450/504 (126s, 0.3s/cfg, ETA 0.3m) best_dev_auc=0.888
+[train] stm_high fold 1: 500/504 (139s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.888
+[train] stm_high fold 1: 504/504 (164s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.888
+[train] stm_high fold 1 DONE test AUC=0.642 PR=0.269 F1=0.150 d=0.515 params={'n_layers': 1, 'n_neurons': 128, 'activation': 'tanh', 'lr': 0.001, 'epochs': 2500} (2.9m)
+[train] stm_high fold 2: fusion 14s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] stm_high fold 2: 50/504 (89s, 1.8s/cfg, ETA 13.5m) best_dev_auc=0.860
+[train] stm_high fold 2: 100/504 (89s, 0.9s/cfg, ETA 6.0m) best_dev_auc=0.860
+[train] stm_high fold 2: 150/504 (89s, 0.6s/cfg, ETA 3.5m) best_dev_auc=0.860
+[train] stm_high fold 2: 200/504 (89s, 0.4s/cfg, ETA 2.3m) best_dev_auc=0.860
+[train] stm_high fold 2: 250/504 (91s, 0.4s/cfg, ETA 1.5m) best_dev_auc=0.860
+[train] stm_high fold 2: 300/504 (95s, 0.3s/cfg, ETA 1.1m) best_dev_auc=0.860
+[train] stm_high fold 2: 350/504 (105s, 0.3s/cfg, ETA 0.8m) best_dev_auc=0.862
+[train] stm_high fold 2: 400/504 (113s, 0.3s/cfg, ETA 0.5m) best_dev_auc=0.862
+[train] stm_high fold 2: 450/504 (119s, 0.3s/cfg, ETA 0.2m) best_dev_auc=0.862
+[train] stm_high fold 2: 500/504 (125s, 0.2s/cfg, ETA 0.0m) best_dev_auc=0.862
+[train] stm_high fold 2: 504/504 (145s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.862
+[train] stm_high fold 2 DONE test AUC=0.651 PR=0.241 F1=0.171 d=0.547 params={'n_layers': 1, 'n_neurons': 16, 'activation': 'tanh', 'lr': 0.05, 'epochs': 2500} (2.6m)
+[train] stm_high fold 3: fusion 14s in_dim=1024 k_block=18 train=661 dev=142 test=200 grid=504
+[train] stm_high fold 3: 50/504 (90s, 1.8s/cfg, ETA 13.6m) best_dev_auc=0.788
+[train] stm_high fold 3: 100/504 (90s, 0.9s/cfg, ETA 6.0m) best_dev_auc=0.805
+[train] stm_high fold 3: 150/504 (90s, 0.6s/cfg, ETA 3.5m) best_dev_auc=0.805
+[train] stm_high fold 3: 200/504 (90s, 0.4s/cfg, ETA 2.3m) best_dev_auc=0.805
+[train] stm_high fold 3: 250/504 (98s, 0.4s/cfg, ETA 1.7m) best_dev_auc=0.805
+[train] stm_high fold 3: 300/504 (104s, 0.3s/cfg, ETA 1.2m) best_dev_auc=0.805
+[train] stm_high fold 3: 350/504 (113s, 0.3s/cfg, ETA 0.8m) best_dev_auc=0.805
+[train] stm_high fold 3: 400/504 (124s, 0.3s/cfg, ETA 0.5m) best_dev_auc=0.819
+[train] stm_high fold 3: 450/504 (131s, 0.3s/cfg, ETA 0.3m) best_dev_auc=0.819
+[train] stm_high fold 3: 500/504 (140s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.819
+[train] stm_high fold 3: 504/504 (145s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.819
+[train] stm_high fold 3 DONE test AUC=0.648 PR=0.264 F1=0.357 d=0.538 params={'n_layers': 3, 'n_neurons': 512, 'activation': 'tanh', 'lr': 0.001, 'epochs': 1000} (2.7m)
+[train] stm_high fold 4: fusion 13s in_dim=1024 k_block=18 train=661 dev=142 test=200 grid=504
+[train] stm_high fold 4: 50/504 (89s, 1.8s/cfg, ETA 13.5m) best_dev_auc=0.782
+[train] stm_high fold 4: 100/504 (89s, 0.9s/cfg, ETA 6.0m) best_dev_auc=0.782
+[train] stm_high fold 4: 150/504 (89s, 0.6s/cfg, ETA 3.5m) best_dev_auc=0.800
+[train] stm_high fold 4: 200/504 (89s, 0.4s/cfg, ETA 2.3m) best_dev_auc=0.800
+[train] stm_high fold 4: 250/504 (95s, 0.4s/cfg, ETA 1.6m) best_dev_auc=0.817
+[train] stm_high fold 4: 300/504 (99s, 0.3s/cfg, ETA 1.1m) best_dev_auc=0.817
+[train] stm_high fold 4: 350/504 (108s, 0.3s/cfg, ETA 0.8m) best_dev_auc=0.817
+[train] stm_high fold 4: 400/504 (118s, 0.3s/cfg, ETA 0.5m) best_dev_auc=0.817
+[train] stm_high fold 4: 450/504 (124s, 0.3s/cfg, ETA 0.2m) best_dev_auc=0.817
+[train] stm_high fold 4: 500/504 (130s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.817
+[train] stm_high fold 4: 504/504 (142s, 0.3s/cfg, ETA 0.0m) best_dev_auc=0.817
+[train] stm_high fold 4 DONE test AUC=0.680 PR=0.243 F1=0.340 d=0.660 params={'n_layers': 2, 'n_neurons': 32, 'activation': 'tanh', 'lr': 0.001, 'epochs': 5000} (2.5m)
+[train] mtm_high fold 0: fusion 15s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] mtm_high fold 0: 50/504 (94s, 1.9s/cfg, ETA 14.2m) best_dev_auc=0.807
+[train] mtm_high fold 0: 100/504 (102s, 1.0s/cfg, ETA 6.9m) best_dev_auc=0.837
+[train] mtm_high fold 0: 150/504 (110s, 0.7s/cfg, ETA 4.3m) best_dev_auc=0.837
+[train] mtm_high fold 0: 200/504 (146s, 0.7s/cfg, ETA 3.7m) best_dev_auc=0.837
+[train] mtm_high fold 0: 250/504 (166s, 0.7s/cfg, ETA 2.8m) best_dev_auc=0.837
+[train] mtm_high fold 0: 300/504 (176s, 0.6s/cfg, ETA 2.0m) best_dev_auc=0.837
+[train] mtm_high fold 0: 350/504 (205s, 0.6s/cfg, ETA 1.5m) best_dev_auc=0.837
+[train] mtm_high fold 0: 400/504 (229s, 0.6s/cfg, ETA 1.0m) best_dev_auc=0.873
+[train] mtm_high fold 0: 450/504 (241s, 0.5s/cfg, ETA 0.5m) best_dev_auc=0.873
+[train] mtm_high fold 0: 500/504 (259s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.873
+[train] mtm_high fold 0: 504/504 (291s, 0.6s/cfg, ETA 0.0m) best_dev_auc=0.873
+[train] mtm_high fold 0 DONE test AUC=0.616 PR=0.248 F1=0.262 d=0.417 params={'n_layers': 2, 'n_neurons': 128, 'activation': 'tanh', 'lr': 0.01, 'epochs': 2500} (5.2m)
+[train] mtm_high fold 1: fusion 14s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] mtm_high fold 1: 50/504 (94s, 1.9s/cfg, ETA 14.2m) best_dev_auc=0.852
+[train] mtm_high fold 1: 100/504 (98s, 1.0s/cfg, ETA 6.6m) best_dev_auc=0.852
+[train] mtm_high fold 1: 150/504 (107s, 0.7s/cfg, ETA 4.2m) best_dev_auc=0.852
+[train] mtm_high fold 1: 200/504 (141s, 0.7s/cfg, ETA 3.6m) best_dev_auc=0.852
+[train] mtm_high fold 1: 250/504 (160s, 0.6s/cfg, ETA 2.7m) best_dev_auc=0.852
+[train] mtm_high fold 1: 300/504 (170s, 0.6s/cfg, ETA 1.9m) best_dev_auc=0.852
+[train] mtm_high fold 1: 350/504 (198s, 0.6s/cfg, ETA 1.5m) best_dev_auc=0.852
+[train] mtm_high fold 1: 400/504 (221s, 0.6s/cfg, ETA 1.0m) best_dev_auc=0.852
+[train] mtm_high fold 1: 450/504 (232s, 0.5s/cfg, ETA 0.5m) best_dev_auc=0.852
+[train] mtm_high fold 1: 500/504 (252s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.852
+[train] mtm_high fold 1: 504/504 (330s, 0.7s/cfg, ETA 0.0m) best_dev_auc=0.852
+[train] mtm_high fold 1 DONE test AUC=0.620 PR=0.242 F1=0.333 d=0.431 params={'n_layers': 2, 'n_neurons': 256, 'activation': 'tanh', 'lr': 0.001, 'epochs': 5000} (6.1m)
+[train] mtm_high fold 2: fusion 13s in_dim=1024 k_block=18 train=660 dev=142 test=201 grid=504
+[train] mtm_high fold 2: 50/504 (94s, 1.9s/cfg, ETA 14.2m) best_dev_auc=0.879
+[train] mtm_high fold 2: 100/504 (95s, 0.9s/cfg, ETA 6.4m) best_dev_auc=0.887
+[train] mtm_high fold 2: 150/504 (103s, 0.7s/cfg, ETA 4.1m) best_dev_auc=0.897
+[train] mtm_high fold 2: 200/504 (136s, 0.7s/cfg, ETA 3.4m) best_dev_auc=0.897
+[train] mtm_high fold 2: 250/504 (155s, 0.6s/cfg, ETA 2.6m) best_dev_auc=0.897
+[train] mtm_high fold 2: 300/504 (164s, 0.5s/cfg, ETA 1.9m) best_dev_auc=0.899
+[train] mtm_high fold 2: 350/504 (191s, 0.5s/cfg, ETA 1.4m) best_dev_auc=0.899
+[train] mtm_high fold 2: 400/504 (211s, 0.5s/cfg, ETA 0.9m) best_dev_auc=0.899
+[train] mtm_high fold 2: 450/504 (222s, 0.5s/cfg, ETA 0.4m) best_dev_auc=0.899
+[train] mtm_high fold 2: 500/504 (235s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.899
+[train] mtm_high fold 2: 504/504 (274s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.899
+[train] mtm_high fold 2 DONE test AUC=0.751 PR=0.471 F1=0.000 d=0.960 params={'n_layers': 3, 'n_neurons': 32, 'activation': 'sigmoid', 'lr': 0.001, 'epochs': 2500} (4.8m)
+[train] mtm_high fold 3: fusion 13s in_dim=1024 k_block=18 train=661 dev=142 test=200 grid=504
+[train] mtm_high fold 3: 50/504 (93s, 1.9s/cfg, ETA 14.0m) best_dev_auc=0.819
+[train] mtm_high fold 3: 100/504 (99s, 1.0s/cfg, ETA 6.6m) best_dev_auc=0.819
+[train] mtm_high fold 3: 150/504 (109s, 0.7s/cfg, ETA 4.3m) best_dev_auc=0.819
+[train] mtm_high fold 3: 200/504 (143s, 0.7s/cfg, ETA 3.6m) best_dev_auc=0.819
+[train] mtm_high fold 3: 250/504 (163s, 0.7s/cfg, ETA 2.8m) best_dev_auc=0.819
+[train] mtm_high fold 3: 300/504 (174s, 0.6s/cfg, ETA 2.0m) best_dev_auc=0.819
+[train] mtm_high fold 3: 350/504 (199s, 0.6s/cfg, ETA 1.5m) best_dev_auc=0.819
+[train] mtm_high fold 3: 400/504 (227s, 0.6s/cfg, ETA 1.0m) best_dev_auc=0.819
+[train] mtm_high fold 3: 450/504 (239s, 0.5s/cfg, ETA 0.5m) best_dev_auc=0.819
+[train] mtm_high fold 3: 500/504 (267s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.819
+[train] mtm_high fold 3: 504/504 (327s, 0.6s/cfg, ETA 0.0m) best_dev_auc=0.819
+[train] mtm_high fold 3 DONE test AUC=0.710 PR=0.348 F1=0.000 d=0.782 params={'n_layers': 3, 'n_neurons': 64, 'activation': 'sigmoid', 'lr': 0.001, 'epochs': 1000} (5.7m)
+[train] mtm_high fold 4: fusion 14s in_dim=1024 k_block=18 train=661 dev=142 test=200 grid=504
+[train] mtm_high fold 4: 50/504 (94s, 1.9s/cfg, ETA 14.2m) best_dev_auc=0.761
+[train] mtm_high fold 4: 100/504 (98s, 1.0s/cfg, ETA 6.6m) best_dev_auc=0.792
+[train] mtm_high fold 4: 150/504 (107s, 0.7s/cfg, ETA 4.2m) best_dev_auc=0.792
+[train] mtm_high fold 4: 200/504 (139s, 0.7s/cfg, ETA 3.5m) best_dev_auc=0.792
+[train] mtm_high fold 4: 250/504 (160s, 0.6s/cfg, ETA 2.7m) best_dev_auc=0.798
+[train] mtm_high fold 4: 300/504 (169s, 0.6s/cfg, ETA 1.9m) best_dev_auc=0.828
+[train] mtm_high fold 4: 350/504 (196s, 0.6s/cfg, ETA 1.4m) best_dev_auc=0.828
+[train] mtm_high fold 4: 400/504 (220s, 0.6s/cfg, ETA 1.0m) best_dev_auc=0.828
+[train] mtm_high fold 4: 450/504 (231s, 0.5s/cfg, ETA 0.5m) best_dev_auc=0.828
+[train] mtm_high fold 4: 500/504 (246s, 0.5s/cfg, ETA 0.0m) best_dev_auc=0.828
+[train] mtm_high fold 4: 504/504 (281s, 0.6s/cfg, ETA 0.0m) best_dev_auc=0.828
+[train] mtm_high fold 4 DONE test AUC=0.671 PR=0.219 F1=0.146 d=0.627 params={'n_layers': 2, 'n_neurons': 64, 'activation': 'tanh', 'lr': 0.001, 'epochs': 2500} (4.9m)
+
+=== SUMMARY ===
+  stm_high: AUC=0.643 [0.617, 0.670] PR=0.242 F1=0.228 d=0.521
+  mtm_high: AUC=0.674 [0.623, 0.725] PR=0.306 F1=0.148 d=0.644
+{
+  "n_users": 1003,
+  "n_blocks": 56,
+  "grid_size": 504,
+  "rep_models": [
+    "qwen3_32b",
+    "deepseek_r1_distill_qwen_32b",
+    "gemma4_26b_moe",
+    "llama_3_3_70b"
+  ],
+  "workers": 48
+}

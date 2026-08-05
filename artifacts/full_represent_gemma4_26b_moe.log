@@ -1,0 +1,123 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['gemma4_26b_moe']
+[represent:gemma4_26b_moe] loading google/gemma-4-26B-A4B-it on cuda:0 dtype=bfloat16 device_map=None 8bit=False 4bit=False (1003 users) ...
+Loading weights:   0%|          | 0/1013 [00:00<?, ?it/s]Loading weights: 100%|██████████| 1013/1013 [00:00<00:00, 13501.89it/s]
+[represent:gemma4_26b_moe] n_layers=30 tapping=[20, 30] input_device=cuda:0
+[represent:gemma4_26b_moe] 10/1003 users (1.0%) 8.6 s/user ETA 2.39h peak_gpu=59.6GiB
+[represent:gemma4_26b_moe] 20/1003 users (2.0%) 10.1 s/user ETA 2.76h peak_gpu=60.2GiB
+[represent:gemma4_26b_moe] 30/1003 users (3.0%) 10.6 s/user ETA 2.86h peak_gpu=60.2GiB
+[represent:gemma4_26b_moe] 40/1003 users (4.0%) 11.3 s/user ETA 3.02h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 50/1003 users (5.0%) 13.3 s/user ETA 3.53h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 60/1003 users (6.0%) 14.3 s/user ETA 3.74h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 70/1003 users (7.0%) 14.3 s/user ETA 3.70h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 80/1003 users (8.0%) 13.8 s/user ETA 3.53h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 90/1003 users (9.0%) 13.3 s/user ETA 3.39h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 100/1003 users (10.0%) 13.2 s/user ETA 3.32h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 110/1003 users (11.0%) 14.0 s/user ETA 3.48h peak_gpu=60.5GiB
+[represent:gemma4_26b_moe] 120/1003 users (12.0%) 13.9 s/user ETA 3.42h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 130/1003 users (13.0%) 14.5 s/user ETA 3.52h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 140/1003 users (14.0%) 14.4 s/user ETA 3.45h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 150/1003 users (15.0%) 14.0 s/user ETA 3.32h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 160/1003 users (16.0%) 14.0 s/user ETA 3.27h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 170/1003 users (16.9%) 13.8 s/user ETA 3.20h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 180/1003 users (17.9%) 13.6 s/user ETA 3.12h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 190/1003 users (18.9%) 14.1 s/user ETA 3.19h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 200/1003 users (19.9%) 14.2 s/user ETA 3.16h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 210/1003 users (20.9%) 14.0 s/user ETA 3.09h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 220/1003 users (21.9%) 14.2 s/user ETA 3.10h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 230/1003 users (22.9%) 14.2 s/user ETA 3.05h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 240/1003 users (23.9%) 14.5 s/user ETA 3.08h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 250/1003 users (24.9%) 15.0 s/user ETA 3.14h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 260/1003 users (25.9%) 15.1 s/user ETA 3.11h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 270/1003 users (26.9%) 15.1 s/user ETA 3.08h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 280/1003 users (27.9%) 15.3 s/user ETA 3.07h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 290/1003 users (28.9%) 15.1 s/user ETA 3.00h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 300/1003 users (29.9%) 15.5 s/user ETA 3.03h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 310/1003 users (30.9%) 15.4 s/user ETA 2.96h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 320/1003 users (31.9%) 15.4 s/user ETA 2.93h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 330/1003 users (32.9%) 15.5 s/user ETA 2.90h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 340/1003 users (33.9%) 15.7 s/user ETA 2.89h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 350/1003 users (34.9%) 15.6 s/user ETA 2.82h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 360/1003 users (35.9%) 15.5 s/user ETA 2.77h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 370/1003 users (36.9%) 15.4 s/user ETA 2.71h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 380/1003 users (37.9%) 15.3 s/user ETA 2.65h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 390/1003 users (38.9%) 15.3 s/user ETA 2.61h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 400/1003 users (39.9%) 15.3 s/user ETA 2.57h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 410/1003 users (40.9%) 15.4 s/user ETA 2.53h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 420/1003 users (41.9%) 15.3 s/user ETA 2.48h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 430/1003 users (42.9%) 15.3 s/user ETA 2.43h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 440/1003 users (43.9%) 15.1 s/user ETA 2.36h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 450/1003 users (44.9%) 15.1 s/user ETA 2.32h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 460/1003 users (45.9%) 15.2 s/user ETA 2.30h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 470/1003 users (46.9%) 15.1 s/user ETA 2.24h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 480/1003 users (47.9%) 15.1 s/user ETA 2.19h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 490/1003 users (48.9%) 15.3 s/user ETA 2.18h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 500/1003 users (49.9%) 15.1 s/user ETA 2.11h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 510/1003 users (50.8%) 15.1 s/user ETA 2.07h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 520/1003 users (51.8%) 15.1 s/user ETA 2.02h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 530/1003 users (52.8%) 15.0 s/user ETA 1.98h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 540/1003 users (53.8%) 15.0 s/user ETA 1.93h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 550/1003 users (54.8%) 14.9 s/user ETA 1.88h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 560/1003 users (55.8%) 15.0 s/user ETA 1.84h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 570/1003 users (56.8%) 14.9 s/user ETA 1.80h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 580/1003 users (57.8%) 15.1 s/user ETA 1.77h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 590/1003 users (58.8%) 15.1 s/user ETA 1.73h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 600/1003 users (59.8%) 15.1 s/user ETA 1.69h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 610/1003 users (60.8%) 15.1 s/user ETA 1.64h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 620/1003 users (61.8%) 15.1 s/user ETA 1.60h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 630/1003 users (62.8%) 15.1 s/user ETA 1.56h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 640/1003 users (63.8%) 15.1 s/user ETA 1.53h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 650/1003 users (64.8%) 15.3 s/user ETA 1.50h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 660/1003 users (65.8%) 15.3 s/user ETA 1.46h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 670/1003 users (66.8%) 15.4 s/user ETA 1.43h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 680/1003 users (67.8%) 15.4 s/user ETA 1.38h peak_gpu=61.9GiB
+[represent:gemma4_26b_moe] 690/1003 users (68.8%) 15.4 s/user ETA 1.34h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 700/1003 users (69.8%) 15.5 s/user ETA 1.30h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 710/1003 users (70.8%) 15.4 s/user ETA 1.26h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 720/1003 users (71.8%) 15.6 s/user ETA 1.22h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 730/1003 users (72.8%) 15.7 s/user ETA 1.19h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 740/1003 users (73.8%) 15.6 s/user ETA 1.14h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 750/1003 users (74.8%) 15.5 s/user ETA 1.09h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 760/1003 users (75.8%) 15.5 s/user ETA 1.04h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 770/1003 users (76.8%) 15.5 s/user ETA 1.00h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 780/1003 users (77.8%) 15.5 s/user ETA 0.96h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 790/1003 users (78.8%) 15.5 s/user ETA 0.92h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 800/1003 users (79.8%) 15.6 s/user ETA 0.88h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 810/1003 users (80.8%) 15.6 s/user ETA 0.83h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 820/1003 users (81.8%) 15.5 s/user ETA 0.79h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 830/1003 users (82.8%) 15.5 s/user ETA 0.74h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 840/1003 users (83.7%) 15.5 s/user ETA 0.70h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 850/1003 users (84.7%) 15.4 s/user ETA 0.66h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 860/1003 users (85.7%) 15.4 s/user ETA 0.61h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 870/1003 users (86.7%) 15.4 s/user ETA 0.57h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 880/1003 users (87.7%) 15.4 s/user ETA 0.53h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 890/1003 users (88.7%) 15.4 s/user ETA 0.48h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 900/1003 users (89.7%) 15.4 s/user ETA 0.44h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 910/1003 users (90.7%) 15.3 s/user ETA 0.40h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 920/1003 users (91.7%) 15.3 s/user ETA 0.35h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 930/1003 users (92.7%) 15.4 s/user ETA 0.31h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 940/1003 users (93.7%) 15.4 s/user ETA 0.27h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 950/1003 users (94.7%) 15.4 s/user ETA 0.23h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 960/1003 users (95.7%) 15.5 s/user ETA 0.19h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 970/1003 users (96.7%) 15.6 s/user ETA 0.14h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 980/1003 users (97.7%) 15.6 s/user ETA 0.10h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 990/1003 users (98.7%) 15.6 s/user ETA 0.06h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 1000/1003 users (99.7%) 15.5 s/user ETA 0.01h peak_gpu=65.3GiB
+[represent:gemma4_26b_moe] 1003/1003 users (100.0%) 15.5 s/user ETA 0.00h peak_gpu=65.3GiB
+[represent] gemma4_26b_moe: 1003 user files in /data/home/b.michael/nlp_proj_v2/artifacts/full/reps/gemma4_26b_moe

@@ -1,0 +1,90 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['deepseek_r1_distill_qwen_32b']
+[represent:deepseek_r1_distill_qwen_32b] loading deepseek-ai/DeepSeek-R1-Distill-Qwen-32B on cuda:0 dtype=bfloat16 device_map=None 8bit=False 4bit=False (1003 users) ...
+Loading weights:   0%|          | 0/771 [00:00<?, ?it/s]Loading weights: 100%|██████████| 771/771 [00:00<00:00, 12088.64it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (22069 > 16384). Running this sequence through the model will result in indexing errors
+[represent:deepseek_r1_distill_qwen_32b] n_layers=64 tapping=[20, 40, 60, 64] input_device=cuda:0
+[represent:deepseek_r1_distill_qwen_32b] 10/1003 users (1.0%) 29.5 s/user ETA 8.15h peak_gpu=70.7GiB
+[represent:deepseek_r1_distill_qwen_32b] 20/1003 users (2.0%) 33.1 s/user ETA 9.03h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 30/1003 users (3.0%) 35.4 s/user ETA 9.57h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 40/1003 users (4.0%) 38.3 s/user ETA 10.24h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 50/1003 users (5.0%) 44.9 s/user ETA 11.89h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 60/1003 users (6.0%) 47.2 s/user ETA 12.37h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 70/1003 users (7.0%) 47.2 s/user ETA 12.23h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 80/1003 users (8.0%) 45.5 s/user ETA 11.67h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 90/1003 users (9.0%) 45.3 s/user ETA 11.48h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 100/1003 users (10.0%) 44.6 s/user ETA 11.19h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 110/1003 users (11.0%) 47.4 s/user ETA 11.77h peak_gpu=71.2GiB
+[represent:deepseek_r1_distill_qwen_32b] 120/1003 users (12.0%) 47.2 s/user ETA 11.58h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 130/1003 users (13.0%) 48.6 s/user ETA 11.77h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 140/1003 users (14.0%) 48.4 s/user ETA 11.60h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 150/1003 users (15.0%) 47.3 s/user ETA 11.21h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 160/1003 users (16.0%) 46.9 s/user ETA 10.98h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 170/1003 users (16.9%) 46.8 s/user ETA 10.83h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 180/1003 users (17.9%) 46.4 s/user ETA 10.62h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 190/1003 users (18.9%) 48.0 s/user ETA 10.83h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 200/1003 users (19.9%) 48.2 s/user ETA 10.76h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 210/1003 users (20.9%) 47.7 s/user ETA 10.51h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 220/1003 users (21.9%) 48.1 s/user ETA 10.46h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 230/1003 users (22.9%) 48.0 s/user ETA 10.31h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 240/1003 users (23.9%) 48.8 s/user ETA 10.33h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 250/1003 users (24.9%) 50.5 s/user ETA 10.57h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 260/1003 users (25.9%) 50.4 s/user ETA 10.41h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 270/1003 users (26.9%) 50.6 s/user ETA 10.31h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 280/1003 users (27.9%) 50.9 s/user ETA 10.23h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 290/1003 users (28.9%) 50.5 s/user ETA 10.01h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 300/1003 users (29.9%) 51.5 s/user ETA 10.05h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 310/1003 users (30.9%) 51.2 s/user ETA 9.85h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 320/1003 users (31.9%) 51.5 s/user ETA 9.76h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 330/1003 users (32.9%) 51.7 s/user ETA 9.66h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 340/1003 users (33.9%) 52.3 s/user ETA 9.63h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 350/1003 users (34.9%) 51.9 s/user ETA 9.42h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 360/1003 users (35.9%) 51.9 s/user ETA 9.28h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 370/1003 users (36.9%) 51.6 s/user ETA 9.08h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 380/1003 users (37.9%) 51.5 s/user ETA 8.92h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 390/1003 users (38.9%) 51.4 s/user ETA 8.75h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 400/1003 users (39.9%) 51.3 s/user ETA 8.60h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 410/1003 users (40.9%) 51.2 s/user ETA 8.44h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 420/1003 users (41.9%) 51.1 s/user ETA 8.28h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 430/1003 users (42.9%) 50.9 s/user ETA 8.10h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 440/1003 users (43.9%) 50.6 s/user ETA 7.91h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 450/1003 users (44.9%) 50.5 s/user ETA 7.75h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 460/1003 users (45.9%) 50.8 s/user ETA 7.66h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 470/1003 users (46.9%) 50.6 s/user ETA 7.50h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 480/1003 users (47.9%) 50.4 s/user ETA 7.32h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 490/1003 users (48.9%) 50.9 s/user ETA 7.26h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 500/1003 users (49.9%) 50.6 s/user ETA 7.07h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 510/1003 users (50.8%) 50.6 s/user ETA 6.93h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 520/1003 users (51.8%) 50.5 s/user ETA 6.77h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 530/1003 users (52.8%) 50.6 s/user ETA 6.64h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 540/1003 users (53.8%) 50.5 s/user ETA 6.49h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 550/1003 users (54.8%) 50.2 s/user ETA 6.31h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 560/1003 users (55.8%) 50.4 s/user ETA 6.20h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 570/1003 users (56.8%) 50.4 s/user ETA 6.06h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 580/1003 users (57.8%) 51.0 s/user ETA 5.99h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 590/1003 users (58.8%) 50.9 s/user ETA 5.84h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 600/1003 users (59.8%) 51.0 s/user ETA 5.70h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 610/1003 users (60.8%) 50.9 s/user ETA 5.56h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 620/1003 users (61.8%) 50.9 s/user ETA 5.41h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 630/1003 users (62.8%) 51.0 s/user ETA 5.29h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 640/1003 users (63.8%) 51.1 s/user ETA 5.15h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 650/1003 users (64.8%) 51.7 s/user ETA 5.07h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 660/1003 users (65.8%) 51.5 s/user ETA 4.91h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 670/1003 users (66.8%) 51.9 s/user ETA 4.80h peak_gpu=72.3GiB
+[represent:deepseek_r1_distill_qwen_32b] 680/1003 users (67.8%) 51.7 s/user ETA 4.64h peak_gpu=72.3GiB

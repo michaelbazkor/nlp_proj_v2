@@ -14,6 +14,13 @@ __pycache__/
 *.tmp
 *.partial
 
+# Per-user hidden states (~900 MB) stay local: they are regenerable from the
+# committed corpora + configs, and would blow past the GitHub LFS quota.
+# Everything needed to re-run the LLM stage (posts, cohort, captions, corpora) is
+# committed via LFS.
+artifacts/full/reps/**/*.npz
+artifacts/captions/*/shards/
+
 # IDE
 .idea/
 .vscode/

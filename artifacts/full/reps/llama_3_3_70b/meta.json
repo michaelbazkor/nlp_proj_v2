@@ -1,0 +1,22 @@
+{
+  "model": "llama_3_3_70b",
+  "hf_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "n_layers": 80,
+  "layer_idxs": [
+    20,
+    40,
+    60,
+    80
+  ],
+  "positions": [
+    "input_only",
+    "last_prompt",
+    "cot",
+    "final_pred"
+  ],
+  "hidden_size": 8192,
+  "dtype": "bfloat16",
+  "device_map": null,
+  "max_context": 32768,
+  "max_new_tokens": 256
+}

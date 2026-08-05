@@ -11,13 +11,14 @@ boundaries, extract per chunk, and average across chunks.
 """
 from __future__ import annotations
 
+import os
 import re
+import time
 from typing import Any
 
 import numpy as np
 import pandas as pd
 import torch
-from tqdm import tqdm
 
 from ssr.config import Config
 from ssr.io_utils import atomic_write_json
@@ -39,6 +40,70 @@ def _dtype(name: str):
             f"(float8 / FP8 is not implemented — use bfloat16 with device_map: auto.)"
         )
     return mapping[name]
+
+
+def _text_backbone(model):
+    """Return the decoder stack that owns ``.layers`` (handles multimodal wrappers)."""
+    cand = getattr(model, "model", model)
+    if isinstance(getattr(cand, "layers", None), torch.nn.ModuleList):
+        return cand
+    for attr in ("language_model", "text_model", "decoder", "transformer"):
+        sub = getattr(cand, attr, None)
+        if sub is not None and isinstance(getattr(sub, "layers", None), torch.nn.ModuleList):
+            return sub
+    for mod in cand.modules():
+        if isinstance(getattr(mod, "layers", None), torch.nn.ModuleList) and len(mod.layers) > 1:
+            return mod
+    raise RuntimeError("Could not locate the decoder layer stack for hidden-state taps")
+
+
+class _LayerTaps:
+    """Collect pooled hidden states via forward hooks instead of ``output_hidden_states``.
+
+    Requesting ``output_hidden_states`` materializes (n_layers+1, seq, dim) for the
+    whole prompt, which is tens of GB at full-cohort corpus lengths. Hooks reduce each
+    tapped layer to a handful of vectors as the forward runs, and let a single
+    ``generate`` call serve both the prompt and generated-token positions.
+
+    Index convention matches ``transformers`` ``hidden_states``: entry ``li`` is the
+    output of block ``li-1``, and entry ``n_layers`` is after the final norm.
+    """
+
+    def __init__(self, model, layer_idxs: list[int]):
+        self.backbone = _text_backbone(model)
+        blocks = self.backbone.layers
+        self.n_layers = len(blocks)
+        self.layer_idxs = [li for li in layer_idxs if 1 <= li <= self.n_layers]
+        self.span: tuple[int, int] = (0, 0)
+        self.prompt_mean: dict[int, torch.Tensor] = {}
+        self.prompt_last: dict[int, torch.Tensor] = {}
+        self.gen: dict[int, list[torch.Tensor]] = {li: [] for li in self.layer_idxs}
+        final_norm = getattr(self.backbone, "norm", None)
+        self._handles = []
+        for li in self.layer_idxs:
+            mod = final_norm if (li == self.n_layers and final_norm is not None) else blocks[li - 1]
+            self._handles.append(mod.register_forward_hook(self._hook(li)))
+
+    def _hook(self, li: int):
+        def fn(module, args, output):
+            h = output[0] if isinstance(output, tuple) else output
+            if not isinstance(h, torch.Tensor) or h.dim() != 3:
+                return
+            last = h[0, -1].detach().float()
+            if h.shape[1] > 1:  # prefill pass over the prompt
+                a, b = self.span
+                self.prompt_mean[li] = h[0, a : b + 1].detach().float().mean(dim=0)
+                self.prompt_last[li] = last
+            # Mirrors transformers' generate(output_hidden_states=True), whose step 0
+            # entry is the prompt pass; its last position feeds the first new token.
+            self.gen[li].append(last)
+
+        return fn
+
+    def remove(self) -> None:
+        for h in self._handles:
+            h.remove()
+        self._handles = []
 
 
 def _model_input_device(model) -> torch.device:
@@ -110,6 +175,8 @@ def _load_causal_lm(
     *,
     device_map: str | dict | None = None,
     attn_implementation: str | None = "sdpa",
+    load_in_8bit: bool = False,
+    load_in_4bit: bool = False,
 ):
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -118,9 +185,23 @@ def _load_causal_lm(
         tok.pad_token = tok.eos_token
 
     kwargs: dict[str, Any] = {
-        "torch_dtype": _dtype(dtype_name),
         "trust_remote_code": True,
     }
+    if load_in_8bit or load_in_4bit:
+        from transformers import BitsAndBytesConfig
+
+        kwargs["quantization_config"] = BitsAndBytesConfig(
+            load_in_8bit=bool(load_in_8bit),
+            load_in_4bit=bool(load_in_4bit),
+        )
+        # bitsandbytes requires a device_map; default to the requested device index
+        if device_map is None:
+            dev = torch.device(device)
+            idx = dev.index if dev.index is not None else 0
+            device_map = {"": idx}
+    else:
+        kwargs["torch_dtype"] = _dtype(dtype_name)
+
     if attn_implementation:
         kwargs["attn_implementation"] = attn_implementation
     if device_map is not None:
@@ -133,7 +214,7 @@ def _load_causal_lm(
         kwargs.pop("attn_implementation", None)
         model = AutoModelForCausalLM.from_pretrained(hf_id, **kwargs)
 
-    if device_map is None:
+    if device_map is None and not (load_in_8bit or load_in_4bit):
         model.to(device)
     model.eval()
     return tok, model
@@ -162,17 +243,23 @@ def _extract_chunk(
     max_new_tokens: int,
     device: str | torch.device,
     corpus_char_hint: str,
+    prompt_input_ids: torch.Tensor | None = None,
+    prompt_attention_mask: torch.Tensor | None = None,
 ) -> dict[str, np.ndarray]:
     """Extract representation blocks for one prompt chunk.
 
     Returns dict keyed by '{layer}:{position}' -> (hidden_dim,) float32.
     """
     device = torch.device(device) if not isinstance(device, torch.device) else device
-    enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
-    input_ids = enc["input_ids"].to(device)
-    attn = enc.get("attention_mask")
-    if attn is not None:
-        attn = attn.to(device)
+    if prompt_input_ids is not None:
+        input_ids = prompt_input_ids.to(device)
+        attn = prompt_attention_mask.to(device) if prompt_attention_mask is not None else None
+    else:
+        enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False)
+        input_ids = enc["input_ids"].to(device)
+        attn = enc.get("attention_mask")
+        if attn is not None:
+            attn = attn.to(device)
 
     prompt_len = input_ids.shape[-1]
 
@@ -212,67 +299,42 @@ def _extract_chunk(
     else:
         tok_start, tok_end = 0, prompt_len - 1
 
-    # Forward with hidden states for the prompt (for input_only + last_prompt)
-    out_prompt = model(
-        input_ids=input_ids,
-        attention_mask=attn,
-        output_hidden_states=True,
-        use_cache=True,
-    )
-    hs_prompt = out_prompt.hidden_states  # tuple (n_layers+1,)
-
-    # Generate continuation for CoT / final_pred
-    gen_out = model.generate(
-        input_ids=input_ids,
-        attention_mask=attn,
-        max_new_tokens=max_new_tokens,
-        do_sample=False,
-        output_hidden_states=True,
-        return_dict_in_generate=True,
-        pad_token_id=tok.pad_token_id,
-    )
-    # gen_out.sequences: (1, prompt_len + gen_len)
+    # One forward pass total: generate()'s prefill also supplies the prompt positions.
+    taps = _LayerTaps(model, layer_idxs)
+    taps.span = (tok_start, tok_end)
+    eos_id = tok.eos_token_id
+    gen_kwargs: dict[str, Any] = {
+        "input_ids": input_ids,
+        "attention_mask": attn,
+        "max_new_tokens": max_new_tokens,
+        "do_sample": False,
+        "use_cache": True,
+        "return_dict_in_generate": True,
+        "pad_token_id": tok.pad_token_id if tok.pad_token_id is not None else eos_id,
+    }
+    if eos_id is not None:
+        gen_kwargs["eos_token_id"] = eos_id
+    try:
+        gen_out = model.generate(**gen_kwargs)
+    finally:
+        taps.remove()
     sequences = gen_out.sequences
     gen_len = sequences.shape[-1] - prompt_len
 
-    # Collect per-step hidden states for generated tokens.
-    # transformers: generate with output_hidden_states gives a tuple of length gen_len,
-    # each entry is a tuple of layer hidden states for that step, shape (batch, 1, dim)
-    # OR for some versions (batch, seq, dim). Handle both.
-    gen_hs_by_layer: dict[int, list[torch.Tensor]] = {li: [] for li in layer_idxs}
-    if gen_len > 0 and getattr(gen_out, "hidden_states", None) is not None:
-        for step_hs in gen_out.hidden_states:
-            # step_hs: tuple of layers
-            for li in layer_idxs:
-                if li >= len(step_hs):
-                    continue
-                t = step_hs[li]  # (batch, seq_or_1, dim)
-                gen_hs_by_layer[li].append(t[:, -1, :])  # last pos of this step
-
     results: dict[str, np.ndarray] = {}
     for li in layer_idxs:
-        h = hs_prompt[li][0]  # (prompt_len, dim)
+        if li not in taps.prompt_last:
+            raise RuntimeError(f"No hidden state captured for layer {li}")
+        steps = taps.gen[li]
         for pos in positions:
             if pos == "input_only":
-                vec = h[tok_start : tok_end + 1].mean(dim=0)
+                vec = taps.prompt_mean[li]
             elif pos == "last_prompt":
-                vec = h[prompt_len - 1]
+                vec = taps.prompt_last[li]
             elif pos == "cot":
-                if gen_hs_by_layer[li]:
-                    stacked = torch.cat(gen_hs_by_layer[li], dim=0)  # (gen_len, dim)
-                    # Mean-pool all generated tokens as CoT proxy
-                    # Prefer all but last for cot; last reserved for final_pred
-                    if stacked.shape[0] > 1:
-                        vec = stacked[:-1].mean(dim=0)
-                    else:
-                        vec = stacked[0]
-                else:
-                    vec = h[prompt_len - 1]  # fallback
+                vec = torch.stack(steps[:-1]).mean(dim=0) if len(steps) > 1 else steps[0]
             elif pos == "final_pred":
-                if gen_hs_by_layer[li]:
-                    vec = gen_hs_by_layer[li][-1][0]
-                else:
-                    vec = h[prompt_len - 1]
+                vec = steps[-1]
             else:
                 raise ValueError(f"Unknown position: {pos}")
             results[f"{li}:{pos}"] = vec.detach().float().cpu().numpy()
@@ -317,21 +379,36 @@ def extract_for_model(
         if force or not has_user_reps(p):
             todo.append(row)
 
+    # Optional SSR_USER_SHARD="i/n": lets several GPUs work one model's user list.
+    shard_spec = os.environ.get("SSR_USER_SHARD", "").strip()
+    if shard_spec:
+        i_s, n_s = (int(x) for x in shard_spec.split("/"))
+        todo = [r for k, r in enumerate(todo) if k % n_s == i_s]
+        print(f"[represent:{name}] user shard {i_s}/{n_s}: {len(todo)} users")
+
     if not todo:
         print(f"[represent:{name}] all {len(corpora)} users cached")
         return rep_root
 
     print(f"[represent:{name}] loading {hf_id} on {device} "
-          f"dtype={dtype_name} device_map={device_map!r} ({len(todo)} users) ...")
+          f"dtype={dtype_name} device_map={device_map!r} "
+          f"8bit={bool(model_cfg.get('load_in_8bit'))} "
+          f"4bit={bool(model_cfg.get('load_in_4bit'))} ({len(todo)} users) ...")
     tok, model = _load_causal_lm(
         hf_id,
         device,
         dtype_name,
         device_map=device_map,
         attn_implementation=attn_implementation,
+        load_in_8bit=bool(model_cfg.get("load_in_8bit", False)),
+        load_in_4bit=bool(model_cfg.get("load_in_4bit", False)),
     )
     input_device = _model_input_device(model)
-    n_layers = int(getattr(model.config, "num_hidden_layers", getattr(model.config, "n_layer", 12)))
+    backbone = _text_backbone(model)
+    # Count real decoder blocks: multimodal/MoE wrappers (e.g. Gemma-4) nest the text
+    # config, so model.config.num_hidden_layers can be wrong.
+    n_layers = len(backbone.layers)
+    hidden_size = int(getattr(getattr(backbone, "config", None), "hidden_size", 0) or 0)
     layer_idxs = _layer_indices(
         n_layers,
         model_cfg.get("layer_taps"),
@@ -350,7 +427,7 @@ def extract_for_model(
         "n_layers": n_layers,
         "layer_idxs": layer_idxs,
         "positions": positions,
-        "hidden_size": int(getattr(model.config, "hidden_size", 0)),
+        "hidden_size": hidden_size,
         "dtype": dtype_name,
         "device_map": device_map,
         "max_context": max_ctx,
@@ -358,10 +435,15 @@ def extract_for_model(
     }
     atomic_write_json(rep_root / "meta.json", meta_global)
 
-    for row in tqdm(todo, desc=f"represent:{name}"):
+    t_start = time.time()
+    for i_user, row in enumerate(todo, start=1):
         uid = row["UserId"]
         corpus = str(row.get("corpus") or "")
         out_path = rep_root / f"{str(uid).replace('/', '_').replace(' ', '')}.npz"
+        # Re-check here, not just when todo was built: sibling shards on other GPUs
+        # may have finished this user in the meantime.
+        if not force and has_user_reps(out_path):
+            continue
 
         user_text = build_user_prompt(task_prompt, corpus if corpus else "(no posts)")
         # Chunk if needed (on corpus portion)
@@ -371,11 +453,28 @@ def extract_for_model(
         for ch in chunks:
             ut = build_user_prompt(task_prompt, ch)
             prompt_text = _apply_chat(tok, ut, enable_thinking)
-            # Truncate tokens hard if still over
-            enc = tok(prompt_text, return_tensors="pt", add_special_tokens=False, truncation=True, max_length=max_prompt_tokens)
+            # Truncate on token ids (keep special-token ids intact).
+            # Avoid decode→re-encode, which can corrupt Llama chat markers.
+            enc = tok(
+                prompt_text,
+                return_tensors="pt",
+                add_special_tokens=False,
+                truncation=True,
+                max_length=max_prompt_tokens,
+            )
             prompt_text = tok.decode(enc["input_ids"][0], skip_special_tokens=False)
+            # Prefer staying on token ids when decode round-trips poorly
             res = _extract_chunk(
-                tok, model, prompt_text, layer_idxs, positions, max_new, input_device, ch
+                tok,
+                model,
+                prompt_text,
+                layer_idxs,
+                positions,
+                max_new,
+                input_device,
+                ch,
+                prompt_input_ids=enc["input_ids"],
+                prompt_attention_mask=enc.get("attention_mask"),
             )
             gen_texts.append(str(res.pop("__gen_text__", np.array([""]))[0]))
             chunk_results.append(res)
@@ -394,9 +493,25 @@ def extract_for_model(
                 **meta_global,
                 "UserId": uid,
                 "n_chunks": len(chunks),
-                "gen_text": gen_texts[0][:2000] if gen_texts else "",
+                "gen_text": gen_texts[0][:8000] if gen_texts else "",
             },
         )
+
+        if i_user % 10 == 0 or i_user == len(todo):
+            el = time.time() - t_start
+            rate = el / i_user
+            eta_h = rate * (len(todo) - i_user) / 3600
+            mem = (
+                torch.cuda.max_memory_allocated() / 2**30
+                if torch.cuda.is_available()
+                else 0.0
+            )
+            print(
+                f"[represent:{name}] {i_user}/{len(todo)} users "
+                f"({100 * i_user / len(todo):.1f}%) {rate:.1f} s/user "
+                f"ETA {eta_h:.2f}h peak_gpu={mem:.1f}GiB",
+                flush=True,
+            )
 
     # Free memory
     del model
@@ -414,6 +529,16 @@ def run_representations(cfg: Config, corpora: pd.DataFrame, *, force: bool = Fal
             # Fall back to first model with a note
             print("[represent] llama_only requested but no llama model in config; using all")
             models = cfg.represent["models"]
+
+    # One-model-per-process scheduling (one GPU each) sets SSR_ONLY_MODELS.
+    only = os.environ.get("SSR_ONLY_MODELS", "").strip()
+    if only:
+        wanted = {n.strip() for n in only.split(",") if n.strip()}
+        models = [m for m in models if m["name"] in wanted]
+        missing = wanted - {m["name"] for m in models}
+        if missing:
+            raise ValueError(f"SSR_ONLY_MODELS names not in config: {sorted(missing)}")
+        print(f"[represent] restricted to {[m['name'] for m in models]}")
 
     roots = {}
     for mcfg in models:

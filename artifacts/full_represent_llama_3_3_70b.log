@@ -1,0 +1,95 @@
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['llama_3_3_70b']
+[represent:llama_3_3_70b] loading meta-llama/Llama-3.3-70B-Instruct on cuda:0 dtype=bfloat16 device_map=None 8bit=True 4bit=False (1003 users) ...
+
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+[represent:llama_3_3_70b] n_layers=80 tapping=[20, 40, 60, 80] input_device=cuda:0
+[represent:llama_3_3_70b] 10/1003 users (1.0%) 25.2 s/user ETA 6.96h peak_gpu=81.8GiB
+[represent:llama_3_3_70b] 20/1003 users (2.0%) 32.1 s/user ETA 8.75h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 30/1003 users (3.0%) 33.7 s/user ETA 9.11h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 40/1003 users (4.0%) 36.1 s/user ETA 9.65h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 50/1003 users (5.0%) 40.9 s/user ETA 10.84h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 60/1003 users (6.0%) 43.1 s/user ETA 11.28h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 70/1003 users (7.0%) 43.7 s/user ETA 11.33h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 80/1003 users (8.0%) 41.8 s/user ETA 10.72h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 90/1003 users (9.0%) 41.4 s/user ETA 10.50h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 100/1003 users (10.0%) 41.1 s/user ETA 10.30h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 110/1003 users (11.0%) 44.1 s/user ETA 10.93h peak_gpu=82.6GiB
+[represent:llama_3_3_70b] 120/1003 users (12.0%) 43.8 s/user ETA 10.73h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 130/1003 users (13.0%) 45.0 s/user ETA 10.92h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 140/1003 users (14.0%) 44.7 s/user ETA 10.72h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 150/1003 users (15.0%) 43.8 s/user ETA 10.39h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 160/1003 users (16.0%) 43.5 s/user ETA 10.18h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 170/1003 users (16.9%) 43.7 s/user ETA 10.12h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 180/1003 users (17.9%) 43.6 s/user ETA 9.96h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 190/1003 users (18.9%) 44.9 s/user ETA 10.13h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 200/1003 users (19.9%) 45.3 s/user ETA 10.10h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 210/1003 users (20.9%) 44.7 s/user ETA 9.85h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 220/1003 users (21.9%) 45.4 s/user ETA 9.87h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 230/1003 users (22.9%) 45.2 s/user ETA 9.70h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 240/1003 users (23.9%) 46.2 s/user ETA 9.78h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 250/1003 users (24.9%) 47.9 s/user ETA 10.01h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 260/1003 users (25.9%) 47.6 s/user ETA 9.83h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 270/1003 users (26.9%) 47.8 s/user ETA 9.72h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 280/1003 users (27.9%) 48.0 s/user ETA 9.65h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 290/1003 users (28.9%) 47.5 s/user ETA 9.40h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 300/1003 users (29.9%) 48.2 s/user ETA 9.42h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 310/1003 users (30.9%) 47.7 s/user ETA 9.19h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 320/1003 users (31.9%) 47.9 s/user ETA 9.09h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 330/1003 users (32.9%) 48.1 s/user ETA 8.99h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 340/1003 users (33.9%) 48.5 s/user ETA 8.94h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 350/1003 users (34.9%) 48.2 s/user ETA 8.75h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 360/1003 users (35.9%) 48.1 s/user ETA 8.59h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 370/1003 users (36.9%) 47.7 s/user ETA 8.40h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 380/1003 users (37.9%) 47.7 s/user ETA 8.25h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 390/1003 users (38.9%) 47.6 s/user ETA 8.10h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 400/1003 users (39.9%) 47.5 s/user ETA 7.96h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 410/1003 users (40.9%) 47.4 s/user ETA 7.81h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 420/1003 users (41.9%) 47.2 s/user ETA 7.64h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 430/1003 users (42.9%) 46.8 s/user ETA 7.44h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 440/1003 users (43.9%) 46.4 s/user ETA 7.26h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 450/1003 users (44.9%) 46.2 s/user ETA 7.10h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 460/1003 users (45.9%) 46.5 s/user ETA 7.01h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 470/1003 users (46.9%) 46.3 s/user ETA 6.86h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 480/1003 users (47.9%) 46.1 s/user ETA 6.69h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 490/1003 users (48.9%) 46.7 s/user ETA 6.65h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 500/1003 users (49.9%) 46.3 s/user ETA 6.47h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 510/1003 users (50.8%) 46.3 s/user ETA 6.35h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 520/1003 users (51.8%) 46.2 s/user ETA 6.20h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 530/1003 users (52.8%) 46.3 s/user ETA 6.08h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 540/1003 users (53.8%) 46.1 s/user ETA 5.93h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 550/1003 users (54.8%) 45.8 s/user ETA 5.76h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 560/1003 users (55.8%) 46.0 s/user ETA 5.66h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 570/1003 users (56.8%) 45.9 s/user ETA 5.52h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 580/1003 users (57.8%) 46.3 s/user ETA 5.44h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 590/1003 users (58.8%) 46.1 s/user ETA 5.29h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 600/1003 users (59.8%) 46.2 s/user ETA 5.17h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 610/1003 users (60.8%) 46.2 s/user ETA 5.04h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 620/1003 users (61.8%) 46.2 s/user ETA 4.91h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 630/1003 users (62.8%) 46.2 s/user ETA 4.79h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 640/1003 users (63.8%) 46.4 s/user ETA 4.68h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 650/1003 users (64.8%) 46.8 s/user ETA 4.59h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 660/1003 users (65.8%) 46.6 s/user ETA 4.44h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 670/1003 users (66.8%) 46.9 s/user ETA 4.34h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 680/1003 users (67.8%) 46.8 s/user ETA 4.20h peak_gpu=84.3GiB
+[represent:llama_3_3_70b] 690/1003 users (68.8%) 46.9 s/user ETA 4.08h peak_gpu=87.2GiB
+[represent:llama_3_3_70b] 700/1003 users (69.8%) 47.0 s/user ETA 3.96h peak_gpu=87.2GiB
+[represent:llama_3_3_70b] 710/1003 users (70.8%) 47.0 s/user ETA 3.83h peak_gpu=87.2GiB
+[represent:llama_3_3_70b] 720/1003 users (71.8%) 47.3 s/user ETA 3.72h peak_gpu=87.2GiB
+[represent:llama_3_3_70b] 730/1003 users (72.8%) 47.7 s/user ETA 3.61h peak_gpu=87.2GiB
+[represent:llama_3_3_70b] 740/1003 users (73.8%) 47.6 s/user ETA 3.48h peak_gpu=87.2GiB

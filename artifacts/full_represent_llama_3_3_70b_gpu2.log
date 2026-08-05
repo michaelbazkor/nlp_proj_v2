@@ -1,0 +1,37 @@
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['llama_3_3_70b']
+[represent:llama_3_3_70b] user shard 0/2: 131 users
+[represent:llama_3_3_70b] loading meta-llama/Llama-3.3-70B-Instruct on cuda:0 dtype=bfloat16 device_map=None 8bit=True 4bit=False (131 users) ...
+
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+[represent:llama_3_3_70b] n_layers=80 tapping=[20, 40, 60, 80] input_device=cuda:0
+[represent:llama_3_3_70b] 10/131 users (7.6%) 20.0 s/user ETA 0.67h peak_gpu=78.9GiB
+[represent:llama_3_3_70b] 20/131 users (15.3%) 39.2 s/user ETA 1.21h peak_gpu=81.5GiB
+[represent:llama_3_3_70b] 30/131 users (22.9%) 44.2 s/user ETA 1.24h peak_gpu=81.7GiB
+[represent:llama_3_3_70b] 40/131 users (30.5%) 41.4 s/user ETA 1.05h peak_gpu=81.7GiB
+[represent:llama_3_3_70b] 50/131 users (38.2%) 41.2 s/user ETA 0.93h peak_gpu=82.9GiB
+[represent:llama_3_3_70b] 60/131 users (45.8%) 39.7 s/user ETA 0.78h peak_gpu=82.9GiB
+[represent:llama_3_3_70b] 70/131 users (53.4%) 37.8 s/user ETA 0.64h peak_gpu=82.9GiB
+[represent:llama_3_3_70b] 80/131 users (61.1%) 40.5 s/user ETA 0.57h peak_gpu=82.9GiB
+[represent:llama_3_3_70b] 90/131 users (68.7%) 42.0 s/user ETA 0.48h peak_gpu=82.9GiB
+[represent:llama_3_3_70b] 100/131 users (76.3%) 42.2 s/user ETA 0.36h peak_gpu=83.5GiB
+[represent:llama_3_3_70b] 110/131 users (84.0%) 44.1 s/user ETA 0.26h peak_gpu=83.5GiB
+[represent:llama_3_3_70b] 120/131 users (91.6%) 47.1 s/user ETA 0.14h peak_gpu=83.5GiB
+[represent:llama_3_3_70b] 130/131 users (99.2%) 47.4 s/user ETA 0.01h peak_gpu=83.5GiB
+[represent:llama_3_3_70b] 131/131 users (100.0%) 47.2 s/user ETA 0.00h peak_gpu=83.5GiB
+[represent] llama_3_3_70b: 988 user files in /data/home/b.michael/nlp_proj_v2/artifacts/full/reps/llama_3_3_70b

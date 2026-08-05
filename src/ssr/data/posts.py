@@ -144,11 +144,14 @@ def cap_posts_per_user(posts: pd.DataFrame, max_posts: int | None, seed: int) ->
     if max_posts is None:
         return posts
     rng = __import__("numpy").random.default_rng(seed)
-
-    def _cap(g: pd.DataFrame) -> pd.DataFrame:
+    # Avoid groupby.apply: recent pandas drops the group-key column (UserId).
+    parts: list[pd.DataFrame] = []
+    for _, g in posts.groupby("UserId", sort=False):
         if len(g) <= max_posts:
-            return g
-        idx = rng.choice(g.index.to_numpy(), size=max_posts, replace=False)
-        return g.loc[sorted(idx)]
-
-    return posts.groupby("UserId", group_keys=False).apply(_cap).reset_index(drop=True)
+            parts.append(g)
+        else:
+            idx = rng.choice(g.index.to_numpy(), size=int(max_posts), replace=False)
+            parts.append(g.loc[sorted(idx)])
+    if not parts:
+        return posts.iloc[0:0].copy()
+    return pd.concat(parts, axis=0).reset_index(drop=True)

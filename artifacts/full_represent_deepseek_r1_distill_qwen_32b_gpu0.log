@@ -1,0 +1,41 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[ssr] experiment=full config=configs/real_full.yaml
+[cohort] n=1003 high=132 (13.2%)
+               UserId  suicide  y_high  status_posts
+10212579017332919 -id      0.0       0            10
+10160547610910121 -id      0.0       0            10
+10216475765070099 -id      0.0       0            10
+10156746733507079 -id      0.0       0            10
+10155164126100728 -id      0.0       0            10
+[posts] rows=401360 users=1003 with_text=242046 with_image=303594
+             UserId PostType                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       free_text                            blob_guid
+799333710259603 -id   status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All that space on your computer screen, and yet every time your mouse falls to the floor it hits that tiny little X at the top right corner and closes all your tabs. -_-                                  NaN
+799333710259603 -id    video                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Now don't embarrass yourself by acting like a manchild over this trash.  (Inner Self: AAAAAAAHHHHHHHHHHHHHHHHHH TOY STORY!) b5783a3b-e3e9-4ddc-f766-08d5b52ea2a6
+799333710259603 -id    video I wanna see this just because The Room (and Tommy Wiseau) is fascinating in just how awful it is and I want a movie about what went on behind the scenes. This is based on the memoirs of one of the film's actors.   However, a little ambivalent about James Franco's performance here. He doesn't quite hit the mark. Granted, there are times when it is best to avoid making your performance come off as a mere impression or parody. I'll probably end up seeing this regardless, but it doesn't feel as spot-on as I'd like.  I am also kind of interested to see if the Franco/Rogen duo can pull off something that's not completely lowbrow (I mean, they did do that one movie about their friend that had cancer, but if I recall they had limited roles in the film and off screen were responsible for only part of the script). 066d3d31-8ab5-4f43-f765-08d5b52ea2a6
+[corpus] users=1003 mean_posts=322.9 mean_chars=127596
+  sample UserId=1008121212695792 -id n_posts=41
+  snippet: [post] Stay at home dad. I get bored. Sue me. [post] Well, I just recently created a Twitter account. Yay for social media pressure. Anyway, who else uses it so I can follow you and vice versa? [post] [image] The image appears to be a meme featuring two individuals engaged in a conversation about a character's difficulty with metaphors, specifically referencing the phrase "raining cats and dogs." The setting includes a backdrop with the "Guardians of the Galaxy" movie poster, suggesting a connec...
+[represent] restricted to ['deepseek_r1_distill_qwen_32b']
+[represent:deepseek_r1_distill_qwen_32b] user shard 0/2: 161 users
+[represent:deepseek_r1_distill_qwen_32b] loading deepseek-ai/DeepSeek-R1-Distill-Qwen-32B on cuda:0 dtype=bfloat16 device_map=None 8bit=False 4bit=False (161 users) ...
+Loading weights:   0%|          | 0/771 [00:00<?, ?it/s]Loading weights: 100%|██████████| 771/771 [00:00<00:00, 10447.95it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (21271 > 16384). Running this sequence through the model will result in indexing errors
+[represent:deepseek_r1_distill_qwen_32b] n_layers=64 tapping=[20, 40, 60, 64] input_device=cuda:0
+[represent:deepseek_r1_distill_qwen_32b] 10/161 users (6.2%) 68.4 s/user ETA 2.87h peak_gpu=71.1GiB
+[represent:deepseek_r1_distill_qwen_32b] 20/161 users (12.4%) 75.5 s/user ETA 2.96h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 30/161 users (18.6%) 76.3 s/user ETA 2.78h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 40/161 users (24.8%) 62.9 s/user ETA 2.12h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 50/161 users (31.1%) 62.3 s/user ETA 1.92h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 60/161 users (37.3%) 60.6 s/user ETA 1.70h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 70/161 users (43.5%) 56.6 s/user ETA 1.43h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 80/161 users (49.7%) 55.1 s/user ETA 1.24h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 90/161 users (55.9%) 52.9 s/user ETA 1.04h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 100/161 users (62.1%) 50.5 s/user ETA 0.86h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 110/161 users (68.3%) 51.2 s/user ETA 0.73h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 120/161 users (74.5%) 51.4 s/user ETA 0.59h peak_gpu=71.4GiB
+[represent:deepseek_r1_distill_qwen_32b] 130/161 users (80.7%) 50.8 s/user ETA 0.44h peak_gpu=71.8GiB
+[represent:deepseek_r1_distill_qwen_32b] 140/161 users (87.0%) 51.8 s/user ETA 0.30h peak_gpu=71.8GiB
+[represent:deepseek_r1_distill_qwen_32b] 150/161 users (93.2%) 53.9 s/user ETA 0.16h peak_gpu=71.8GiB
+[represent:deepseek_r1_distill_qwen_32b] 160/161 users (99.4%) 54.2 s/user ETA 0.02h peak_gpu=71.8GiB
+[represent:deepseek_r1_distill_qwen_32b] 161/161 users (100.0%) 54.0 s/user ETA 0.00h peak_gpu=71.8GiB
+[represent] deepseek_r1_distill_qwen_32b: 1003 user files in /data/home/b.michael/nlp_proj_v2/artifacts/full/reps/deepseek_r1_distill_qwen_32b

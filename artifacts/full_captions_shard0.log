@@ -1,0 +1,90 @@
+[shard 0] total_keys=301324 mine=75331 cached=66 todo=75265
+[shard 0] loading Qwen/Qwen2.5-VL-7B-Instruct ...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:   0%|          | 1/729 [00:00<01:25,  8.56it/s]Loading weights:   0%|          | 2/729 [00:00<01:35,  7.64it/s]Loading weights:   2%|▏         | 17/729 [00:00<00:12, 57.99it/s]Loading weights:   3%|▎         | 24/729 [00:00<00:22, 31.28it/s]Loading weights:  11%|█         | 81/729 [00:00<00:04, 136.72it/s]Loading weights:  14%|█▍        | 105/729 [00:00<00:04, 155.69it/s]Loading weights:  18%|█▊        | 128/729 [00:01<00:03, 161.60it/s]Loading weights:  21%|██        | 150/729 [00:01<00:03, 166.81it/s]Loading weights:  23%|██▎       | 171/729 [00:01<00:03, 165.52it/s]Loading weights:  26%|██▌       | 190/729 [00:01<00:04, 114.73it/s]Loading weights:  35%|███▍      | 253/729 [00:01<00:02, 198.94it/s]Loading weights:  38%|███▊      | 278/729 [00:01<00:02, 192.77it/s]Loading weights:  41%|████▏     | 301/729 [00:02<00:02, 189.85it/s]Loading weights:  44%|████▍     | 324/729 [00:02<00:02, 186.77it/s]Loading weights:  60%|█████▉    | 436/729 [00:02<00:00, 396.85it/s]Loading weights:  91%|█████████ | 664/729 [00:02<00:00, 851.59it/s]Loading weights: 100%|██████████| 729/729 [00:02<00:00, 298.44it/s]
+[shard 0] 480/75265 (0.6%) 5.12 img/s ETA 4.06h missing=340
+[shard 0] 960/75265 (1.3%) 5.18 img/s ETA 3.99h missing=786
+[shard 0] 1440/75265 (1.9%) 5.20 img/s ETA 3.95h missing=944
+[shard 0] 1920/75265 (2.6%) 5.21 img/s ETA 3.91h missing=1115
+[shard 0] 2400/75265 (3.2%) 5.24 img/s ETA 3.86h missing=1336
+[shard 0] 2880/75265 (3.8%) 5.22 img/s ETA 3.86h missing=1690
+[shard 0] 3360/75265 (4.5%) 5.19 img/s ETA 3.85h missing=2210
+[shard 0] 3840/75265 (5.1%) 5.20 img/s ETA 3.82h missing=2450
+[shard 0] 4320/75265 (5.7%) 5.22 img/s ETA 3.78h missing=2861
+[shard 0] 4800/75265 (6.4%) 5.23 img/s ETA 3.74h missing=3152
+[shard 0] 5280/75265 (7.0%) 5.24 img/s ETA 3.71h missing=3747
+[shard 0] 5760/75265 (7.7%) 5.25 img/s ETA 3.68h missing=4078
+[shard 0] 6240/75265 (8.3%) 5.26 img/s ETA 3.65h missing=4702
+[shard 0] 6720/75265 (8.9%) 5.27 img/s ETA 3.61h missing=5162
+[shard 0] 7200/75265 (9.6%) 5.27 img/s ETA 3.59h missing=5434
+[shard 0] 7680/75265 (10.2%) 5.28 img/s ETA 3.56h missing=5952
+[shard 0] 8160/75265 (10.8%) 5.28 img/s ETA 3.53h missing=6288
+[shard 0] 8640/75265 (11.5%) 5.28 img/s ETA 3.50h missing=6515
+[shard 0] 9120/75265 (12.1%) 5.29 img/s ETA 3.47h missing=7137
+[shard 0] 9600/75265 (12.8%) 5.29 img/s ETA 3.45h missing=7466
+[shard 0] 10080/75265 (13.4%) 5.29 img/s ETA 3.42h missing=7871
+[shard 0] 10560/75265 (14.0%) 5.30 img/s ETA 3.39h missing=8393
+[shard 0] 11040/75265 (14.7%) 5.30 img/s ETA 3.37h missing=8858
+[shard 0] 11520/75265 (15.3%) 5.30 img/s ETA 3.34h missing=9112
+[shard 0] 12000/75265 (15.9%) 5.30 img/s ETA 3.31h missing=9597
+[shard 0] 12480/75265 (16.6%) 5.30 img/s ETA 3.29h missing=10177
+[shard 0] 12960/75265 (17.2%) 5.30 img/s ETA 3.26h missing=10483
+[shard 0] 13440/75265 (17.9%) 5.30 img/s ETA 3.24h missing=10680
+[shard 0] 13920/75265 (18.5%) 5.31 img/s ETA 3.21h missing=11139
+[shard 0] 14400/75265 (19.1%) 5.31 img/s ETA 3.18h missing=11528
+[shard 0] 14880/75265 (19.8%) 5.31 img/s ETA 3.16h missing=12037
+[shard 0] 15360/75265 (20.4%) 5.31 img/s ETA 3.13h missing=12578
+[shard 0] 15840/75265 (21.0%) 5.31 img/s ETA 3.11h missing=13286
+[shard 0] 16320/75265 (21.7%) 5.31 img/s ETA 3.08h missing=13614
+[shard 0] 16800/75265 (22.3%) 5.31 img/s ETA 3.06h missing=14253
+[shard 0] 17280/75265 (23.0%) 5.31 img/s ETA 3.03h missing=14724
+[shard 0] 17760/75265 (23.6%) 5.31 img/s ETA 3.01h missing=15064
+[shard 0] 18240/75265 (24.2%) 5.31 img/s ETA 2.98h missing=15788
+[shard 0] 18720/75265 (24.9%) 5.31 img/s ETA 2.96h missing=16202
+[shard 0] 19200/75265 (25.5%) 5.31 img/s ETA 2.93h missing=16429
+[shard 0] 19680/75265 (26.1%) 5.31 img/s ETA 2.91h missing=16619
+[shard 0] 20160/75265 (26.8%) 5.31 img/s ETA 2.88h missing=16849
+[shard 0] 20640/75265 (27.4%) 5.31 img/s ETA 2.86h missing=17237
+[shard 0] 21120/75265 (28.1%) 5.31 img/s ETA 2.83h missing=17570
+[shard 0] 21600/75265 (28.7%) 5.30 img/s ETA 2.81h missing=18052
+[shard 0] 22080/75265 (29.3%) 5.30 img/s ETA 2.79h missing=18220
+[shard 0] 22560/75265 (30.0%) 5.30 img/s ETA 2.76h missing=18710
+[shard 0] 23040/75265 (30.6%) 5.30 img/s ETA 2.74h missing=18972
+[shard 0] 23520/75265 (31.2%) 5.30 img/s ETA 2.71h missing=19177
+[shard 0] 24000/75265 (31.9%) 5.30 img/s ETA 2.69h missing=19642
+[shard 0] 24480/75265 (32.5%) 5.30 img/s ETA 2.66h missing=20096
+[shard 0] 24960/75265 (33.2%) 5.30 img/s ETA 2.64h missing=20600
+[shard 0] 25440/75265 (33.8%) 5.30 img/s ETA 2.61h missing=20841
+[shard 0] 25920/75265 (34.4%) 5.29 img/s ETA 2.59h missing=21186
+[shard 0] 26400/75265 (35.1%) 5.29 img/s ETA 2.57h missing=21466
+[shard 0] 26880/75265 (35.7%) 5.29 img/s ETA 2.54h missing=21926
+[shard 0] 27360/75265 (36.4%) 5.29 img/s ETA 2.52h missing=22290
+[shard 0] 27840/75265 (37.0%) 5.29 img/s ETA 2.49h missing=22596
+[shard 0] 28320/75265 (37.6%) 5.28 img/s ETA 2.47h missing=23171
+[shard 0] 28800/75265 (38.3%) 5.28 img/s ETA 2.44h missing=23657
+[shard 0] 29280/75265 (38.9%) 5.28 img/s ETA 2.42h missing=24345
+[shard 0] 29760/75265 (39.5%) 5.28 img/s ETA 2.39h missing=24390
+[shard 0] 30240/75265 (40.2%) 5.28 img/s ETA 2.37h missing=24618
+[shard 0] 30720/75265 (40.8%) 5.28 img/s ETA 2.34h missing=24999
+[shard 0] 31200/75265 (41.5%) 5.28 img/s ETA 2.32h missing=25366
+[shard 0] 31680/75265 (42.1%) 5.28 img/s ETA 2.29h missing=25590
+[shard 0] 32160/75265 (42.7%) 5.28 img/s ETA 2.27h missing=26071
+[shard 0] 32640/75265 (43.4%) 5.28 img/s ETA 2.24h missing=26668
+[shard 0] 33120/75265 (44.0%) 5.27 img/s ETA 2.22h missing=27029
+[shard 0] 33600/75265 (44.6%) 5.28 img/s ETA 2.19h missing=27444
+[shard 0] 34080/75265 (45.3%) 5.27 img/s ETA 2.17h missing=27885
+[shard 0] 34560/75265 (45.9%) 5.27 img/s ETA 2.14h missing=28205
+[shard 0] 35040/75265 (46.6%) 5.27 img/s ETA 2.12h missing=29076
+[shard 0] 35520/75265 (47.2%) 5.27 img/s ETA 2.09h missing=29250
+[shard 0] 36000/75265 (47.8%) 5.27 img/s ETA 2.07h missing=29570
+[shard 0] 36480/75265 (48.5%) 5.27 img/s ETA 2.04h missing=30048
+[shard 0] 36960/75265 (49.1%) 5.27 img/s ETA 2.02h missing=30944
+[shard 0] 37440/75265 (49.7%) 5.27 img/s ETA 1.99h missing=31292
+[shard 0] 37920/75265 (50.4%) 5.27 img/s ETA 1.97h missing=31702
+[shard 0] 38400/75265 (51.0%) 5.27 img/s ETA 1.94h missing=31925
+[shard 0] 38880/75265 (51.7%) 5.27 img/s ETA 1.92h missing=32269
+[shard 0] 39360/75265 (52.3%) 5.27 img/s ETA 1.89h missing=32740
+[shard 0] 39840/75265 (52.9%) 5.27 img/s ETA 1.87h missing=33200
+[shard 0] 40320/75265 (53.6%) 5.27 img/s ETA 1.84h missing=33387
+[shard 0] 40800/75265 (54.2%) 5.27 img/s ETA 1.82h missing=33806
+[shard 0] DONE captioned=41235 missing_in_zip=34030 elapsed=2.17h rate=5.27 img/s -> /data/home/b.michael/nlp_proj_v2/artifacts/captions/Qwen__Qwen2.5-VL-7B-Instruct/shards/shard_00.parquet
