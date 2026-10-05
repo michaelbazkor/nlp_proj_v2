@@ -1,0 +1,68 @@
+{
+  "fold": 1,
+  "params": {
+    "n_layers": 1,
+    "n_neurons": 64,
+    "activation": "tanh",
+    "lr": 0.005,
+    "epochs": 1000
+  },
+  "rows": [
+    {
+      "name": "stm",
+      "scale": 0.0,
+      "dev_auc": 0.8975181857081729,
+      "test_auc": 0.6529374201787995,
+      "pearson_phq9": NaN
+    },
+    {
+      "name": "side",
+      "scale": 0.05,
+      "dev_auc": 0.7590928540864357,
+      "test_auc": 0.6932737335036185,
+      "pearson_phq9": 0.04948798992408
+    },
+    {
+      "name": "side",
+      "scale": 0.1,
+      "dev_auc": 0.7744972186563972,
+      "test_auc": 0.6859301830566198,
+      "pearson_phq9": 0.16930717637341539
+    },
+    {
+      "name": "side",
+      "scale": 0.2,
+      "dev_auc": 0.771287976037655,
+      "test_auc": 0.6675180928054493,
+      "pearson_phq9": 0.1255160731344682
+    },
+    {
+      "name": "medical",
+      "scale": 0.1,
+      "dev_auc": 0.8354728284124947,
+      "test_auc": 0.6706045125585356,
+      "pearson_phq9": 0.21378509685244468
+    },
+    {
+      "name": "medical",
+      "scale": 0.33,
+      "dev_auc": 0.8234916559691913,
+      "test_auc": 0.6385696040868455,
+      "pearson_phq9": 0.2280594028880267
+    },
+    {
+      "name": "full",
+      "scale": 0.1,
+      "dev_auc": 0.8080872913992297,
+      "test_auc": 0.6732652192422307,
+      "pearson_phq9": 0.18236023567847456
+    },
+    {
+      "name": "full",
+      "scale": 0.33,
+      "dev_auc": 0.8185708172871203,
+      "test_auc": 0.6484674329501915,
+      "pearson_phq9": -0.0031199954315346136
+    }
+  ]
+}

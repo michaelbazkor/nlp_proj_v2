@@ -1,0 +1,87 @@
+{
+  "cfg_idx": 123,
+  "params": {
+    "n_layers": 1,
+    "n_neurons": 512,
+    "activation": "tanh",
+    "lr": 0.005,
+    "epochs": 1000
+  },
+  "selection": "highest mean search dev AUC across the five folds",
+  "test_aucs": [
+    0.7286813186813187,
+    0.7130693912303107,
+    0.7674542358450405,
+    0.7317639257294429,
+    0.6896551724137931
+  ],
+  "mean_test_auc": 0.7261248087799812,
+  "stm_mean_test_auc": 0.716,
+  "folds": [
+    {
+      "fold": 0,
+      "dev_auc": 0.7284980744544287,
+      "test_auc": 0.7286813186813187,
+      "pearson_phq9": 0.07999952017420311,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      }
+    },
+    {
+      "fold": 1,
+      "dev_auc": 0.8207103123662816,
+      "test_auc": 0.7130693912303107,
+      "pearson_phq9": 0.03246504275216589,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      }
+    },
+    {
+      "fold": 2,
+      "dev_auc": 0.8299101412066753,
+      "test_auc": 0.7674542358450405,
+      "pearson_phq9": 0.20968624667370292,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      }
+    },
+    {
+      "fold": 3,
+      "dev_auc": 0.795250320924262,
+      "test_auc": 0.7317639257294429,
+      "pearson_phq9": 0.2662380151379916,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      }
+    },
+    {
+      "fold": 4,
+      "dev_auc": 0.7351305091998289,
+      "test_auc": 0.6896551724137931,
+      "pearson_phq9": -0.10336765749049376,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      }
+    }
+  ]
+}

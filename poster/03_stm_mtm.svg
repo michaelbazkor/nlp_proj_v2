@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1400" height="620" fill="#ffffff"/>
+  <text x="40" y="42" font-size="28" font-weight="700" fill="#1e293b">Single-task and multi-task classifiers</text>
+  <text x="40" y="74" font-size="16" fill="#64748b">Same 1024 features. The reported score adds a training-fold PHQ-9 prediction.</text>
+
+  <rect x="40" y="110" width="560" height="470" rx="16" fill="#f8fafc" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="70" y="152" font-size="22" font-weight="700" fill="#1d4ed8">STM</text>
+  <text x="140" y="152" font-size="16" fill="#64748b">suicide only</text>
+
+  <rect x="160" y="190" width="320" height="64" rx="12" fill="#1e293b"/>
+  <text x="320" y="228" text-anchor="middle" font-size="18" fill="#ffffff">1024 features</text>
+  <line x1="320" y1="254" x2="320" y2="284" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="312,284 328,284 320,298" fill="#1e293b"/>
+
+  <rect x="160" y="306" width="320" height="80" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="320" y="342" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Fully connected stack</text>
+  <text x="320" y="366" text-anchor="middle" font-size="14" fill="#64748b">selected depth and width</text>
+  <line x1="320" y1="386" x2="320" y2="416" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="312,416 328,416 320,430" fill="#1e293b"/>
+
+  <rect x="160" y="438" width="320" height="80" rx="12" fill="#1d4ed8"/>
+  <text x="320" y="474" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">Suicide logit</text>
+  <text x="320" y="498" text-anchor="middle" font-size="14" fill="#dbeafe">high-risk ranking</text>
+
+  <rect x="640" y="110" width="720" height="470" rx="16" fill="#f8fafc" stroke="#0f766e" stroke-width="2"/>
+  <text x="670" y="152" font-size="22" font-weight="700" fill="#0f766e">MTM</text>
+  <text x="750" y="152" font-size="16" fill="#64748b">clinical stages, then suicide</text>
+
+  <rect x="860" y="180" width="280" height="52" rx="12" fill="#1e293b"/>
+  <text x="1000" y="212" text-anchor="middle" font-size="16" fill="#ffffff">Shared trunk</text>
+
+  <line x1="1000" y1="232" x2="1000" y2="252" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="992,252 1008,252 1000,264" fill="#1e293b"/>
+  <rect x="820" y="268" width="360" height="48" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+  <text x="1000" y="298" text-anchor="middle" font-size="16" fill="#1e293b">Personality · 5 scores</text>
+
+  <line x1="1000" y1="316" x2="1000" y2="334" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="992,334 1008,334 1000,346" fill="#1e293b"/>
+  <rect x="820" y="350" width="360" height="48" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+  <text x="1000" y="380" text-anchor="middle" font-size="16" fill="#1e293b">Psychosocial · 4 scores</text>
+
+  <line x1="1000" y1="398" x2="1000" y2="416" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="992,416 1008,416 1000,428" fill="#1e293b"/>
+  <rect x="820" y="432" width="360" height="48" rx="10" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+  <text x="1000" y="462" text-anchor="middle" font-size="16" fill="#1e293b">PHQ-9 and GAD · 2 scores</text>
+
+  <line x1="1000" y1="480" x2="1000" y2="498" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="992,498 1008,498 1000,510" fill="#1e293b"/>
+  <rect x="760" y="514" width="480" height="48" rx="10" fill="#0f766e"/>
+  <text x="1000" y="544" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Suicide logit + 0.1 × predicted PHQ-9</text>
+</svg>

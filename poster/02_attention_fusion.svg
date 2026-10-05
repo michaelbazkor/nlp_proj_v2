@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="460" viewBox="0 0 1400 460" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1400" height="460" fill="#ffffff"/>
+  <text x="40" y="42" font-size="28" font-weight="700" fill="#1e293b">Attention fusion, one block</text>
+  <text x="40" y="74" font-size="16" fill="#64748b">Scores positions inside one model and one layer. Not token attention.</text>
+
+  <g font-size="15" fill="#1e293b">
+    <rect x="40" y="120" width="200" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="140" y="154" text-anchor="middle">Input only</text>
+    <rect x="40" y="190" width="200" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="140" y="224" text-anchor="middle">Last prompt</text>
+    <rect x="40" y="260" width="200" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="140" y="294" text-anchor="middle">Chain of thought</text>
+    <rect x="40" y="330" width="200" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="140" y="364" text-anchor="middle">Final prediction</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="2" fill="none">
+    <path d="M240 148 H300"/>
+    <path d="M240 218 H300"/>
+    <path d="M240 288 H300"/>
+    <path d="M240 358 H300"/>
+  </g>
+
+  <rect x="300" y="160" width="200" height="190" rx="14" fill="#f8fafc" stroke="#1e293b" stroke-width="2"/>
+  <text x="400" y="230" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Score</text>
+  <text x="400" y="258" text-anchor="middle" font-size="15" fill="#1e293b">linear map</text>
+  <text x="400" y="282" text-anchor="middle" font-size="15" fill="#1e293b">to one number</text>
+  <text x="400" y="314" text-anchor="middle" font-size="13" fill="#64748b">no bias</text>
+
+  <polygon points="510,245 548,255 510,265" fill="#1e293b"/>
+
+  <rect x="560" y="160" width="200" height="190" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+  <text x="660" y="230" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Softmax</text>
+  <text x="660" y="258" text-anchor="middle" font-size="15" fill="#1e293b">four weights</text>
+  <text x="660" y="286" text-anchor="middle" font-size="15" fill="#1e293b">sum to 1</text>
+
+  <polygon points="770,245 808,255 770,265" fill="#1e293b"/>
+
+  <rect x="820" y="160" width="220" height="190" rx="14" fill="#f8fafc" stroke="#1e293b" stroke-width="2"/>
+  <text x="930" y="230" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Weighted sum</text>
+  <text x="930" y="258" text-anchor="middle" font-size="15" fill="#1e293b">one vector</text>
+  <text x="930" y="286" text-anchor="middle" font-size="15" fill="#1e293b">for this block</text>
+
+  <polygon points="1050,245 1088,255 1050,265" fill="#1e293b"/>
+
+  <rect x="1100" y="140" width="250" height="230" rx="14" fill="#1e293b"/>
+  <text x="1225" y="220" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">All blocks</text>
+  <text x="1225" y="248" text-anchor="middle" font-size="16" fill="#e2e8f0">concatenated</text>
+  <text x="1225" y="284" text-anchor="middle" font-size="16" fill="#e2e8f0">then a linear map</text>
+  <text x="1225" y="322" text-anchor="middle" font-size="22" font-weight="700" fill="#99f6e4">to 1024</text>
+</svg>

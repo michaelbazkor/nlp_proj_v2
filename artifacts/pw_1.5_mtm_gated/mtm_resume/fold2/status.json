@@ -1,0 +1,13 @@
+{
+  "fold": 2,
+  "phase": "refit",
+  "best_idx": 227,
+  "best_dev_auc": 0.8602909713307659,
+  "params": {
+    "n_layers": 2,
+    "n_neurons": 64,
+    "activation": "tanh",
+    "lr": 0.05,
+    "epochs": 5000
+  }
+}

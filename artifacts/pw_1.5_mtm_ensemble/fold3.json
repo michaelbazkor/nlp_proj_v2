@@ -1,0 +1,67 @@
+{
+  "fold": 3,
+  "members": [
+    {
+      "cfg_idx": 123,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      },
+      "dev_auc": 0.795250320924262,
+      "test_auc": 0.7317639257294429
+    },
+    {
+      "cfg_idx": 227,
+      "params": {
+        "n_layers": 2,
+        "n_neurons": 64,
+        "activation": "tanh",
+        "lr": 0.05,
+        "epochs": 5000
+      },
+      "dev_auc": 0.7083868207103123,
+      "test_auc": 0.724027409372237
+    },
+    {
+      "cfg_idx": 81,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 128,
+        "activation": "tanh",
+        "lr": 0.05,
+        "epochs": 1000
+      },
+      "dev_auc": 0.7137355584082157,
+      "test_auc": 0.650972590627763
+    },
+    {
+      "cfg_idx": 399,
+      "params": {
+        "n_layers": 3,
+        "n_neurons": 64,
+        "activation": "sigmoid",
+        "lr": 0.005,
+        "epochs": 1000
+      },
+      "dev_auc": 0.6994009413778346,
+      "test_auc": 0.7198275862068966
+    },
+    {
+      "cfg_idx": 365,
+      "params": {
+        "n_layers": 3,
+        "n_neurons": 32,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 5000
+      },
+      "dev_auc": 0.7086007702182284,
+      "test_auc": 0.7368479221927497
+    }
+  ],
+  "ensemble_dev_auc": 0.7015404364569962,
+  "ensemble_test_auc": 0.7514367816091954
+}

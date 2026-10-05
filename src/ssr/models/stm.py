@@ -44,8 +44,9 @@ class MTM(nn.Module):
 
     Shared trunk from input; subnets:
       personality (5) -> psychosocial (4) -> psychiatric (2) -> suicide (1)
-    Each subnet consumes concat(prev_output, shared_trunk), matching the
-    paper's residual skip connections from the shared layers.
+    Each subnet consumes concat(tanh(prev_output), shared_trunk). The tanh
+    keeps the paper's residual skip from the shared layers, and keeps a
+    diverging auxiliary head from overwhelming that skip.
     """
 
     PERSONALITY = ["BFI_O", "BFI_C", "BFI_E", "BFI_A", "BFI_N"]  # 5
@@ -74,9 +75,13 @@ class MTM(nn.Module):
     def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
         shared = self.shared(x) if len(list(self.shared.children())) else x
         pers = self.personality(shared)
-        psy = self.psychosocial(torch.cat([pers, shared], dim=-1))
-        psych = self.psychiatric(torch.cat([psy, shared], dim=-1))
-        sui = self.suicide(torch.cat([psych, shared], dim=-1)).squeeze(-1)
+        # Pass tanh(prediction) up the cascade. The loss still sees the raw
+        # scores, but a diverging head then saturates instead of feeding
+        # unbounded activations into the next stage. Those unbounded values
+        # were drowning the shared suicide features at the higher learning rates.
+        psy = self.psychosocial(torch.cat([torch.tanh(pers), shared], dim=-1))
+        psych = self.psychiatric(torch.cat([torch.tanh(psy), shared], dim=-1))
+        sui = self.suicide(torch.cat([torch.tanh(psych), shared], dim=-1)).squeeze(-1)
         return {
             "suicide_logit": sui,
             "personality": pers,

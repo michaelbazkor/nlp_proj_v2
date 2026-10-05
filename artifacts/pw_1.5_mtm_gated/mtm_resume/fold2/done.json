@@ -1,0 +1,36 @@
+{
+  "metrics": {
+    "auc_roc": 0.7341421881651766,
+    "pr_auc": 0.2519299080896539,
+    "f1": 0.0,
+    "cohens_d": 0.8844339422873615,
+    "n": 201,
+    "n_pos": 27,
+    "fold": 2,
+    "dev_auc": 0.8602909713307659,
+    "dev_auc_refit": 0.8686350021394952,
+    "f1_threshold": 0.5,
+    "f1_dev_thr": 0.3950617283950617,
+    "dev_thr": 0.013090433552861214,
+    "dev_f1_at_thr": 0.5084745762711864,
+    "spearman_ordinal": 0.3289651817598444,
+    "mae_phq9": 6.533287048339844,
+    "mae_gad": 5.268569469451904,
+    "pearson_phq9": -0.022124297163372914,
+    "pearson_gad": 0.18597620073413396,
+    "p_n_layers": 2,
+    "p_n_neurons": 64,
+    "p_activation": "tanh",
+    "p_lr": 0.05,
+    "p_epochs": 5000
+  },
+  "fusion": {
+    "fold": 2,
+    "method": "attention_pool",
+    "seconds": 3.8,
+    "in_dim": 1024,
+    "fusion_dev_auc": 0.7625160462130937,
+    "epochs_run": 56,
+    "reused_stm_fusion": true
+  }
+}

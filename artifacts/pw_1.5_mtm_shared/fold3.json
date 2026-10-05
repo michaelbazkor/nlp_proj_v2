@@ -1,0 +1,13 @@
+{
+  "fold": 3,
+  "dev_auc": 0.795250320924262,
+  "test_auc": 0.7317639257294429,
+  "pearson_phq9": 0.2662380151379916,
+  "params": {
+    "n_layers": 1,
+    "n_neurons": 512,
+    "activation": "tanh",
+    "lr": 0.005,
+    "epochs": 1000
+  }
+}

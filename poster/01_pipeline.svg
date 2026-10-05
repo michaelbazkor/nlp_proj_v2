@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="420" viewBox="0 0 1400 420" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1400" height="420" fill="#ffffff"/>
+  <text x="40" y="42" font-size="28" font-weight="700" fill="#1e293b">From posts to a risk score</text>
+  <text x="40" y="72" font-size="16" fill="#64748b">One user. Hidden states only. Fusion is fit on the training fold.</text>
+
+  <g>
+    <rect x="40" y="120" width="180" height="180" rx="14" fill="#f8fafc" stroke="#1e293b" stroke-width="2"/>
+    <text x="130" y="175" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Facebook</text>
+    <text x="130" y="202" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">posts</text>
+    <text x="130" y="236" text-anchor="middle" font-size="14" fill="#64748b">one user</text>
+  </g>
+
+  <polygon points="230,200 258,210 230,220" fill="#1e293b"/>
+
+  <g>
+    <rect x="270" y="110" width="250" height="200" rx="14" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="395" y="148" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Four LLMs</text>
+    <text x="395" y="182" text-anchor="middle" font-size="15" fill="#1e293b">Qwen3-32B</text>
+    <text x="395" y="206" text-anchor="middle" font-size="15" fill="#1e293b">DeepSeek-R1-Distill</text>
+    <text x="395" y="230" text-anchor="middle" font-size="15" fill="#1e293b">Gemma-4-26B</text>
+    <text x="395" y="254" text-anchor="middle" font-size="15" fill="#1e293b">Llama-3.3-70B</text>
+    <text x="395" y="286" text-anchor="middle" font-size="13" fill="#64748b">layers × 4 positions</text>
+  </g>
+
+  <polygon points="530,200 558,210 530,220" fill="#1e293b"/>
+
+  <g>
+    <rect x="570" y="120" width="230" height="180" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+    <text x="685" y="185" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">Attention</text>
+    <text x="685" y="212" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">fusion</text>
+    <text x="685" y="248" text-anchor="middle" font-size="14" fill="#64748b">train fold only</text>
+  </g>
+
+  <polygon points="810,200 838,210 810,220" fill="#1e293b"/>
+
+  <g>
+    <rect x="850" y="145" width="150" height="130" rx="14" fill="#1e293b"/>
+    <text x="925" y="205" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">1024</text>
+    <text x="925" y="232" text-anchor="middle" font-size="14" fill="#e2e8f0">features</text>
+  </g>
+
+  <polygon points="1010,200 1038,190 1038,210" fill="#1e293b"/>
+  <line x1="1038" y1="200" x2="1080" y2="200" stroke="#1e293b" stroke-width="2"/>
+  <line x1="1080" y1="140" x2="1080" y2="260" stroke="#1e293b" stroke-width="2"/>
+  <line x1="1080" y1="140" x2="1110" y2="140" stroke="#1e293b" stroke-width="2"/>
+  <line x1="1080" y1="260" x2="1110" y2="260" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="1110,130 1138,140 1110,150" fill="#1d4ed8"/>
+  <polygon points="1110,250 1138,260 1110,270" fill="#0f766e"/>
+
+  <g>
+    <rect x="1150" y="100" width="210" height="80" rx="14" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="1255" y="135" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">STM</text>
+    <text x="1255" y="158" text-anchor="middle" font-size="14" fill="#64748b">suicide only</text>
+  </g>
+  <g>
+    <rect x="1150" y="220" width="210" height="80" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+    <text x="1255" y="255" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">MTM</text>
+    <text x="1255" y="278" text-anchor="middle" font-size="14" fill="#64748b">clinical stages, then suicide</text>
+  </g>
+</svg>

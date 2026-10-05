@@ -1,0 +1,89 @@
+{
+  "rule": "refit top 3 by search dev AUC; keep highest refit dev AUC",
+  "test_aucs": [
+    0.7330769230769231,
+    0.7172200936568753,
+    0.7359514687100894,
+    0.7317639257294429,
+    0.6568302387267905
+  ],
+  "mean_test_auc": 0.7149685299800242,
+  "stm_mean_test_auc": 0.716,
+  "selected": [
+    {
+      "cfg_idx": 435,
+      "search_dev_auc": 0.7700042789901583,
+      "refit_dev_auc": 0.7631578947368421,
+      "test_auc": 0.7330769230769231,
+      "pearson_phq9": 0.14620918297935578,
+      "params": {
+        "n_layers": 3,
+        "n_neurons": 256,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      },
+      "device": "cpu"
+    },
+    {
+      "cfg_idx": 68,
+      "search_dev_auc": 0.8844672657252888,
+      "refit_dev_auc": 0.8671373555840821,
+      "test_auc": 0.7172200936568753,
+      "pearson_phq9": 0.21776338528495437,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 64,
+        "activation": "sigmoid",
+        "lr": 0.01,
+        "epochs": 5000
+      },
+      "device": "cpu"
+    },
+    {
+      "cfg_idx": 416,
+      "search_dev_auc": 0.8656397090286693,
+      "refit_dev_auc": 0.853658536585366,
+      "test_auc": 0.7359514687100894,
+      "pearson_phq9": 0.26065930991681485,
+      "params": {
+        "n_layers": 3,
+        "n_neurons": 128,
+        "activation": "tanh",
+        "lr": 0.01,
+        "epochs": 5000
+      },
+      "device": "cpu"
+    },
+    {
+      "cfg_idx": 123,
+      "search_dev_auc": 0.795250320924262,
+      "refit_dev_auc": 0.795250320924262,
+      "test_auc": 0.7317639257294429,
+      "pearson_phq9": 0.2662380151379916,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 512,
+        "activation": "tanh",
+        "lr": 0.005,
+        "epochs": 1000
+      },
+      "device": "cuda:0"
+    },
+    {
+      "cfg_idx": 96,
+      "search_dev_auc": 0.7719298245614035,
+      "refit_dev_auc": 0.8001711596063329,
+      "test_auc": 0.6568302387267905,
+      "pearson_phq9": 0.11669825332021953,
+      "params": {
+        "n_layers": 1,
+        "n_neurons": 256,
+        "activation": "tanh",
+        "lr": 0.001,
+        "epochs": 1000
+      },
+      "device": "cpu"
+    }
+  ]
+}
