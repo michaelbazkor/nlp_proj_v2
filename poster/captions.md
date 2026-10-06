@@ -34,4 +34,32 @@ The plotted network is the one configuration with the best average development A
 
 ## 7. ROC
 
-Each thin line is one test fold. Each thick line is the average of those five curves. The legend is the mean test AUC, 0.716 and 0.734. The gray diagonal is chance.
+Each thin line is one test fold. Each thick line is the average of those five curves, and the band is ± one standard deviation across folds. The legend is the mean test AUC with its fold-to-fold spread: STM 0.716 ± 0.060, MTM + PHQ-9 0.734 ± 0.021. The multi-task model is both higher on average and steadier across folds. The dashed diagonal is chance.
+
+## 8. System
+
+One diagram of the path from posts to a score. Four language models emit a vector at four positions in each layer. Inside each model and layer, a bias-free linear score, a softmax, and a weighted sum pool those positions. The 14 pooled vectors are concatenated and projected to 1024 features. The single-task network passes those features through 1 to 3 tanh layers to a suicide logit; dashed layers are used on folds 0 and 2 only. The multi-task network has one shared 512-unit layer, then predicts personality, psychosocial scores, PHQ-9 and GAD, and the suicide logit in turn. Every stage after the first also receives the shared layer again. The reported multi-task score adds 0.1 times a PHQ-9 value predicted from the same features.
+
+## 9. Hyperparameters
+
+Single-task settings differ by fold: fold 0 is 3 layers of 1024 tanh units, learning rate 0.01, 1000 epochs; fold 1 is 1 layer of 64, learning rate 0.005, 1000 epochs; fold 2 is 3 layers of 1024, learning rate 0.005, 5000 epochs; fold 3 is 1 layer of 512, learning rate 0.001, 5000 epochs; fold 4 is 1 layer of 512, learning rate 0.05, 2500 epochs. The multi-task network is the same on every fold: 1 layer, 512 tanh units, learning rate 0.005, 1000 epochs. Both use RMSprop, momentum 0.9, batch 32, patience 200, seed 42. Fusion uses Adam, learning rate 0.01, patience 50, and a positive-class weight of 1.5 times the negative-to-positive ratio. Bars show each fold's test AUC; the higher model in each row is bold, and the dashed line marks the paper's high-risk multi-task result, 0.697.
+
+## 10. Decisions by score
+
+Each user is scored by the fold that held them out. Each bar is 100% of the users with that true score; the numbers inside are user counts. Green is a correct call, red an incorrect one. High risk is a true score of 3 or above, shaded on the right. The threshold maximizes F1 on that fold's development users. Thresholds are 0.525, 0.865, 0.006, 0.005, and 0.345. Miss rates: score 0 is 16% (105 of 642), score 3 is 62% (38 of 61), score 5 is 55% (18 of 33). Sensitivity is 63 of 132. Specificity is 709 of 871. Accuracy is 77%, below 87% from calling every user low risk. AUC does not use this threshold.
+
+## 11. Scale correlations
+
+Pearson correlations among the questionnaires and the suicide score, all 1003 users. Labels are colored by MTM stage. The strongest pairs are worry with neuroticism (0.76) and GAD with PHQ-9 (0.75). With the 0–6 suicide score (outlined bottom row): PHQ-9 0.44, brooding 0.38, GAD 0.38, loneliness 0.35, worry 0.35, neuroticism 0.30, satisfaction with life −0.19, conscientiousness −0.18, agreeableness −0.18, openness 0.07. Extraversion is omitted because it is a copy of satisfaction with life in this file.
+
+## 12. Middle-scale scores
+
+Test correlation between each multi-task head and the matching questionnaire, grouped by cascade stage. Light dots are the five folds; the diamond and bar are the mean ± SD. The strongest means are brooding 0.13 and openness 0.13. PHQ-9 is 0.10. Worry, neuroticism, and agreeableness are about zero. The suicide gain does not come from accurate middle-scale predictions.
+
+## 13. Examples
+
+A confusion grid of held-out users: 63 high-risk users flagged, 69 missed, 162 false alarms, and 709 correctly cleared. Each cell shows its most extreme user, with a gauge for the model score against that fold's threshold. Quotes are verbatim excerpts from that user's posts, picked by hand as the passages most related to distress; names are removed. The correctly flagged user (true score 5) writes openly and repeatedly about suicide. The missed user (true score 5) has only a few distressed lines among 189 cheerful posts, and the model scores them near zero. The false alarm (true score 0) writes self-critical, low-mood posts but reported no ideation. The correctly cleared user (true score 0) mentions death and feelings only as jokes.
+
+## 14. Conclusions and limitations
+
+High-risk AUC is 0.734, compared with 0.697 for the paper's high-risk multi-task model and 0.716 for this single-task model. The comparison with the paper's 0.746 does not apply: that figure is general risk. Yes/no decisions at a development F1 threshold are weaker than a majority-class rule. The middle heads barely track the questionnaires. About 19 high-risk development users select the model. This is not a screening tool.

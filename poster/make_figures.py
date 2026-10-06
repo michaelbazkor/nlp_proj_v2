@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
 from sklearn.linear_model import RidgeCV
-from sklearn.metrics import roc_curve
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTER = Path(__file__).resolve().parent
@@ -162,32 +161,10 @@ def roc():
         **{f"stm{i}": stm_scores[i] for i in range(5)},
         **{f"phq{i}": phq_scores[i] for i in range(5)},
     )
-    fig, ax = plt.subplots(figsize=(7.4, 7.2))
-    ax.plot([0, 1], [0, 1], color="#e2e8f0", lw=1.5, zorder=0)
-    for i in range(5):
-        for scores, color in ((stm_scores[i], STM_C), (phq_scores[i], PHQ_C)):
-            fpr, tpr, _ = roc_curve(ys[i], scores)
-            ax.plot(fpr, tpr, color=color, alpha=0.28, lw=1.2)
-    ax.plot([], [], color=STM_C, lw=2.5, label=f"STM  {np.mean(STM_FOLDS):.3f}")
-    ax.plot([], [], color=PHQ_C, lw=2.5, label=f"MTM + PHQ-9  {np.mean(PHQ_FOLDS):.3f}")
-    # Bold mean curve: average TPR on a shared FPR grid.
-    grid = np.linspace(0, 1, 201)
-    for scores, color in ((stm_scores, STM_C), (phq_scores, PHQ_C)):
-        tprs = []
-        for i in range(5):
-            fpr, tpr, _ = roc_curve(ys[i], scores[i])
-            tprs.append(np.interp(grid, fpr, tpr))
-        ax.plot(grid, np.mean(tprs, axis=0), color=color, lw=2.6)
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.set_xlabel("False positive rate")
-    ax.set_ylabel("True positive rate")
-    ax.set_title("High suicide risk", fontsize=20, pad=12, fontweight="bold")
-    ax.set_aspect("equal")
-    ax.legend(frameon=False, fontsize=13, loc="lower right")
-    style_ax(ax)
-    fig.tight_layout()
-    save(fig, "07_roc.svg")
+    sys.path.insert(0, str(POSTER))
+    from make_panels import draw_roc
+
+    draw_roc()
 
 
 def captions(d_ours: float):

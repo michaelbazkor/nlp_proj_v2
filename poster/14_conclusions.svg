@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="595" viewBox="0 0 1500 595" font-family="Arial, Helvetica, sans-serif">
+<defs><filter id="shadow" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="1500" height="595" fill="#ffffff"/>
+<text x="32" y="46" font-size="28" fill="#1e293b" font-weight="700">Conclusions and limitations</text>
+<rect x="32" y="74" width="704" height="489" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+<rect x="32" y="74" width="704" height="52" rx="16" fill="#0f766e"/>
+<rect x="32" y="104" width="704" height="22" rx="0" fill="#0f766e"/>
+<text x="56" y="108" font-size="19" fill="#ffffff" font-weight="700">What we found</text>
+<rect x="56.0" y="148" width="209.33333333333334" height="104" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="56.0" y="148" width="6" height="104" rx="3" fill="#b45309"/>
+<text x="78.0" y="198" font-size="38" fill="#b45309" font-weight="700">0.734</text>
+<text x="78.0" y="224" font-size="13" fill="#1e293b" font-weight="700">This work, MTM + PHQ-9</text>
+<text x="78.0" y="242" font-size="12" fill="#64748b">high-risk test AUC</text>
+<rect x="279.33333333333337" y="148" width="209.33333333333334" height="104" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="279.33333333333337" y="148" width="6" height="104" rx="3" fill="#1d4ed8"/>
+<text x="301.33333333333337" y="198" font-size="38" fill="#1d4ed8" font-weight="700">0.716</text>
+<text x="301.33333333333337" y="224" font-size="13" fill="#1e293b" font-weight="700">This work, STM</text>
+<text x="301.33333333333337" y="242" font-size="12" fill="#64748b">high-risk test AUC</text>
+<rect x="502.6666666666667" y="148" width="209.33333333333334" height="104" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="502.6666666666667" y="148" width="6" height="104" rx="3" fill="#94a3b8"/>
+<text x="524.6666666666667" y="198" font-size="38" fill="#94a3b8" font-weight="700">0.697</text>
+<text x="524.6666666666667" y="224" font-size="13" fill="#1e293b" font-weight="700">Paper, best high-risk model</text>
+<text x="524.6666666666667" y="242" font-size="12" fill="#64748b">high-risk test AUC</text>
+<circle cx="69" cy="291" r="13" fill="#0f766e"/>
+<text x="69" y="296" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+<text x="96" y="296.0" font-size="15.5" fill="#1e293b">Hidden states from four language models, pooled by attention fusion, beat</text>
+<text x="96" y="317.7" font-size="15.5" fill="#1e293b">both of the paper's high-risk models: single-task 0.716 vs 0.629, multi-task</text>
+<text x="96" y="339.4" font-size="15.5" fill="#1e293b">0.734 vs 0.697.</text>
+<circle cx="69" cy="372.1" r="13" fill="#0f766e"/>
+<text x="69" y="377.1" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+<text x="96" y="377.1" font-size="15.5" fill="#1e293b">One multi-task setting shared by every fold generalizes better than a new</text>
+<text x="96" y="398.8" font-size="15.5" fill="#1e293b">setting per fold: 0.726 vs 0.702.</text>
+<circle cx="69" cy="431.5" r="13" fill="#0f766e"/>
+<text x="69" y="436.5" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+<text x="96" y="436.5" font-size="15.5" fill="#1e293b">A predicted PHQ-9 term with weight 0.1, chosen on development AUC, adds</text>
+<text x="96" y="458.2" font-size="15.5" fill="#1e293b">0.008. Cohen's d is 0.886, against 0.729 in the paper.</text>
+<circle cx="69" cy="490.9" r="13" fill="#0f766e"/>
+<text x="69" y="495.9" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+<text x="96" y="495.9" font-size="15.5" fill="#1e293b">The multi-task model ranks users better even though its middle stages barely</text>
+<text x="96" y="517.6" font-size="15.5" fill="#1e293b">predict the questionnaires (best mean r 0.13).</text>
+<rect x="764" y="74" width="704" height="489" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+<rect x="764" y="74" width="704" height="52" rx="16" fill="#e11d48"/>
+<rect x="764" y="104" width="704" height="22" rx="0" fill="#e11d48"/>
+<text x="788" y="108" font-size="19" fill="#ffffff" font-weight="700">Limitations</text>
+<circle cx="801" cy="165" r="13" fill="#e11d48"/>
+<text x="801" y="170" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="170.0" font-size="15.5" fill="#1e293b">Research reproduction only. It is not a screening tool.</text>
+<circle cx="801" cy="202.7" r="13" fill="#e11d48"/>
+<text x="801" y="207.7" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="207.7" font-size="15.5" fill="#1e293b">Yes/no calls are weak. Accuracy is 77%, while calling every user low risk</text>
+<text x="828" y="229.39999999999998" font-size="15.5" fill="#1e293b">scores 87%. Only 63 of 132 high-risk users are flagged.</text>
+<circle cx="801" cy="262.1" r="13" fill="#e11d48"/>
+<text x="801" y="267.1" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="267.1" font-size="15.5" fill="#1e293b">Gains are uneven across folds. About 19 high-risk development users choose</text>
+<text x="828" y="288.8" font-size="15.5" fill="#1e293b">each model, so selection is noisy.</text>
+<circle cx="801" cy="321.5" r="13" fill="#e11d48"/>
+<text x="801" y="326.5" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="326.5" font-size="15.5" fill="#1e293b">The paper's 0.746 is general risk (any ideation, 36% of users). That is a</text>
+<text x="828" y="348.2" font-size="15.5" fill="#1e293b">different label from the one here.</text>
+<circle cx="801" cy="380.9" r="13" fill="#e11d48"/>
+<text x="801" y="385.9" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="385.9" font-size="15.5" fill="#1e293b">Questionnaires are training targets only. The PHQ-9 term is predicted from</text>
+<text x="828" y="407.59999999999997" font-size="15.5" fill="#1e293b">posts, not taken from the person.</text>
+<circle cx="801" cy="440.29999999999995" r="13" fill="#e11d48"/>
+<text x="801" y="445.29999999999995" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="445.29999999999995" font-size="15.5" fill="#1e293b">In this data the extraversion column is a copy of life satisfaction.</text>
+<circle cx="801" cy="477.99999999999994" r="13" fill="#e11d48"/>
+<text x="801" y="482.99999999999994" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="482.99999999999994" font-size="15.5" fill="#1e293b">The sample has more distress than the general population.</text>
+</svg>

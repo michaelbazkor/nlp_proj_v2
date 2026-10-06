@@ -19,7 +19,7 @@
     <text x="395" y="206" text-anchor="middle" font-size="15" fill="#1e293b">DeepSeek-R1-Distill</text>
     <text x="395" y="230" text-anchor="middle" font-size="15" fill="#1e293b">Gemma-4-26B</text>
     <text x="395" y="254" text-anchor="middle" font-size="15" fill="#1e293b">Llama-3.3-70B</text>
-    <text x="395" y="286" text-anchor="middle" font-size="13" fill="#64748b">layers × 4 positions</text>
+    <text x="395" y="286" text-anchor="middle" font-size="13" fill="#64748b">layers Ã— 4 positions</text>
   </g>
 
   <polygon points="530,200 558,210 530,220" fill="#1e293b"/>

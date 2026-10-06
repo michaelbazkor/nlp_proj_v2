@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="674" viewBox="0 0 1500 674" font-family="Arial, Helvetica, sans-serif">
+<defs><filter id="shadow" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="1500" height="674" fill="#ffffff"/>
+<text x="32" y="46" font-size="28" fill="#1e293b" font-weight="700">Hyperparameters of the reported models</text>
+<text x="32" y="76" font-size="15" fill="#64748b">The STM is picked separately on each fold. The MTM uses one setting on every fold, chosen by mean development AUC.</text>
+<rect x="32" y="100" width="892" height="38" rx="8" fill="#dbeafe"/>
+<text x="48" y="125" font-size="15" fill="#1d4ed8" font-weight="700">STM, chosen per fold</text>
+<rect x="940" y="100" width="528" height="38" rx="8" fill="#ccfbf1"/>
+<text x="956" y="125" font-size="15" fill="#0f766e" font-weight="700">MTM + PHQ-9, one shared setting</text>
+<text x="48" y="164" font-size="13" fill="#64748b" font-weight="700">Fold</text>
+<text x="104" y="164" font-size="13" fill="#64748b" font-weight="700">Network</text>
+<text x="230" y="164" font-size="13" fill="#64748b" font-weight="700">Layers × units</text>
+<text x="430" y="164" font-size="13" fill="#64748b" font-weight="700">Learning rate</text>
+<text x="560" y="164" font-size="13" fill="#64748b" font-weight="700">Epochs</text>
+<text x="680" y="164" font-size="13" fill="#64748b" font-weight="700">Test AUC</text>
+<text x="956" y="164" font-size="13" fill="#64748b" font-weight="700">Setting</text>
+<text x="1210" y="164" font-size="13" fill="#64748b" font-weight="700">Test AUC</text>
+<line x1="32" y1="176" x2="1468" y2="176" stroke="#cbd5e1" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="32" y="178" width="892" height="54" rx="0" fill="#f8fafc"/>
+<rect x="1196" y="178" width="272" height="54" rx="0" fill="#f8fafc"/>
+<text x="58" y="210.0" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">0</text>
+<rect x="108" y="189.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<rect x="126" y="189.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<rect x="144" y="189.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<text x="230" y="210.0" font-size="16" fill="#1e293b">3 × 1024</text>
+<text x="430" y="210.0" font-size="16" fill="#1e293b">0.01</text>
+<text x="560" y="210.0" font-size="16" fill="#1e293b">1,000</text>
+<rect x="680" y="196.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="196.0" width="102.7" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="210.0" font-size="15" fill="#1e293b" font-weight="700">0.771</text>
+<rect x="1210" y="196.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="196.0" width="81.1" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="210.0" font-size="15" fill="#1e293b">0.735</text>
+<text x="58" y="264.0" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">1</text>
+<rect x="108" y="250.6" width="12" height="16.8" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<text x="230" y="264.0" font-size="16" fill="#1e293b">1 × 64</text>
+<text x="430" y="264.0" font-size="16" fill="#1e293b">0.005</text>
+<text x="560" y="264.0" font-size="16" fill="#1e293b">1,000</text>
+<rect x="680" y="250.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="250.0" width="34.3" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="264.0" font-size="15" fill="#1e293b">0.657</text>
+<rect x="1210" y="250.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="250.0" width="67.2" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="264.0" font-size="15" fill="#1e293b" font-weight="700">0.712</text>
+<rect x="32" y="286" width="892" height="54" rx="0" fill="#f8fafc"/>
+<rect x="1196" y="286" width="272" height="54" rx="0" fill="#f8fafc"/>
+<text x="58" y="318.0" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">2</text>
+<rect x="108" y="297.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<rect x="126" y="297.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<rect x="144" y="297.8" width="12" height="30.4" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<text x="230" y="318.0" font-size="16" fill="#1e293b">3 × 1024</text>
+<text x="430" y="318.0" font-size="16" fill="#1e293b">0.005</text>
+<text x="560" y="318.0" font-size="16" fill="#1e293b">5,000</text>
+<rect x="680" y="304.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="304.0" width="107.5" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="318.0" font-size="15" fill="#1e293b" font-weight="700">0.779</text>
+<rect x="1210" y="304.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="304.0" width="101.4" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="318.0" font-size="15" fill="#1e293b">0.769</text>
+<text x="58" y="372.0" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">3</text>
+<rect x="108" y="353.5" width="12" height="27.0" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<text x="230" y="372.0" font-size="16" fill="#1e293b">1 × 512</text>
+<text x="430" y="372.0" font-size="16" fill="#1e293b">0.001</text>
+<text x="560" y="372.0" font-size="16" fill="#1e293b">5,000</text>
+<rect x="680" y="358.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="358.0" width="83.8" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="372.0" font-size="15" fill="#1e293b">0.740</text>
+<rect x="1210" y="358.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="358.0" width="85.0" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="372.0" font-size="15" fill="#1e293b" font-weight="700">0.742</text>
+<rect x="32" y="394" width="892" height="54" rx="0" fill="#f8fafc"/>
+<rect x="1196" y="394" width="272" height="54" rx="0" fill="#f8fafc"/>
+<text x="58" y="426.0" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">4</text>
+<rect x="108" y="407.5" width="12" height="27.0" rx="3" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1"/>
+<text x="230" y="426.0" font-size="16" fill="#1e293b">1 × 512</text>
+<text x="430" y="426.0" font-size="16" fill="#1e293b">0.05</text>
+<text x="560" y="426.0" font-size="16" fill="#1e293b">2,500</text>
+<rect x="680" y="412.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="412.0" width="20.4" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="426.0" font-size="15" fill="#1e293b">0.634</text>
+<rect x="1210" y="412.0" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="412.0" width="68.6" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="426.0" font-size="15" fill="#1e293b" font-weight="700">0.714</text>
+<line x1="32" y1="448" x2="924" y2="448" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="1196" y1="448" x2="1468" y2="448" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+<text x="58" y="479" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">Mean</text>
+<text x="230" y="479" font-size="14" fill="#64748b">five different settings</text>
+<rect x="680" y="465" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="680" y="465" width="69.7" height="18" rx="4" fill="#1d4ed8"/>
+<text x="810" y="479" font-size="15" fill="#1e293b">0.716</text>
+<rect x="1210" y="465" width="120" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="1210" y="465" width="80.7" height="18" rx="4" fill="#b45309"/>
+<text x="1340" y="479" font-size="15" fill="#1e293b" font-weight="700">0.734</text>
+<line x1="738.2" y1="182" x2="738.2" y2="492" stroke="#1e293b" stroke-width="1" stroke-linecap="round" stroke-dasharray="3 3" opacity="0.55"/>
+<line x1="1268.2" y1="182" x2="1268.2" y2="492" stroke="#1e293b" stroke-width="1" stroke-linecap="round" stroke-dasharray="3 3" opacity="0.55"/>
+<text x="738" y="512" font-size="11.5" fill="#64748b" text-anchor="middle">dashed line: paper MTM, 0.697</text>
+<rect x="940" y="178" width="248" height="270" rx="10" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1"/>
+<rect x="960" y="210" width="12" height="23" rx="3" fill="#5eead4" stroke="#0f766e" stroke-width="1"/>
+<rect x="982" y="214" width="10" height="15" rx="2" fill="#7c3aed" opacity="0.85"/>
+<rect x="998" y="214" width="10" height="15" rx="2" fill="#0891b2" opacity="0.85"/>
+<rect x="1014" y="214" width="10" height="15" rx="2" fill="#b45309" opacity="0.85"/>
+<rect x="1030" y="214" width="10" height="15" rx="2" fill="#0f766e" opacity="0.85"/>
+<text x="956" y="270" font-size="16" fill="#1e293b" font-weight="700">1 × 512 shared layer</text>
+<text x="956" y="294" font-size="14" fill="#1e293b">tanh, learning rate 0.005</text>
+<text x="956" y="316" font-size="14" fill="#1e293b">1,000 epochs</text>
+<text x="956" y="344" font-size="13" fill="#64748b">4 cascade subnets, 512 units</text>
+<text x="956" y="364" font-size="13" fill="#b45309" font-weight="700">plus 0.1 × predicted PHQ-9</text>
+<text x="956" y="400" font-size="13" fill="#0f766e" font-weight="700">same on every fold</text>
+<text x="32" y="548" font-size="13" fill="#64748b" font-weight="700">Shared by both</text>
+<rect x="32" y="560" width="165.23" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="45" y="579" font-size="13" fill="#1e293b">RMSprop, momentum 0.9</text>
+<rect x="207.23" y="560" width="79.03999999999999" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="220.23" y="579" font-size="13" fill="#1e293b">Batch 32</text>
+<rect x="296.27" y="560" width="211.64000000000001" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="309.27" y="579" font-size="13" fill="#1e293b">Early stopping, patience 200</text>
+<rect x="517.91" y="560" width="72.41" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="530.91" y="579" font-size="13" fill="#1e293b">Seed 42</text>
+<rect x="600.3199999999999" y="560" width="211.64000000000001" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="613.3199999999999" y="579" font-size="13" fill="#1e293b">Suicide loss: unweighted BCE</text>
+<rect x="821.9599999999999" y="560" width="284.57" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="834.9599999999999" y="579" font-size="13" fill="#1e293b">MTM side losses: MSE on z-scored scales</text>
+<rect x="1116.53" y="560" width="251.42000000000002" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="1129.53" y="579" font-size="13" fill="#1e293b">Fusion: Adam, lr 0.01, patience 50</text>
+<rect x="32" y="598" width="357.5" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="45" y="617" font-size="13" fill="#1e293b">Fusion positive weight 1.5 × negatives / positives</text>
+<rect x="399.5" y="598" width="291.2" height="28" rx="14" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="412.5" y="617" font-size="13" fill="#1e293b">PHQ-9 term: ridge regression, weight 0.1</text>
+<text x="32" y="658" font-size="12" fill="#64748b">Search space: 504 settings per model (1 to 3 layers, 16 to 1024 units, tanh or sigmoid, 4 learning rates, 1,000 to 5,000 epochs).</text>
+</svg>
