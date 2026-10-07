@@ -50,7 +50,7 @@ Each user is scored by the fold that held them out. Each bar is 100% of the user
 
 ## 11. Scale correlations
 
-Pearson correlations among the questionnaires and the suicide score, all 1003 users. Labels are colored by MTM stage. The strongest pairs are worry with neuroticism (0.76) and GAD with PHQ-9 (0.75). With the 0–6 suicide score (outlined bottom row): PHQ-9 0.44, brooding 0.38, GAD 0.38, loneliness 0.35, worry 0.35, neuroticism 0.30, satisfaction with life −0.19, conscientiousness −0.18, agreeableness −0.18, openness 0.07. Extraversion is omitted because it is a copy of satisfaction with life in this file.
+Pearson correlations among the questionnaires and the suicide score, all 1003 users. Labels are colored by MTM stage. The strongest pairs are worry with neuroticism (0.76) and GAD with PHQ-9 (0.75). With the 0–6 suicide score (outlined bottom row): PHQ-9 0.44, brooding 0.38, GAD 0.38, loneliness 0.35, worry 0.35, neuroticism 0.30, extraversion −0.19, conscientiousness −0.18, agreeableness −0.18, openness 0.07. Satisfaction with life is omitted: its column in the data file repeats the extraversion scores (range 2–10, the BFI-10 scale), so the real life-satisfaction score is missing.
 
 ## 12. Middle-scale scores
 

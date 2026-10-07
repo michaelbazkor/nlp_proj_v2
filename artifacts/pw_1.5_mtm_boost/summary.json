@@ -1,0 +1,1612 @@
+[
+  {
+    "method": "g4 ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "adam ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "ord ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "psych ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "two ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "drop ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "pw ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "a1 ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "g4e ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "g4e9 ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "adame ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "twoe ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "slowe ensemble + saved MTM+PHQ + STM (w=0.25, 0.75)",
+    "dev_auc": 0.8362002567394095,
+    "test_auc": 0.7260236528052619,
+    "test_folds": [
+      0.7725,
+      0.6682,
+      0.7816,
+      0.7531,
+      0.6547
+    ],
+    "test_r": null,
+    "note": "weights chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "saved STM",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146347615772902,
+    "test_folds": [
+      0.7713,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "dev AUC is optimistic: one of 504 settings was picked per fold on it"
+  },
+  {
+    "method": "g4 ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "adam ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "ord ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "psych ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "two ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "drop ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "pw ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "a1 ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "g4e ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "g4e9 ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "adame ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "twoe ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "slowe ensemble blended with STM (w=1)",
+    "dev_auc": 0.8326486949080015,
+    "test_auc": 0.7146127835553122,
+    "test_folds": [
+      0.7712,
+      0.6571,
+      0.7792,
+      0.7397,
+      0.6259
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev; STM dev AUC is optimistic"
+  },
+  {
+    "method": "pw ensemble blended with saved MTM+PHQ (w=0.5)",
+    "dev_auc": 0.7897304236200258,
+    "test_auc": 0.7291169681744394,
+    "test_folds": [
+      0.7437,
+      0.6916,
+      0.7857,
+      0.7184,
+      0.7062
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "saved MTM + 0.1 PHQ-9",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": ""
+  },
+  {
+    "method": "g4 ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "adam ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "ord ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "psych ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "two ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "drop ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "a1 ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "g4e ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "g4e9 ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "adame ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "twoe ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "slowe ensemble blended with saved MTM+PHQ (w=1)",
+    "dev_auc": 0.788446726572529,
+    "test_auc": 0.7344465964006194,
+    "test_folds": [
+      0.7352,
+      0.712,
+      0.7691,
+      0.7416,
+      0.7144
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev"
+  },
+  {
+    "method": "adam 3-seed best-epoch ensemble",
+    "dev_auc": 0.7841677364142062,
+    "test_auc": 0.7172167534466386,
+    "test_folds": [
+      0.7508,
+      0.6528,
+      0.7899,
+      0.6987,
+      0.6939
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "a1 3-seed best-epoch ensemble",
+    "dev_auc": 0.7839109970047069,
+    "test_auc": 0.709444589467578,
+    "test_folds": [
+      0.7519,
+      0.626,
+      0.7982,
+      0.6782,
+      0.693
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "adam seed0 best",
+    "dev_auc": 0.7833975181857081,
+    "test_auc": 0.7122798291533924,
+    "test_folds": [
+      0.7624,
+      0.6607,
+      0.7612,
+      0.6901,
+      0.687
+    ],
+    "test_r": 0.1555008888244629,
+    "note": ""
+  },
+  {
+    "method": "two 3-seed best-epoch ensemble",
+    "dev_auc": 0.782028241335045,
+    "test_auc": 0.6997958261406537,
+    "test_folds": [
+      0.7332,
+      0.6141,
+      0.7914,
+      0.6813,
+      0.679
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "saved MTM",
+    "dev_auc": 0.7818142918271288,
+    "test_auc": 0.7261900504774068,
+    "test_folds": [
+      0.7289,
+      0.7131,
+      0.7676,
+      0.7318,
+      0.6897
+    ],
+    "test_r": null,
+    "note": ""
+  },
+  {
+    "method": "drop 3-seed best-epoch ensemble",
+    "dev_auc": 0.7808301240907146,
+    "test_auc": 0.7148175655761863,
+    "test_folds": [
+      0.7369,
+      0.6298,
+      0.7993,
+      0.7305,
+      0.6775
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "pw 3-seed best-epoch ensemble",
+    "dev_auc": 0.7808301240907145,
+    "test_auc": 0.7037914941593103,
+    "test_folds": [
+      0.7299,
+      0.6379,
+      0.8003,
+      0.6647,
+      0.6861
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "g4 3-seed best-epoch ensemble",
+    "dev_auc": 0.7795464270432177,
+    "test_auc": 0.7042021996734641,
+    "test_folds": [
+      0.7358,
+      0.6105,
+      0.808,
+      0.6841,
+      0.6826
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "two seed0 best",
+    "dev_auc": 0.7794608472400514,
+    "test_auc": 0.7068122090765769,
+    "test_folds": [
+      0.7365,
+      0.6588,
+      0.791,
+      0.6569,
+      0.6909
+    ],
+    "test_r": 0.16893602907657623,
+    "note": ""
+  },
+  {
+    "method": "top-3 variants by dev mixed (adam, pw, two)",
+    "dev_auc": 0.7779204107830552,
+    "test_auc": 0.7177925139994106,
+    "test_folds": [
+      0.7385,
+      0.6516,
+      0.7986,
+      0.7133,
+      0.687
+    ],
+    "test_r": null,
+    "note": ""
+  },
+  {
+    "method": "adam ensemble + 0.5 x predicted questionnaires",
+    "dev_auc": 0.7779204107830552,
+    "test_auc": 0.7089756314354017,
+    "test_folds": [
+      0.7268,
+      0.6469,
+      0.8018,
+      0.6877,
+      0.6817
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "a1 seed0 best",
+    "dev_auc": 0.7767222935387249,
+    "test_auc": 0.6882803718206018,
+    "test_folds": [
+      0.7459,
+      0.6077,
+      0.7756,
+      0.6194,
+      0.6927
+    ],
+    "test_r": 0.14594224095344543,
+    "note": ""
+  },
+  {
+    "method": "pw seed0 best",
+    "dev_auc": 0.7766367137355583,
+    "test_auc": 0.6965278935623764,
+    "test_folds": [
+      0.7002,
+      0.6426,
+      0.7846,
+      0.6839,
+      0.6713
+    ],
+    "test_r": 0.16075481474399567,
+    "note": ""
+  },
+  {
+    "method": "pw ensemble + 0.25 x predicted questionnaires",
+    "dev_auc": 0.7762088147197261,
+    "test_auc": 0.7149628974686445,
+    "test_folds": [
+      0.7415,
+      0.6499,
+      0.7942,
+      0.6983,
+      0.691
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "psych ensemble + 0.25 x predicted questionnaires",
+    "dev_auc": 0.7761232349165598,
+    "test_auc": 0.7104798300890256,
+    "test_folds": [
+      0.7358,
+      0.6443,
+      0.7971,
+      0.6828,
+      0.6923
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "two seed0 snap",
+    "dev_auc": 0.7761232349165597,
+    "test_auc": 0.7152729101464734,
+    "test_folds": [
+      0.7268,
+      0.6658,
+      0.7976,
+      0.6992,
+      0.687
+    ],
+    "test_r": 0.16893602907657623,
+    "note": ""
+  },
+  {
+    "method": "g4 ensemble + 1 x predicted questionnaires",
+    "dev_auc": 0.7760376551133932,
+    "test_auc": 0.7108917893515595,
+    "test_folds": [
+      0.7435,
+      0.6207,
+      0.7948,
+      0.7023,
+      0.6932
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "adam 3-seed snap ensemble",
+    "dev_auc": 0.7758664955070602,
+    "test_auc": 0.7179885197816231,
+    "test_folds": [
+      0.7303,
+      0.6522,
+      0.8025,
+      0.7195,
+      0.6855
+    ],
+    "test_r": 0.1612096130847931,
+    "note": ""
+  },
+  {
+    "method": "pw 3-seed snap ensemble",
+    "dev_auc": 0.7755241762943945,
+    "test_auc": 0.7170851660047063,
+    "test_folds": [
+      0.7413,
+      0.656,
+      0.7937,
+      0.704,
+      0.6903
+    ],
+    "test_r": 0.17067794501781464,
+    "note": ""
+  },
+  {
+    "method": "two 3-seed snap ensemble",
+    "dev_auc": 0.775438596491228,
+    "test_auc": 0.7164558030305157,
+    "test_folds": [
+      0.7376,
+      0.6464,
+      0.7937,
+      0.7069,
+      0.6976
+    ],
+    "test_r": 0.1745188683271408,
+    "note": ""
+  },
+  {
+    "method": "two ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.775438596491228,
+    "test_auc": 0.7164558030305157,
+    "test_folds": [
+      0.7376,
+      0.6464,
+      0.7937,
+      0.7069,
+      0.6976
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "psych 3-seed best-epoch ensemble",
+    "dev_auc": 0.7751818570817287,
+    "test_auc": 0.7075271497340463,
+    "test_folds": [
+      0.742,
+      0.6305,
+      0.7859,
+      0.6848,
+      0.6945
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "drop seed0 best",
+    "dev_auc": 0.7750106974753959,
+    "test_auc": 0.7231557220982509,
+    "test_folds": [
+      0.7448,
+      0.7009,
+      0.7695,
+      0.7009,
+      0.6996
+    ],
+    "test_r": 0.13772337138652802,
+    "note": ""
+  },
+  {
+    "method": "g4 3-seed snap ensemble",
+    "dev_auc": 0.7749251176722294,
+    "test_auc": 0.7191777188328913,
+    "test_folds": [
+      0.7385,
+      0.6381,
+      0.7986,
+      0.7261,
+      0.6945
+    ],
+    "test_r": 0.16785435378551483,
+    "note": ""
+  },
+  {
+    "method": "adam seed0 snap",
+    "dev_auc": 0.7744116388532306,
+    "test_auc": 0.7209465800270398,
+    "test_folds": [
+      0.7352,
+      0.6475,
+      0.8069,
+      0.7182,
+      0.6969
+    ],
+    "test_r": 0.1555008888244629,
+    "note": ""
+  },
+  {
+    "method": "psych seed0 snap",
+    "dev_auc": 0.7744116388532306,
+    "test_auc": 0.7096364503950711,
+    "test_folds": [
+      0.7402,
+      0.6477,
+      0.7935,
+      0.6722,
+      0.6945
+    ],
+    "test_r": 0.14924785494804382,
+    "note": ""
+  },
+  {
+    "method": "psych seed0 best",
+    "dev_auc": 0.7739837398373983,
+    "test_auc": 0.7136537596077825,
+    "test_folds": [
+      0.7437,
+      0.6911,
+      0.7618,
+      0.6775,
+      0.6941
+    ],
+    "test_r": 0.14924785494804382,
+    "note": ""
+  },
+  {
+    "method": "drop ensemble + 0.5 x predicted questionnaires",
+    "dev_auc": 0.7738981600342318,
+    "test_auc": 0.7144005445384755,
+    "test_folds": [
+      0.7365,
+      0.6484,
+      0.8006,
+      0.695,
+      0.6916
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "psych 3-seed snap ensemble",
+    "dev_auc": 0.773555840821566,
+    "test_auc": 0.7131134501939099,
+    "test_folds": [
+      0.738,
+      0.6426,
+      0.7952,
+      0.6981,
+      0.6916
+    ],
+    "test_r": 0.16204878687858582,
+    "note": ""
+  },
+  {
+    "method": "a1 3-seed snap ensemble",
+    "dev_auc": 0.7726144629867352,
+    "test_auc": 0.7180448916770755,
+    "test_folds": [
+      0.7468,
+      0.6292,
+      0.7984,
+      0.7199,
+      0.6958
+    ],
+    "test_r": 0.16238991916179657,
+    "note": ""
+  },
+  {
+    "method": "a1 ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.7726144629867352,
+    "test_auc": 0.7180448916770755,
+    "test_folds": [
+      0.7468,
+      0.6292,
+      0.7984,
+      0.7199,
+      0.6958
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "ord seed0 best",
+    "dev_auc": 0.7726144629867351,
+    "test_auc": 0.7042562886241048,
+    "test_folds": [
+      0.7187,
+      0.6271,
+      0.7927,
+      0.6978,
+      0.685
+    ],
+    "test_r": 0.1719314306974411,
+    "note": ""
+  },
+  {
+    "method": "drop seed0 snap",
+    "dev_auc": 0.7724433033804022,
+    "test_auc": 0.7229886180231008,
+    "test_folds": [
+      0.7349,
+      0.6739,
+      0.8025,
+      0.7133,
+      0.6903
+    ],
+    "test_r": 0.13772337138652802,
+    "note": ""
+  },
+  {
+    "method": "drop 3-seed snap ensemble",
+    "dev_auc": 0.7722721437740694,
+    "test_auc": 0.7242511332856161,
+    "test_folds": [
+      0.7391,
+      0.6596,
+      0.8014,
+      0.7292,
+      0.6919
+    ],
+    "test_r": 0.16690263152122498,
+    "note": ""
+  },
+  {
+    "method": "ord 3-seed best-epoch ensemble",
+    "dev_auc": 0.7721865639709028,
+    "test_auc": 0.706675732951595,
+    "test_folds": [
+      0.7391,
+      0.6235,
+      0.7718,
+      0.7058,
+      0.6932
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "pw seed0 snap",
+    "dev_auc": 0.7718442447582371,
+    "test_auc": 0.7219894460584115,
+    "test_folds": [
+      0.7367,
+      0.6735,
+      0.7946,
+      0.7166,
+      0.6885
+    ],
+    "test_r": 0.16075481474399567,
+    "note": ""
+  },
+  {
+    "method": "a1 seed0 snap",
+    "dev_auc": 0.7715875053487378,
+    "test_auc": 0.7149516979402037,
+    "test_folds": [
+      0.7385,
+      0.6326,
+      0.7961,
+      0.7144,
+      0.6932
+    ],
+    "test_r": 0.14594224095344543,
+    "note": ""
+  },
+  {
+    "method": "g4 seed0 best",
+    "dev_auc": 0.7711596063329054,
+    "test_auc": 0.6895097843833476,
+    "test_folds": [
+      0.7433,
+      0.5981,
+      0.7925,
+      0.6417,
+      0.672
+    ],
+    "test_r": 0.15934553742408752,
+    "note": ""
+  },
+  {
+    "method": "ord 3-seed snap ensemble",
+    "dev_auc": 0.7711596063329054,
+    "test_auc": 0.7190304969615315,
+    "test_folds": [
+      0.7341,
+      0.6539,
+      0.7969,
+      0.7164,
+      0.6939
+    ],
+    "test_r": 0.1747620552778244,
+    "note": ""
+  },
+  {
+    "method": "ord ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.7711596063329054,
+    "test_auc": 0.7190304969615315,
+    "test_folds": [
+      0.7341,
+      0.6539,
+      0.7969,
+      0.7164,
+      0.6939
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "ord seed0 snap",
+    "dev_auc": 0.7699614890885751,
+    "test_auc": 0.7165769768758274,
+    "test_folds": [
+      0.7347,
+      0.6669,
+      0.7982,
+      0.7005,
+      0.6826
+    ],
+    "test_r": 0.1719314306974411,
+    "note": ""
+  },
+  {
+    "method": "g4 seed0 snap",
+    "dev_auc": 0.7675652545999144,
+    "test_auc": 0.7169648903671891,
+    "test_folds": [
+      0.7391,
+      0.6379,
+      0.7933,
+      0.731,
+      0.6835
+    ],
+    "test_r": 0.15934553742408752,
+    "note": ""
+  },
+  {
+    "method": "all 13 variants mixed",
+    "dev_auc": 0.7661103979460847,
+    "test_auc": 0.7261088609134586,
+    "test_folds": [
+      0.7525,
+      0.6624,
+      0.7908,
+      0.7317,
+      0.6932
+    ],
+    "test_r": null,
+    "note": ""
+  },
+  {
+    "method": "g4e seed0 best",
+    "dev_auc": 0.7607188703465982,
+    "test_auc": 0.7361241865839567,
+    "test_folds": [
+      0.7571,
+      0.7041,
+      0.7797,
+      0.7462,
+      0.6934
+    ],
+    "test_r": 0.13161763548851013,
+    "note": ""
+  },
+  {
+    "method": "g4e 3-seed best-epoch ensemble",
+    "dev_auc": 0.7596491228070175,
+    "test_auc": 0.7301444336846636,
+    "test_folds": [
+      0.7558,
+      0.6897,
+      0.7556,
+      0.7542,
+      0.6954
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "adame seed0 best",
+    "dev_auc": 0.7575524176294394,
+    "test_auc": 0.7239347770152367,
+    "test_folds": [
+      0.7679,
+      0.6905,
+      0.7614,
+      0.7049,
+      0.695
+    ],
+    "test_r": 0.1528964638710022,
+    "note": ""
+  },
+  {
+    "method": "g4e 3-seed snap ensemble",
+    "dev_auc": 0.7566966195977749,
+    "test_auc": 0.7309976281700419,
+    "test_folds": [
+      0.7543,
+      0.6824,
+      0.7614,
+      0.7622,
+      0.6947
+    ],
+    "test_r": 0.13506412506103516,
+    "note": ""
+  },
+  {
+    "method": "g4e ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.7566966195977749,
+    "test_auc": 0.7309976281700419,
+    "test_folds": [
+      0.7543,
+      0.6824,
+      0.7614,
+      0.7622,
+      0.6947
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "g4e seed0 snap",
+    "dev_auc": 0.756525459991442,
+    "test_auc": 0.7262909725438461,
+    "test_folds": [
+      0.7565,
+      0.6645,
+      0.7644,
+      0.752,
+      0.6941
+    ],
+    "test_r": 0.13161763548851013,
+    "note": ""
+  },
+  {
+    "method": "adame 3-seed best-epoch ensemble",
+    "dev_auc": 0.7554985023534446,
+    "test_auc": 0.7279424024251611,
+    "test_folds": [
+      0.767,
+      0.6905,
+      0.7635,
+      0.7272,
+      0.6914
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "g4e9 3-seed snap ensemble",
+    "dev_auc": 0.7549850235344459,
+    "test_auc": 0.7232515028606983,
+    "test_folds": [
+      0.7655,
+      0.6865,
+      0.7742,
+      0.6992,
+      0.691
+    ],
+    "test_r": 0.043304748833179474,
+    "note": ""
+  },
+  {
+    "method": "g4e9 ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.7549850235344459,
+    "test_auc": 0.7232515028606983,
+    "test_folds": [
+      0.7655,
+      0.6865,
+      0.7742,
+      0.6992,
+      0.691
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "g4e9 3-seed best-epoch ensemble",
+    "dev_auc": 0.7540436456996148,
+    "test_auc": 0.719455985478974,
+    "test_folds": [
+      0.7642,
+      0.6873,
+      0.7727,
+      0.6844,
+      0.6888
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "adame seed0 snap",
+    "dev_auc": 0.7537013264869491,
+    "test_auc": 0.7332119255797417,
+    "test_folds": [
+      0.7666,
+      0.6894,
+      0.7693,
+      0.7476,
+      0.6932
+    ],
+    "test_r": 0.1528964638710022,
+    "note": ""
+  },
+  {
+    "method": "slowe 3-seed best-epoch ensemble",
+    "dev_auc": 0.7524176294394522,
+    "test_auc": 0.7294256054715824,
+    "test_folds": [
+      0.7644,
+      0.6901,
+      0.7727,
+      0.7266,
+      0.6934
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "adame 3-seed snap ensemble",
+    "dev_auc": 0.7523320496362859,
+    "test_auc": 0.7317889398808941,
+    "test_folds": [
+      0.7653,
+      0.6903,
+      0.7582,
+      0.7522,
+      0.693
+    ],
+    "test_r": 0.17367634177207947,
+    "note": ""
+  },
+  {
+    "method": "adame ensemble + 0 x predicted questionnaires",
+    "dev_auc": 0.7523320496362859,
+    "test_auc": 0.7317889398808941,
+    "test_folds": [
+      0.7653,
+      0.6903,
+      0.7582,
+      0.7522,
+      0.693
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "g4e9 seed0 best",
+    "dev_auc": 0.7509627727856225,
+    "test_auc": 0.7196684490477594,
+    "test_folds": [
+      0.7688,
+      0.6926,
+      0.7735,
+      0.6819,
+      0.6815
+    ],
+    "test_r": 0.07438605278730392,
+    "note": ""
+  },
+  {
+    "method": "slowe seed0 best",
+    "dev_auc": 0.7507060333761233,
+    "test_auc": 0.7322580943960254,
+    "test_folds": [
+      0.7688,
+      0.6805,
+      0.7754,
+      0.7423,
+      0.6943
+    ],
+    "test_r": 0.1733340322971344,
+    "note": ""
+  },
+  {
+    "method": "twoe seed0 best",
+    "dev_auc": 0.7501925545571245,
+    "test_auc": 0.7390889178935155,
+    "test_folds": [
+      0.7633,
+      0.7029,
+      0.7625,
+      0.773,
+      0.6939
+    ],
+    "test_r": 0.1828659027814865,
+    "note": ""
+  },
+  {
+    "method": "twoe 3-seed best-epoch ensemble",
+    "dev_auc": 0.7501925545571245,
+    "test_auc": 0.7363977469954482,
+    "test_folds": [
+      0.7585,
+      0.6918,
+      0.7678,
+      0.7717,
+      0.6923
+    ],
+    "test_r": null,
+    "note": "reloadable from the saved best-epoch weights"
+  },
+  {
+    "method": "g4e9 seed0 snap",
+    "dev_auc": 0.7492511767222935,
+    "test_auc": 0.7247360719314743,
+    "test_folds": [
+      0.7688,
+      0.6954,
+      0.7729,
+      0.6965,
+      0.6901
+    ],
+    "test_r": 0.07438605278730392,
+    "note": ""
+  },
+  {
+    "method": "slowe seed0 snap",
+    "dev_auc": 0.7489944373127942,
+    "test_auc": 0.7313273265687059,
+    "test_folds": [
+      0.7666,
+      0.679,
+      0.7661,
+      0.7511,
+      0.6939
+    ],
+    "test_r": 0.1733340322971344,
+    "note": ""
+  },
+  {
+    "method": "slowe ensemble + 0.25 x predicted questionnaires",
+    "dev_auc": 0.7486521181001283,
+    "test_auc": 0.7352742387455031,
+    "test_folds": [
+      0.7673,
+      0.6884,
+      0.7722,
+      0.7566,
+      0.6919
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "twoe seed0 snap",
+    "dev_auc": 0.7483097988874625,
+    "test_auc": 0.7415883869217202,
+    "test_folds": [
+      0.7697,
+      0.7007,
+      0.7663,
+      0.7767,
+      0.6945
+    ],
+    "test_r": 0.1828659027814865,
+    "note": ""
+  },
+  {
+    "method": "slowe 3-seed snap ensemble",
+    "dev_auc": 0.7471972614462986,
+    "test_auc": 0.733524024719427,
+    "test_folds": [
+      0.7686,
+      0.6869,
+      0.7654,
+      0.7531,
+      0.6936
+    ],
+    "test_r": 0.1826682835817337,
+    "note": ""
+  },
+  {
+    "method": "twoe ensemble + 0.25 x predicted questionnaires",
+    "dev_auc": 0.7471116816431322,
+    "test_auc": 0.7394588204473261,
+    "test_folds": [
+      0.7677,
+      0.6903,
+      0.7722,
+      0.7765,
+      0.6905
+    ],
+    "test_r": null,
+    "note": "weight chosen on dev from [0.0, 0.25, 0.5, 1.0, 2.0]"
+  },
+  {
+    "method": "twoe 3-seed snap ensemble",
+    "dev_auc": 0.7467693624304663,
+    "test_auc": 0.7380528352022605,
+    "test_folds": [
+      0.7673,
+      0.689,
+      0.7667,
+      0.7759,
+      0.6914
+    ],
+    "test_r": 0.1850147545337677,
+    "note": ""
+  },
+  {
+    "method": "g4 refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.7321851150127012,
+    "test_folds": [
+      0.7468,
+      0.6833,
+      0.8027,
+      0.7438,
+      0.6844
+    ],
+    "test_r": 0.15864165127277374,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  },
+  {
+    "method": "adam refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.7201490931375989,
+    "test_folds": [
+      0.6868,
+      0.7101,
+      0.7403,
+      0.7677,
+      0.6958
+    ],
+    "test_r": 0.17651277780532837,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  },
+  {
+    "method": "two refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.7046962139605819,
+    "test_folds": [
+      0.7248,
+      0.6824,
+      0.7252,
+      0.6963,
+      0.6947
+    ],
+    "test_r": 0.1699415147304535,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  },
+  {
+    "method": "pw refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.710734771401438,
+    "test_folds": [
+      0.6921,
+      0.6865,
+      0.7456,
+      0.7648,
+      0.6647
+    ],
+    "test_r": 0.16792374849319458,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  },
+  {
+    "method": "g4e refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.7249872426424151,
+    "test_folds": [
+      0.7611,
+      0.6882,
+      0.7371,
+      0.756,
+      0.6826
+    ],
+    "test_r": 0.1473628133535385,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  },
+  {
+    "method": "twoe refit on train+dev, 3 seeds",
+    "dev_auc": NaN,
+    "test_auc": 0.7057473322760679,
+    "test_folds": [
+      0.6295,
+      0.6726,
+      0.785,
+      0.7562,
+      0.6855
+    ],
+    "test_r": 0.18053366243839264,
+    "note": "epochs = median dev-chosen epoch; dev is in the training data"
+  }
+]

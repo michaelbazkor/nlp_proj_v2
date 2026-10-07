@@ -1,4 +1,8 @@
-"""Render every poster SVG to poster/png/ at 2x with headless Chrome."""
+"""Render poster SVGs to PNG with headless Chrome.
+
+python poster/export_png.py        poster/NN_*.svg  -> poster/png/ at 2x
+python poster/export_png.py a0     poster/a0/*.svg  -> poster/a0/png/ at 4x
+"""
 from __future__ import annotations
 
 import math
@@ -22,13 +26,12 @@ def size_px(svg: Path) -> tuple[int, int]:
     return math.ceil(float(m.group(1)) * scale), math.ceil(float(m.group(3)) * scale)
 
 
-def main() -> None:
+def render(svgs: list[Path], out: Path, scale: int) -> None:
     browser = next((p for p in CHROME if p.exists()), None)
     if browser is None:
         sys.exit("Chrome or Edge not found")
-    out = POSTER / "png"
     out.mkdir(exist_ok=True)
-    for svg in sorted(POSTER.glob("[0-9][0-9]_*.svg")):
+    for svg in svgs:
         w, h = size_px(svg)
         page = out / f"_{svg.stem}.html"
         page.write_text(
@@ -38,11 +41,18 @@ def main() -> None:
         png = out / f"{svg.stem}.png"
         subprocess.run(
             [str(browser), "--headless", "--disable-gpu", "--hide-scrollbars", "--allow-file-access-from-files",
-             "--force-device-scale-factor=2", f"--window-size={w},{h}", f"--screenshot={png}", page.as_uri()],
+             f"--force-device-scale-factor={scale}", f"--window-size={w},{h}", f"--screenshot={png}", page.as_uri()],
             check=True, capture_output=True,
         )
         page.unlink()
-        print(png.name, w * 2, "x", h * 2)
+        print(png.name, w * scale, "x", h * scale)
+
+
+def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] == "a0":
+        render(sorted((POSTER / "a0").glob("*.svg")), POSTER / "a0" / "png", 4)
+    else:
+        render(sorted(POSTER.glob("[0-9][0-9]_*.svg")), POSTER / "png", 2)
 
 
 if __name__ == "__main__":

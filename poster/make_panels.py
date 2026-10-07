@@ -20,12 +20,14 @@ from matplotlib.patches import FancyBboxPatch, Patch
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTER = Path(__file__).resolve().parent
+A0 = POSTER / "a0"
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(POSTER))
 
 from svgkit import (  # noqa: E402
-    EDGE, INK, LINE, MTM_C, MUTED, PAPER_C, PERS_C, PHQ_C, PSY_C, PSYCH_C, RIGHT_C, STM_C, WRONG_C, Svg, wrap,
+    EDGE, INK, LINE, MTM_C, MUTED, PAPER_C, PERS_C, PHQ_C, PSY_C, PSYCH_C, RIGHT_C, STM_C, WRONG_C, Svg, text_width,
+    wrap,
 )
 
 plt.rcParams.update(
@@ -292,8 +294,10 @@ def clean(ax) -> None:
     ax.tick_params(length=0, labelsize=12.5)
 
 
-def save(fig, name: str) -> None:
-    fig.savefig(POSTER / name, format="svg", bbox_inches="tight", pad_inches=0.25, facecolor="white")
+def save(fig, name: str, a0: bool = False) -> None:
+    out = A0 / name if a0 else POSTER / name
+    out.parent.mkdir(exist_ok=True)
+    fig.savefig(out, format="svg", bbox_inches="tight", pad_inches=0.12 if a0 else 0.25, facecolor="white")
     plt.close(fig)
 
 
@@ -305,7 +309,7 @@ def confusion(counts):
     return {"tp": tp, "fn": pos - tp, "tn": tn, "fp": neg - tn, "pos": pos, "neg": neg}
 
 
-def draw_errors(stats: dict) -> None:
+def draw_errors(stats: dict, a0: bool = False) -> None:
     counts = stats["counts"]
     cm = confusion(counts)
     n = np.array([c["n"] for c in counts])
@@ -314,13 +318,17 @@ def draw_errors(stats: dict) -> None:
     pw, pr = wrong / n * 100, right / n * 100
     xs = np.arange(7)
 
-    fig, ax = plt.subplots(figsize=(11.6, 6.9))
-    fig.subplots_adjust(top=0.86, bottom=0.14, left=0.08, right=0.98)
-    headline(
-        fig,
-        "Correct and incorrect calls by true suicide score",
-        "1003 held-out users, MTM + PHQ-9. Each fold's threshold maximizes development F1. Numbers in bars are users.",
-    )
+    fig, ax = plt.subplots(figsize=(9.4, 6.3) if a0 else (11.6, 6.9))
+    if a0:
+        fig.subplots_adjust(top=0.91, bottom=0.14, left=0.09, right=0.98)
+    else:
+        fig.subplots_adjust(top=0.86, bottom=0.14, left=0.08, right=0.98)
+        headline(
+            fig,
+            "Correct and incorrect calls by true suicide score",
+            "1003 held-out users, MTM + PHQ-9. Each fold's threshold maximizes development F1. "
+            "Numbers in bars are users.",
+        )
     ax.axvspan(-0.5, 2.5, color="#f8fafc", zorder=0)
     ax.axvspan(2.5, 6.5, color="#fff7ed", zorder=0)
     ax.bar(xs, pw, width=0.66, color=WRONG_C, zorder=2, label="Incorrect")
@@ -353,27 +361,31 @@ def draw_errors(stats: dict) -> None:
     ax.grid(axis="y", color=LINE, lw=0.8, zorder=1)
     clean(ax)
     handles = [Patch(color=RIGHT_C, label="Correct"), Patch(color=WRONG_C, label="Incorrect")]
-    fig.legend(handles=handles, loc="upper right", bbox_to_anchor=(0.985, 0.985), ncol=2, frameon=False, fontsize=12.5)
-    save(fig, "10_errors_by_score.svg")
+    fig.legend(handles=handles, loc="upper right", bbox_to_anchor=(0.985, 1.0 if a0 else 0.985), ncol=2,
+               frameon=False, fontsize=12.5)
+    save(fig, "errors_by_score.svg" if a0 else "10_errors_by_score.svg", a0)
 
 
-def draw_correlations() -> None:
+def draw_correlations(a0: bool = False) -> None:
     cohort = pd.read_parquet(ROOT / "artifacts" / "cohort_full.parquet")
-    cols = ["BFI_O", "BFI_C", "BFI_A", "BFI_N", "Brooding", "Worry", "Lonely", "SWL", "PHQ9", "GAD", "suicide"]
-    colors = [PERS_C] * 4 + [PSY_C] * 4 + [PSYCH_C] * 2 + [INK]
+    cols = ["BFI_O", "BFI_C", "BFI_E", "BFI_A", "BFI_N", "Brooding", "Worry", "Lonely", "PHQ9", "GAD", "suicide"]
+    colors = [PERS_C] * 5 + [PSY_C] * 3 + [PSYCH_C] * 2 + [INK]
     R = cohort[cols].astype(float).corr().to_numpy()
     k = len(cols)
     lim = max(0.8, float(np.ceil(np.abs(R[np.tril_indices(k, -1)]).max() * 10) / 10))
     cmap = LinearSegmentedColormap.from_list("corr", ["#1e40af", "#93c5fd", "#f8fafc", "#fca5a5", "#b91c1c"])
     norm = Normalize(-lim, lim)
 
-    fig, ax = plt.subplots(figsize=(10.8, 9.6))
-    fig.subplots_adjust(top=0.90, bottom=0.17, left=0.17, right=0.98)
-    headline(
-        fig,
-        "How the questionnaires relate to each other and to suicide risk",
-        f"Pearson r, all {len(cohort)} users. The bottom row is the 0–6 suicide score.",
-    )
+    fig, ax = plt.subplots(figsize=(9.2, 8.4) if a0 else (10.8, 9.6))
+    if a0:
+        fig.subplots_adjust(top=0.99, bottom=0.17, left=0.19, right=0.99)
+    else:
+        fig.subplots_adjust(top=0.90, bottom=0.17, left=0.17, right=0.98)
+        headline(
+            fig,
+            "How the questionnaires relate to each other and to suicide risk",
+            f"Pearson r, all {len(cohort)} users. The bottom row is the 0–6 suicide score.",
+        )
     for i in range(1, k):
         for j in range(i):
             r = R[i, j]
@@ -416,12 +428,12 @@ def draw_correlations() -> None:
         ax.add_patch(FancyBboxPatch((0.58, y - 0.012), 0.022, 0.024, boxstyle="round,pad=0,rounding_size=0.004",
                                     transform=ax.transAxes, fc=c, ec="none"))
         ax.text(0.615, y, name, transform=ax.transAxes, fontsize=12.5, color=c, va="center", fontweight="bold")
-    ax.text(0.58, 0.63, "Extraversion is not shown. In this\ndata it is identical to life satisfaction.",
-            transform=ax.transAxes, fontsize=11, color=MUTED, va="top")
-    save(fig, "11_correlations.svg")
+    ax.text(0.58, 0.63, "Life satisfaction is not shown. Its\ncolumn in the data file repeats the\n"
+            "extraversion scores.", transform=ax.transAxes, fontsize=11, color=MUTED, va="top")
+    save(fig, "correlations.svg" if a0 else "11_correlations.svg", a0)
 
 
-def draw_aux(stats: dict) -> None:
+def draw_aux(stats: dict, a0: bool = False) -> None:
     folds = pd.DataFrame(stats["aux_fold_r"])
     mean, sd = stats["aux_mean_r"], stats["aux_std_r"]
     vals = folds[AUX_TARGETS].to_numpy()
@@ -429,13 +441,16 @@ def draw_aux(stats: dict) -> None:
     hi = float(np.ceil((np.nanmax(vals) + 0.03) * 20) / 20)
     value_x = hi + 0.04
 
-    fig, ax = plt.subplots(figsize=(11.2, 8.0))
-    fig.subplots_adjust(top=0.87, bottom=0.13, left=0.20, right=0.97)
-    headline(
-        fig,
-        "How well the MTM's middle stages predict each questionnaire",
-        "Pearson r on held-out users. Light dots are the five folds. The diamond and bar are the mean ± SD.",
-    )
+    fig, ax = plt.subplots(figsize=(9.4, 6.3) if a0 else (11.2, 8.0))
+    if a0:
+        fig.subplots_adjust(top=0.99, bottom=0.16, left=0.22, right=0.97)
+    else:
+        fig.subplots_adjust(top=0.87, bottom=0.13, left=0.20, right=0.97)
+        headline(
+            fig,
+            "How well the MTM's middle stages predict each questionnaire",
+            "Pearson r on held-out users. Light dots are the five folds. The diamond and bar are the mean ± SD.",
+        )
     y, ticks, labels, label_colors = 0.0, [], [], []
     for stage_i, (name, color, cols) in enumerate(STAGES):
         top = y
@@ -450,7 +465,7 @@ def draw_aux(stats: dict) -> None:
             ax.text(value_x, y, f"{m:+.2f}".replace("-", "−"), fontsize=12.5, fontweight="bold", color=color,
                     va="center", ha="left")
             ticks.append(y)
-            labels.append(SCALE_NAMES[col] + ("*" if col == "BFI_E" else ""))
+            labels.append(SCALE_NAMES[col] + ("*" if col == "SWL" else ""))
             label_colors.append(INK)
             y += 1
         ax.axhspan(top - 0.55, y - 0.45, color=color, alpha=0.05, zorder=0, lw=0)
@@ -469,26 +484,32 @@ def draw_aux(stats: dict) -> None:
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
     ax.tick_params(length=0, labelsize=12.5)
-    fig.text(0.20, 0.035, "* Extraversion has the same values as life satisfaction in this data. "
-             "A separate head predicts it.", fontsize=10.5, color=MUTED)
-    save(fig, "12_aux_scores.svg")
+    fig.text(0.22 if a0 else 0.20, 0.035, "* The life-satisfaction column in the data file repeats the extraversion "
+             "scores, so this head also predicts extraversion.", fontsize=10.5, color=MUTED)
+    save(fig, "aux_scores.svg" if a0 else "12_aux_scores.svg", a0)
 
 
-def draw_roc() -> None:
+ROC_CURVES = (("stm", STM_C, "STM"), ("phq", PHQ_C, "MTM + PHQ-9"))
+
+
+def draw_roc(a0: bool = False, scores: Path = POSTER / "roc_scores.npz", curves=ROC_CURVES) -> None:
     from sklearn.metrics import roc_auc_score, roc_curve
 
-    data = np.load(POSTER / "roc_scores.npz")
+    data = np.load(scores)
     grid = np.linspace(0, 1, 201)
-    fig, ax = plt.subplots(figsize=(9.0, 9.2))
-    fig.subplots_adjust(top=0.86, bottom=0.09, left=0.11, right=0.97)
-    headline(fig, "ROC curves for high suicide risk",
-             "Five held-out test folds. Thin lines are folds; the thick line and band are the mean ± SD.")
+    fig, ax = plt.subplots(figsize=(7.8, 7.9) if a0 else (9.0, 9.2))
+    if a0:
+        fig.subplots_adjust(top=0.99, bottom=0.10, left=0.12, right=0.98)
+    else:
+        fig.subplots_adjust(top=0.86, bottom=0.09, left=0.11, right=0.97)
+        headline(fig, "ROC curves for high suicide risk",
+                 "Five held-out test folds. Thin lines are folds; the thick line and band are the mean ± SD.")
     ax.fill_between([0, 1], [0, 1], 0, color="#f8fafc", zorder=0)
     ax.plot([0, 1], [0, 1], color="#94a3b8", lw=1.3, ls=(0, (4, 4)), zorder=1)
     ax.text(0.60, 0.555, "chance", rotation=45, rotation_mode="anchor", color=MUTED, fontsize=11.5,
             ha="center", va="center")
     legend = []
-    for key, color, name in (("stm", STM_C, "STM"), ("phq", PHQ_C, "MTM + PHQ-9")):
+    for key, color, name in curves:
         tprs, aucs = [], []
         for i in range(5):
             y, sc = data[f"y{i}"], data[f"{key}{i}"]
@@ -524,7 +545,7 @@ def draw_roc() -> None:
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
     ax.tick_params(length=0, labelsize=12.5)
-    save(fig, "07_roc.svg")
+    save(fig, "roc.svg" if a0 else "07_roc.svg", a0)
 
 
 def gauge(s: Svg, x, y, w, prob, thr, color):
@@ -638,7 +659,7 @@ def draw_conclusions(stats: dict) -> None:
         "Gains are uneven across folds. About 19 high-risk development users choose each model, so selection is noisy.",
         "The paper's 0.746 is general risk (any ideation, 36% of users). That is a different label from the one here.",
         "Questionnaires are training targets only. The PHQ-9 term is predicted from posts, not taken from the person.",
-        "In this data the extraversion column is a copy of life satisfaction.",
+        "The data file's life-satisfaction column repeats the extraversion scores, so real life satisfaction is missing.",
         "The sample has more distress than the general population.",
     ]
     end = max(
@@ -676,6 +697,158 @@ def draw_conclusions(stats: dict) -> None:
     s.save(POSTER / "14_conclusions.svg")
 
 
+def fold_ci(folds):
+    f = np.asarray(folds)
+    h = 1.96 * f.std(ddof=1) / np.sqrt(len(f))
+    return float(f.mean()), float(f.mean() - h), float(f.mean() + h)
+
+
+def draw_headline(ours=None) -> None:
+    """`ours`: (label, fold AUCs, color, paper reference) per bar of this work."""
+    from scipy.stats import norm
+
+    from make_figures import MTM_FOLDS, PHQ_FOLDS, STM_FOLDS
+
+    if ours is None:
+        ours = [("STM", STM_FOLDS, STM_C, 0.629), ("MTM", MTM_FOLDS, MTM_C, 0.697),
+                ("MTM +\nPHQ-9", PHQ_FOLDS, PHQ_C, 0.697)]
+    bars = [
+        ("STM", (0.629, 0.606, 0.660), "#cbd5e1", None),
+        ("MTM", (0.697, 0.690, 0.707), PAPER_C, None),
+    ] + [(name, fold_ci(folds), color, ref) for name, folds, color, ref in ours]
+    xs = [0, 1] + [2.5 + k for k in range(len(ours))]
+    right = xs[-1] + 0.6
+    base = 0.5
+    fig, ax = plt.subplots(figsize=(8.8, 6.9))
+    fig.subplots_adjust(top=0.99, bottom=0.12, left=0.11, right=0.99)
+    ax.axvspan(-0.6, 1.6, color="#f8fafc", zorder=0)
+    ax.axvspan(1.9, right, color="#f0fdfa", zorder=0)
+    ax.plot([1.35, right], [0.697, 0.697], color=PAPER_C, lw=1.6, ls=(0, (5, 4)), zorder=1)
+    for x, (name, (m, lo, hi), color, ref) in zip(xs, bars):
+        ax.bar(x, m - base, bottom=base, width=0.7, color=color, zorder=2)
+        ax.plot([x, x], [lo, hi], color=INK, lw=1.6, zorder=3)
+        for yy in (lo, hi):
+            ax.plot([x - 0.09, x + 0.09], [yy, yy], color=INK, lw=1.6, zorder=3)
+        ax.text(x, hi + 0.005, f"{m:.3f}", ha="center", va="bottom", fontsize=17, fontweight="bold",
+                color=INK if ref is None else color)
+        d = float(np.sqrt(2) * norm.ppf(m))
+        text_color = INK if ref is None else "white"
+        ax.text(x, base + 0.010, f"d = {d:.2f}", ha="center", va="bottom", fontsize=11.5, color=text_color,
+                fontweight="bold", zorder=4)
+        if ref is not None:
+            ax.text(x, lo - 0.010, f"+{m - ref:.3f}", ha="center", va="top", fontsize=13, color="white",
+                    fontweight="bold", zorder=4)
+    ax.text(0.5, 0.828, "Ophir et al. 2020", ha="center", fontsize=14.5, fontweight="bold", color=INK)
+    ax.text(0.5, 0.814, "ELMo embeddings", ha="center", fontsize=12, color=MUTED)
+    mid = float(np.mean(xs[2:]))
+    ax.text(mid, 0.828, "This work", ha="center", fontsize=14.5, fontweight="bold", color=MTM_C)
+    ax.text(mid, 0.814, "hidden states of four LLMs", ha="center", fontsize=12, color=MUTED)
+    ax.set_xlim(-0.6, right)
+    ax.set_ylim(base, 0.845)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([b[0] for b in bars], fontsize=13.5, fontweight="bold")
+    yt = np.round(np.arange(0.5, 0.801, 0.05), 2)
+    ax.set_yticks(yt)
+    ax.set_yticklabels([f"{v:.2f}" for v in yt])
+    ax.set_ylabel("Test AUC, high suicide risk", fontsize=13, labelpad=8)
+    ax.grid(axis="y", color=LINE, lw=0.8, zorder=0)
+    for side in ("top", "right", "left"):
+        ax.spines[side].set_visible(False)
+    ax.spines["bottom"].set_color(EDGE)
+    ax.tick_params(length=0, labelsize=12.5)
+    save(fig, "headline.svg", True)
+
+
+def draw_corr_bars() -> None:
+    cohort = pd.read_parquet(ROOT / "artifacts" / "cohort_full.parquet")
+    group = {c: (name, color) for name, color, cols in STAGES for c in cols}
+    cols = [c for c in AUX_TARGETS if c != "SWL"]
+    r = cohort[cols + ["suicide"]].astype(float).corr()["suicide"].drop("suicide").sort_values()
+    fig, ax = plt.subplots(figsize=(9.6, 3.9))
+    fig.subplots_adjust(top=0.99, bottom=0.16, left=0.19, right=0.97)
+    ys = np.arange(len(r))
+    colors = [group[c][1] for c in r.index]
+    ax.barh(ys, r.to_numpy(), color=colors, height=0.68, zorder=2)
+    for y, (c, v) in zip(ys, r.items()):
+        ax.text(v + (0.008 if v >= 0 else -0.008), y, f"{v:+.2f}".replace("-", "−"), va="center",
+                ha="left" if v >= 0 else "right", fontsize=12.5, fontweight="bold", color=group[c][1])
+    ax.axvline(0, color="#94a3b8", lw=1.3, zorder=1)
+    ax.set_yticks(ys)
+    ax.set_yticklabels([SCALE_NAMES[c] for c in r.index], fontsize=13)
+    ax.set_xlim(-0.27, 0.53)
+    xt = [-0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5]
+    ax.set_xticks(xt)
+    ax.set_xticklabels([f"{v:.1f}".replace("-", "−") for v in xt])
+    ax.set_xlabel("Pearson r with the 0–6 suicide score", fontsize=13, labelpad=6)
+    ax.grid(axis="x", color=LINE, lw=0.8, zorder=0)
+    for side in ("top", "right", "left"):
+        ax.spines[side].set_visible(False)
+    ax.tick_params(length=0, labelsize=12.5)
+    handles = [Patch(color=color, label=name) for name, color, _ in STAGES]
+    ax.legend(handles=handles, loc="lower right", frameon=False, fontsize=12.5, handlelength=1.1)
+    save(fig, "corr_bars.svg", True)
+
+
+def draw_examples_a0(stats: dict, texts: dict | None = None) -> None:
+    texts = {**EXAMPLE_TEXT, **(texts or {})}
+    cm = confusion(stats["counts"])
+    ex = {e["label"]: e for e in stats["examples"]}
+    picks = {"Correct, high risk": [0], "Missed high risk": [0, 2], "False alarm": [0], "Correct, no risk": [0, 1]}
+    cells = [
+        ("Correct, high risk", 0, 0, True, "Correct", cm["tp"], cm["pos"], "of high-risk users flagged"),
+        ("Missed high risk", 0, 1, False, "Missed", cm["fn"], cm["pos"], "of high-risk users missed"),
+        ("False alarm", 1, 0, False, "False alarm", cm["fp"], cm["neg"], "of other users flagged"),
+        ("Correct, no risk", 1, 1, True, "Correct", cm["tn"], cm["neg"], "of other users cleared"),
+    ]
+    W, gx, gy, gap, ch = 1150, 58, 46, 14, 252
+    cw = (W - gx - gap) / 2
+    s = Svg(W, gy + 2 * ch + gap)
+    for j, label in enumerate(["Model: high risk", "Model: not high risk"]):
+        x = gx + j * (cw + gap)
+        s.rect(x, 0, cw, 34, fill="#f1f5f9", rx=17)
+        s.text(x + cw / 2, 23, label, 16, INK, 700, "middle")
+    for i, label in enumerate(["True: high risk (3–6)", "True: not high risk (0–2)"]):
+        y = gy + i * (ch + gap)
+        s.rect(0, y, 44, ch, fill="#f1f5f9", rx=12)
+        cx, cy = 22, y + ch / 2
+        s.raw(f'<text x="{cx}" y="{cy + 6}" font-size="15" font-weight="700" fill="{INK}" text-anchor="middle" '
+              f'transform="rotate(-90 {cx} {cy})">{label}</text>')
+    for key, i, j, ok, pill, count, total, what in cells:
+        e = ex[key]
+        x, y = gx + j * (cw + gap), gy + i * (ch + gap)
+        color = RIGHT_C if ok else WRONG_C
+        s.rect(x, y, cw, ch, fill="#f0fdfa" if ok else "#fff1f2", stroke=color, sw=1.6, rx=14)
+        pw = text_width(pill, 14, True) + 26
+        s.rect(x + 20, y + 16, pw, 28, fill=color, rx=14)
+        s.text(x + 20 + pw / 2, y + 35, pill, 14, "#ffffff", 700, "middle")
+        nx = x + 20 + pw + 14
+        s.text(nx, y + 40, f"{count}", 28, color, 700)
+        s.text(nx + text_width(str(count), 28, True) + 8, y + 38, f"users, {count / total:.0%} {what}", 14.5, MUTED)
+        thr = e["threshold"]
+        s.text(x + 20, y + 70, f"Example: true score {e['suicide']}, model score {e['prob']:.2f} "
+                               f"(threshold {thr:.2f})" if thr >= 0.01 else
+               f"Example: true score {e['suicide']}, model score {e['prob']:.3f} (threshold {thr:.3f})",
+               13.5, INK, 700)
+        qy = y + 100
+        for q in picks[key]:
+            rows = wrap("“" + texts[key][q] + "”", cw - 64, 16)
+            s.rect(x + 20, qy - 15, 4, len(rows) * 21.6 - 3, fill=color, rx=2, opacity=0.5)
+            qy = s.lines(x + 36, qy, rows, 16, "#334155", italic=True, leading=1.35) + 8
+        s.text(x + 20, y + ch - 16, EXAMPLE_NOTE[key], 14.5, color, 700)
+    A0.mkdir(exist_ok=True)
+    s.save(A0 / "examples.svg")
+
+
+def draw_a0(stats: dict) -> None:
+    draw_roc(True)
+    draw_headline()
+    draw_errors(stats, True)
+    draw_correlations(True)
+    draw_corr_bars()
+    draw_aux(stats, True)
+    draw_examples_a0(stats)
+
+
 def draw_panels(stats: dict) -> None:
     draw_roc()
     draw_errors(stats)
@@ -683,10 +856,12 @@ def draw_panels(stats: dict) -> None:
     draw_aux(stats)
     draw_examples(stats)
     draw_conclusions(stats)
+    draw_a0(stats)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "redraw":
-        draw_panels(json.loads((POSTER / "panel_stats.json").read_text(encoding="utf-8")))
+    if len(sys.argv) > 1 and sys.argv[1] in ("redraw", "a0"):
+        saved = json.loads((POSTER / "panel_stats.json").read_text(encoding="utf-8"))
+        draw_a0(saved) if sys.argv[1] == "a0" else draw_panels(saved)
     else:
         main()

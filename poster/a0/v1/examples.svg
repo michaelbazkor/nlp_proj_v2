@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1150" height="564" viewBox="0 0 1150 564" font-family="Arial, Helvetica, sans-serif">
+<defs><filter id="shadow" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/></filter></defs>
+<rect width="1150" height="564" fill="#ffffff"/>
+<rect x="58.0" y="0" width="539.0" height="34" rx="17" fill="#f1f5f9"/>
+<text x="327.5" y="23" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">Model: high risk</text>
+<rect x="611.0" y="0" width="539.0" height="34" rx="17" fill="#f1f5f9"/>
+<text x="880.5" y="23" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">Model: not high risk</text>
+<rect x="0" y="46" width="44" height="252" rx="12" fill="#f1f5f9"/>
+<text x="22" y="178.0" font-size="15" font-weight="700" fill="#1e293b" text-anchor="middle" transform="rotate(-90 22 172.0)">True: high risk (3–6)</text>
+<rect x="0" y="312" width="44" height="252" rx="12" fill="#f1f5f9"/>
+<text x="22" y="444.0" font-size="15" font-weight="700" fill="#1e293b" text-anchor="middle" transform="rotate(-90 22 438.0)">True: not high risk (0–2)</text>
+<rect x="58.0" y="46" width="539.0" height="252" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.6"/>
+<rect x="78.0" y="62" width="80.88" height="28" rx="14" fill="#0f766e"/>
+<text x="118.44" y="81" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">Correct</text>
+<text x="172.88" y="86" font-size="28" fill="#0f766e" font-weight="700">71</text>
+<text x="212.24" y="84" font-size="14.5" fill="#64748b">users, 54% of high-risk users flagged</text>
+<text x="78.0" y="116" font-size="13.5" fill="#1e293b" font-weight="700">Example: true score 5, model score 0.46 (threshold 0.22)</text>
+<rect x="78.0" y="131" width="4" height="83.4" rx="2" fill="#0f766e" opacity="0.5"/>
+<text x="94.0" y="146.0" font-size="16" fill="#334155" font-style="italic">“i think a Lot of ppl who see me constantly talking abt</text>
+<text x="94.0" y="167.6" font-size="16" fill="#334155" font-style="italic">suicide think im joking? but honestly the reality is im</text>
+<text x="94.0" y="189.2" font-size="16" fill="#334155" font-style="italic">not ever joking and i am willing and ready to die at a</text>
+<text x="94.0" y="210.8" font-size="16" fill="#334155" font-style="italic">moments notice”</text>
+<text x="78.0" y="282" font-size="14.5" fill="#0f766e" font-weight="700">Open, repeated talk of suicide across 933 posts.</text>
+<rect x="611.0" y="46" width="539.0" height="252" rx="14" fill="#fff1f2" stroke="#e11d48" stroke-width="1.6"/>
+<rect x="631.0" y="62" width="73.04" height="28" rx="14" fill="#e11d48"/>
+<text x="667.52" y="81" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">Missed</text>
+<text x="718.04" y="86" font-size="28" fill="#e11d48" font-weight="700">61</text>
+<text x="757.4" y="84" font-size="14.5" fill="#64748b">users, 46% of high-risk users missed</text>
+<text x="631.0" y="116" font-size="13.5" fill="#1e293b" font-weight="700">Example: true score 5, model score 0.17 (threshold 0.22)</text>
+<rect x="631.0" y="131" width="4" height="40.2" rx="2" fill="#e11d48" opacity="0.5"/>
+<text x="647.0" y="146.0" font-size="16" fill="#334155" font-style="italic">“I saw my dad have a stroke that night and I would never</text>
+<text x="647.0" y="167.6" font-size="16" fill="#334155" font-style="italic">wish that upon my worst enemy.”</text>
+<rect x="631.0" y="182.2" width="4" height="18.6" rx="2" fill="#e11d48" opacity="0.5"/>
+<text x="647.0" y="197.2" font-size="16" fill="#334155" font-style="italic">“Brooding, loving, and hopeless.... Lol hmmmm”</text>
+<text x="631.0" y="282" font-size="14.5" fill="#e11d48" font-weight="700">Rare distress, buried among 189 mostly cheerful posts.</text>
+<rect x="58.0" y="312" width="539.0" height="252" rx="14" fill="#fff1f2" stroke="#e11d48" stroke-width="1.6"/>
+<rect x="78.0" y="328" width="112.24000000000001" height="28" rx="14" fill="#e11d48"/>
+<text x="134.12" y="347" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">False alarm</text>
+<text x="204.24" y="352" font-size="28" fill="#e11d48" font-weight="700">168</text>
+<text x="259.28000000000003" y="350" font-size="14.5" fill="#64748b">users, 19% of other users flagged</text>
+<text x="78.0" y="382" font-size="13.5" fill="#1e293b" font-weight="700">Example: true score 0, model score 0.88 (threshold 0.38)</text>
+<rect x="78.0" y="397" width="4" height="40.2" rx="2" fill="#e11d48" opacity="0.5"/>
+<text x="94.0" y="412.0" font-size="16" fill="#334155" font-style="italic">“I'm still in quite the depressive funk, and only haven't</text>
+<text x="94.0" y="433.6" font-size="16" fill="#334155" font-style="italic">left work early because I left early yesterday.”</text>
+<text x="78.0" y="548" font-size="14.5" fill="#e11d48" font-weight="700">Self-critical, low-mood posts, but no reported ideation.</text>
+<rect x="611.0" y="312" width="539.0" height="252" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.6"/>
+<rect x="631.0" y="328" width="80.88" height="28" rx="14" fill="#0f766e"/>
+<text x="671.44" y="347" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">Correct</text>
+<text x="725.88" y="352" font-size="28" fill="#0f766e" font-weight="700">703</text>
+<text x="780.92" y="350" font-size="14.5" fill="#64748b">users, 81% of other users cleared</text>
+<text x="631.0" y="382" font-size="13.5" fill="#1e293b" font-weight="700">Example: true score 0, model score 0.29 (threshold 0.43)</text>
+<rect x="631.0" y="397" width="4" height="40.2" rx="2" fill="#0f766e" opacity="0.5"/>
+<text x="647.0" y="412.0" font-size="16" fill="#334155" font-style="italic">“Someone just asked me how my dad was, and I said "Dead,</text>
+<text x="647.0" y="433.6" font-size="16" fill="#334155" font-style="italic">so not great". I didn't do that right, did I?”</text>
+<rect x="631.0" y="448.2" width="4" height="61.80000000000001" rx="2" fill="#0f766e" opacity="0.5"/>
+<text x="647.0" y="463.2" font-size="16" fill="#334155" font-style="italic">“Sometimes I wonder if I missed the day in kindergarten</text>
+<text x="647.0" y="484.8" font-size="16" fill="#334155" font-style="italic">when all the other kids learned how to deal with their</text>
+<text x="647.0" y="506.4" font-size="16" fill="#334155" font-style="italic">feelings.”</text>
+<text x="631.0" y="548" font-size="14.5" fill="#0f766e" font-weight="700">Death and feelings come up only as jokes.</text>
+</svg>

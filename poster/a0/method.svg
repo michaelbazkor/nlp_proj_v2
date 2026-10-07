@@ -1,0 +1,469 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="2012" viewBox="0 0 1200 2012" font-family="Arial, Helvetica, sans-serif">
+<defs><filter id="shadow" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/></filter><marker id="arrow0" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1e293b"/></marker><marker id="arrow1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs>
+<rect width="1200" height="2012" fill="#ffffff"/>
+<circle cx="19" cy="24" r="19" fill="#1e293b"/>
+<text x="19" y="31" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+<text x="50" y="32" font-size="24" fill="#1e293b" font-weight="700">Compile each user's posts into one corpus</text>
+<rect x="0" y="56" width="236" height="180" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="14" y="70" width="208" height="32" rx="8" fill="#f1f5f9"/>
+<circle cx="29" cy="86" r="7" fill="#cbd5e1"/>
+<rect x="44" y="79" width="150" height="6" rx="3" fill="#cbd5e1"/>
+<rect x="44" y="89" width="110" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="14" y="110" width="208" height="32" rx="8" fill="#f1f5f9"/>
+<circle cx="29" cy="126" r="7" fill="#cbd5e1"/>
+<rect x="44" y="119" width="120" height="6" rx="3" fill="#cbd5e1"/>
+<rect x="44" y="129" width="130" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="14" y="150" width="208" height="46" rx="8" fill="#f1f5f9"/>
+<rect x="22" y="156" width="46" height="34" rx="4" fill="#ddd6fe"/>
+<path d="M25,188 L38,169 L47,179 L54,172 L65,188 Z" stroke="#7c3aed" stroke-width="1" fill="#7c3aed" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="58" cy="163" r="4" fill="#ffffff"/>
+<rect x="78" y="164" width="120" height="6" rx="3" fill="#cbd5e1"/>
+<rect x="78" y="176" width="90" height="6" rx="3" fill="#e2e8f0"/>
+<text x="118" y="220" font-size="14" fill="#1e293b" font-weight="700" text-anchor="middle">Status posts and photos</text>
+<line x1="242" y1="146.0" x2="262" y2="146.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="268" y="56" width="212" height="180" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="284" y="86" font-size="15.5" fill="#7c3aed" font-weight="700">Caption each photo</text>
+<text x="284" y="110" font-size="13.5" fill="#1e293b" font-weight="700">Qwen2.5-VL-7B-Instruct</text>
+<text x="284" y="136.0" font-size="13" fill="#64748b">2–4 objective sentences on</text>
+<text x="284" y="153.55" font-size="13" fill="#64748b">content and mood; visible</text>
+<text x="284" y="171.1" font-size="13" fill="#64748b">text is copied verbatim</text>
+<text x="284" y="222" font-size="14" font-family="Consolas, 'Courier New', monospace"><tspan fill="#7c3aed" font-weight="700">[image] </tspan><tspan fill="#1e293b">&lt;caption&gt;</tspan></text>
+<line x1="486" y1="146.0" x2="500" y2="146.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="506" y="56" width="694" height="180" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="526" y="86" font-size="15.5" fill="#1e293b" font-weight="700">One corpus per user</text>
+<text x="1180" y="86" font-size="12.5" fill="#64748b" text-anchor="end" font-style="italic">illustrative text, not a real user</text>
+<text x="526.0" y="118" font-size="14.5" font-family="Consolas, 'Courier New', monospace"><tspan fill="#1d4ed8" font-weight="700">[post] </tspan><tspan fill="#1e293b">can't sleep again. third night in a row</tspan></text>
+<text x="526.0" y="142" font-size="14.5" font-family="Consolas, 'Courier New', monospace"><tspan fill="#1d4ed8" font-weight="700">[post] </tspan><tspan fill="#1e293b">brunch with the girls!! </tspan><tspan fill="#7c3aed" font-weight="700">[image] </tspan><tspan fill="#1e293b">Three women smile</tspan></text>
+<text x="581.8" y="166" font-size="14.5" font-family="Consolas, 'Courier New', monospace"><tspan fill="#1e293b">at a sunny café table with pancakes and coffee.</tspan></text>
+<text x="526.0" y="190" font-size="14.5" font-family="Consolas, 'Courier New', monospace"><tspan fill="#1d4ed8" font-weight="700">[post] </tspan><tspan fill="#1e293b">new job starts monday, wish me luck </tspan><tspan fill="#1d4ed8" font-weight="700">[post] </tspan><tspan fill="#64748b">...</tspan></text>
+<text x="526" y="224" font-size="13" fill="#64748b">10 or more posts per user, in shuffled order (seed 42). No profile or demographic fields.</text>
+<circle cx="19" cy="276" r="19" fill="#1e293b"/>
+<text x="19" y="283" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+<text x="50" y="284" font-size="24" fill="#1e293b" font-weight="700">Insert the corpus into one task prompt</text>
+<text x="549" y="284" font-size="15" fill="#64748b">exact wording; [...] marks shortened text</text>
+<rect x="0" y="306" width="800" height="276" rx="14" fill="#0f172a"/>
+<text x="22" y="342" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">You are an expert supervisor evaluating suicide-risk signals in social media language.</tspan></text>
+<text x="22" y="366" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">Input: a collection of Facebook posts authored by a single user. (order is arbitrary)</tspan></text>
+<text x="22" y="390" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#94a3b8" font-style="italic">[...] isolation, burden, emotional pain, entrapment, hopelessness, death, self-harm [...]</tspan></text>
+<text x="22" y="414" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">Remember that majority of users do not have suicidal ideation, do not overinterpret</tspan></text>
+<text x="22" y="438" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">posts that are not overtly suicidal.</tspan></text>
+<text x="22" y="462" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">User posts:</tspan></text>
+<rect x="14" y="468" width="173" height="26" rx="6" fill="#fbbf24"/>
+<text x="22" y="486" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#0f172a" font-weight="700">[insert posts here]</tspan></text>
+<text x="203" y="485" font-size="14" fill="#fbbf24" font-weight="700">← the corpus from step 1 goes here</text>
+<text x="22" y="510" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#e2e8f0">Format your answer exactly as:</tspan></text>
+<text x="22" y="534" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#93c5fd">Rationale: &lt;2-3 sentences&gt;</tspan></text>
+<text x="22" y="558" font-size="15" font-family="Consolas, 'Courier New', monospace"><tspan fill="#93c5fd">Prediction: RISK=&lt;1 for elevated risk, 0 for low risk&gt;</tspan></text>
+<rect x="820" y="306" width="380" height="276" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="840" y="338" font-size="15.5" fill="#1e293b" font-weight="700">How each model reads it</text>
+<circle cx="845" cy="363.275" r="3.5" fill="#1e293b"/>
+<text x="858" y="368.0" font-size="13.5" fill="#1e293b">Each model's own chat template</text>
+<circle cx="845" cy="389.905" r="3.5" fill="#1e293b"/>
+<text x="858" y="394.63" font-size="13.5" fill="#1e293b">Greedy decoding in one generate() pass, with</text>
+<text x="858" y="413.26" font-size="13.5" fill="#1e293b">forward hooks on the tapped layers</text>
+<circle cx="845" cy="435.16499999999996" r="3.5" fill="#1e293b"/>
+<text x="858" y="439.89" font-size="13.5" fill="#1e293b">Qwen3 and DeepSeek-R1 reason before answering,</text>
+<text x="858" y="458.52" font-size="13.5" fill="#1e293b">up to 512 new tokens. Gemma and Llama get 256</text>
+<circle cx="845" cy="480.42499999999995" r="3.5" fill="#1e293b"/>
+<text x="858" y="485.15" font-size="13.5" fill="#1e293b">32k-token context. Longer corpora are split at</text>
+<text x="858" y="503.78" font-size="13.5" fill="#1e293b">post boundaries and the chunks' vectors</text>
+<text x="858" y="522.41" font-size="13.5" fill="#1e293b">averaged</text>
+<circle cx="19" cy="626" r="19" fill="#1e293b"/>
+<text x="19" y="633" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+<text x="50" y="634" font-size="24" fill="#1e293b" font-weight="700">Read hidden states at four token positions</text>
+<text x="600" y="634" font-size="15" fill="#64748b">frozen models, no fine-tuning</text>
+<path d="M0,688 V682 H760 V688" stroke="#64748b" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="380" y="674" font-size="13.5" fill="#64748b" font-weight="700" text-anchor="middle">prompt, read in one forward pass</text>
+<path d="M770,688 V682 H1200 V688" stroke="#64748b" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="985" y="674" font-size="13.5" fill="#64748b" font-weight="700" text-anchor="middle">output, generated greedily</text>
+<rect x="0" y="694" width="180" height="44" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="12" y1="702" x2="12" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="24" y1="702" x2="24" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="36" y1="702" x2="36" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="48" y1="702" x2="48" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="60" y1="702" x2="60" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="72" y1="702" x2="72" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="84" y1="702" x2="84" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="96" y1="702" x2="96" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="108" y1="702" x2="108" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="120" y1="702" x2="120" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="132" y1="702" x2="132" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="144" y1="702" x2="144" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="156" y1="702" x2="156" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="168" y1="702" x2="168" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<rect x="35.6" y="705" width="108.7" height="22" rx="6" fill="#f1f5f9"/>
+<text x="90.0" y="721" font-size="13.5" fill="#1e293b" font-weight="700" text-anchor="middle">instructions</text>
+<rect x="180" y="694" width="460" height="44" rx="6" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="192" y1="702" x2="192" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="204" y1="702" x2="204" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="216" y1="702" x2="216" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="228" y1="702" x2="228" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="240" y1="702" x2="240" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="252" y1="702" x2="252" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="264" y1="702" x2="264" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="276" y1="702" x2="276" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="288" y1="702" x2="288" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="300" y1="702" x2="300" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="312" y1="702" x2="312" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="324" y1="702" x2="324" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="336" y1="702" x2="336" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="348" y1="702" x2="348" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="360" y1="702" x2="360" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="372" y1="702" x2="372" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="384" y1="702" x2="384" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="396" y1="702" x2="396" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="408" y1="702" x2="408" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="420" y1="702" x2="420" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="432" y1="702" x2="432" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="444" y1="702" x2="444" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="456" y1="702" x2="456" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="468" y1="702" x2="468" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="480" y1="702" x2="480" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="492" y1="702" x2="492" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="504" y1="702" x2="504" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="516" y1="702" x2="516" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="528" y1="702" x2="528" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="540" y1="702" x2="540" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="552" y1="702" x2="552" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="564" y1="702" x2="564" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="576" y1="702" x2="576" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="588" y1="702" x2="588" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="600" y1="702" x2="600" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="612" y1="702" x2="612" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="624" y1="702" x2="624" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<rect x="317.8" y="705" width="184.3" height="22" rx="6" fill="#e2e8f0"/>
+<text x="410.0" y="721" font-size="13.5" fill="#1e293b" font-weight="700" text-anchor="middle">user posts from step 1</text>
+<rect x="640" y="694" width="120" height="44" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="652" y1="702" x2="652" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="664" y1="702" x2="664" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="676" y1="702" x2="676" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="688" y1="702" x2="688" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="700" y1="702" x2="700" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="712" y1="702" x2="712" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="724" y1="702" x2="724" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="736" y1="702" x2="736" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="748" y1="702" x2="748" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<rect x="668.3" y="705" width="63.4" height="22" rx="6" fill="#f1f5f9"/>
+<text x="700.0" y="721" font-size="13.5" fill="#1e293b" font-weight="700" text-anchor="middle">format</text>
+<rect x="770" y="694" width="330" height="44" rx="6" fill="#ede9fe" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="782" y1="702" x2="782" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="794" y1="702" x2="794" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="806" y1="702" x2="806" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="818" y1="702" x2="818" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="830" y1="702" x2="830" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="842" y1="702" x2="842" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="854" y1="702" x2="854" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="866" y1="702" x2="866" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="878" y1="702" x2="878" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="890" y1="702" x2="890" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="902" y1="702" x2="902" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="914" y1="702" x2="914" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="926" y1="702" x2="926" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="938" y1="702" x2="938" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="950" y1="702" x2="950" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="962" y1="702" x2="962" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="974" y1="702" x2="974" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="986" y1="702" x2="986" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="998" y1="702" x2="998" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1010" y1="702" x2="1010" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1022" y1="702" x2="1022" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1034" y1="702" x2="1034" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1046" y1="702" x2="1046" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1058" y1="702" x2="1058" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1070" y1="702" x2="1070" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1082" y1="702" x2="1082" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<rect x="839.1" y="705" width="191.9" height="22" rx="6" fill="#ede9fe"/>
+<text x="935.0" y="721" font-size="13.5" fill="#1e293b" font-weight="700" text-anchor="middle">reasoning and rationale</text>
+<rect x="1100" y="694" width="100" height="44" rx="6" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="1112" y1="702" x2="1112" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1124" y1="702" x2="1124" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1136" y1="702" x2="1136" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1148" y1="702" x2="1148" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1160" y1="702" x2="1160" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1172" y1="702" x2="1172" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<line x1="1184" y1="702" x2="1184" y2="730" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+<rect x="1110.3" y="705" width="63.4" height="22" rx="6" fill="#fef3c7"/>
+<text x="1142.0" y="721" font-size="13.5" fill="#1e293b" font-weight="700" text-anchor="middle">RISK=1</text>
+<rect x="748" y="698" width="9" height="36" rx="2" fill="#60a5fa"/>
+<rect x="1188" y="698" width="9" height="36" rx="2" fill="#f59e0b"/>
+<path d="M190,746 V754 H630 V746" stroke="#94a3b8" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M780,746 V754 H1090 V746" stroke="#a78bfa" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="410" y1="756" x2="410" y2="768" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+<text x="410" y="788" font-size="15.5" fill="#475569" font-weight="700" text-anchor="middle">Input only</text>
+<text x="410" y="807" font-size="13.5" fill="#64748b" text-anchor="middle">mean over the post tokens</text>
+<line x1="752" y1="740" x2="752" y2="768" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+<text x="752" y="788" font-size="15.5" fill="#2563eb" font-weight="700" text-anchor="middle">Last prompt token</text>
+<text x="752" y="807" font-size="13.5" fill="#64748b" text-anchor="middle">before any output exists</text>
+<line x1="960" y1="756" x2="960" y2="768" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+<text x="960" y="788" font-size="15.5" fill="#7c3aed" font-weight="700" text-anchor="middle">Chain of thought</text>
+<text x="960" y="807" font-size="13.5" fill="#64748b" text-anchor="middle">mean over generated tokens</text>
+<line x1="1193" y1="740" x2="1193" y2="768" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+<text x="1200" y="788" font-size="15.5" fill="#b45309" font-weight="700" text-anchor="end">Final prediction</text>
+<text x="1200" y="807" font-size="13.5" fill="#64748b" text-anchor="end">last generated token</text>
+<text x="0" y="842" font-size="13" fill="#64748b" font-weight="700">Model</text>
+<text x="300" y="842" font-size="13" fill="#64748b" font-weight="700">Tapped layers (dots) along the model's depth</text>
+<text x="1000" y="842" font-size="13" fill="#64748b" font-weight="700" text-anchor="end">Hidden size</text>
+<text x="1020" y="842" font-size="13" fill="#64748b" font-weight="700">Notes</text>
+<rect x="0" y="854" width="1200" height="36" rx="8" fill="#f8fafc"/>
+<circle cx="14" cy="872" r="6" fill="#6366f1"/>
+<text x="30" y="878" font-size="15" fill="#1e293b" font-weight="700">Qwen3-32B</text>
+<line x1="300" y1="872" x2="620" y2="872" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+<circle cx="400" cy="872" r="7" fill="#6366f1" stroke="#ffffff" stroke-width="2"/>
+<circle cx="500" cy="872" r="7" fill="#6366f1" stroke="#ffffff" stroke-width="2"/>
+<circle cx="600" cy="872" r="7" fill="#6366f1" stroke="#ffffff" stroke-width="2"/>
+<circle cx="620" cy="872" r="7" fill="#6366f1" stroke="#ffffff" stroke-width="2"/>
+<text x="724" y="878" font-size="14" fill="#1e293b">20, 40, 60, 64 of 64</text>
+<text x="1000" y="878" font-size="14" fill="#1e293b" font-weight="700" text-anchor="end">5,120</text>
+<text x="1020" y="878" font-size="13.5" fill="#64748b">bf16, reasons first</text>
+<circle cx="14" cy="912" r="6" fill="#0ea5e9"/>
+<text x="30" y="918" font-size="15" fill="#1e293b" font-weight="700">DeepSeek-R1-Distill-Qwen-32B</text>
+<line x1="300" y1="912" x2="620" y2="912" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+<circle cx="400" cy="912" r="7" fill="#0ea5e9" stroke="#ffffff" stroke-width="2"/>
+<circle cx="500" cy="912" r="7" fill="#0ea5e9" stroke="#ffffff" stroke-width="2"/>
+<circle cx="600" cy="912" r="7" fill="#0ea5e9" stroke="#ffffff" stroke-width="2"/>
+<circle cx="620" cy="912" r="7" fill="#0ea5e9" stroke="#ffffff" stroke-width="2"/>
+<text x="724" y="918" font-size="14" fill="#1e293b">20, 40, 60, 64 of 64</text>
+<text x="1000" y="918" font-size="14" fill="#1e293b" font-weight="700" text-anchor="end">5,120</text>
+<text x="1020" y="918" font-size="13.5" fill="#64748b">bf16, reasons first</text>
+<rect x="0" y="934" width="1200" height="36" rx="8" fill="#f8fafc"/>
+<circle cx="14" cy="952" r="6" fill="#10b981"/>
+<text x="30" y="958" font-size="15" fill="#1e293b" font-weight="700">Gemma-4-26B-A4B (MoE)</text>
+<line x1="300" y1="952" x2="450" y2="952" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+<circle cx="400" cy="952" r="7" fill="#10b981" stroke="#ffffff" stroke-width="2"/>
+<circle cx="450" cy="952" r="7" fill="#10b981" stroke="#ffffff" stroke-width="2"/>
+<text x="724" y="958" font-size="14" fill="#1e293b">20, 30 of 30</text>
+<text x="1000" y="958" font-size="14" fill="#1e293b" font-weight="700" text-anchor="end">2,816</text>
+<text x="1020" y="958" font-size="13.5" fill="#64748b">bf16, 4B active</text>
+<circle cx="14" cy="992" r="6" fill="#f43f5e"/>
+<text x="30" y="998" font-size="15" fill="#1e293b" font-weight="700">Llama-3.3-70B-Instruct</text>
+<line x1="300" y1="992" x2="700" y2="992" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+<circle cx="400" cy="992" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="500" cy="992" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="600" cy="992" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="700" cy="992" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="2"/>
+<text x="724" y="998" font-size="14" fill="#1e293b">20, 40, 60, 80 of 80</text>
+<text x="1000" y="998" font-size="14" fill="#1e293b" font-weight="700" text-anchor="end">8,192</text>
+<text x="1020" y="998" font-size="13.5" fill="#64748b">8-bit weights</text>
+<rect x="0" y="1024" width="1200" height="40" rx="10" fill="#1e293b"/>
+<text x="600.0" y="1050" font-size="16.5" fill="#ffffff" font-weight="700" text-anchor="middle">4 + 4 + 2 + 4 = 14 model-layer blocks   ×   4 positions   =   56 vectors per user</text>
+<circle cx="19" cy="1108" r="19" fill="#1e293b"/>
+<text x="19" y="1115" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+<text x="50" y="1116" font-size="24" fill="#1e293b" font-weight="700">Fuse the 56 vectors into 1024 features</text>
+<text x="549" y="1116" font-size="15" fill="#64748b">attention fusion, fit on each training fold</text>
+<rect x="0" y="1140" width="178" height="116" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="89.0" y="1168" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">One block</text>
+<rect x="46" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="61" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="76" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="91" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="106" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="121" y="1180" width="12" height="10" rx="2" fill="#94a3b8"/>
+<rect x="46" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="61" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="76" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="91" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="106" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="121" y="1193" width="12" height="10" rx="2" fill="#60a5fa"/>
+<rect x="46" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="61" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="76" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="91" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="106" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="121" y="1206" width="12" height="10" rx="2" fill="#a78bfa"/>
+<rect x="46" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<rect x="61" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<rect x="76" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<rect x="91" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<rect x="106" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<rect x="121" y="1219" width="12" height="10" rx="2" fill="#f59e0b"/>
+<text x="89.0" y="1242" font-size="12.5" fill="#64748b" text-anchor="middle">4 vectors, z-scored</text>
+<rect x="204" y="1140" width="178" height="116" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="293.0" y="1168" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">Score each</text>
+<text x="293.0" y="1206" font-size="17" fill="#1e293b" font-weight="700" text-anchor="middle">s = w · h</text>
+<text x="293.0" y="1242" font-size="12.5" fill="#64748b" text-anchor="middle">one learned w per block</text>
+<line x1="181" y1="1198.0" x2="201" y2="1198.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="408" y="1140" width="178" height="116" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="497.0" y="1168" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">Softmax</text>
+<rect x="458" y="1208" width="15" height="16" rx="3" fill="#94a3b8"/>
+<rect x="479" y="1186" width="15" height="38" rx="3" fill="#60a5fa"/>
+<rect x="500" y="1198" width="15" height="26" rx="3" fill="#a78bfa"/>
+<rect x="521" y="1214" width="15" height="10" rx="3" fill="#f59e0b"/>
+<line x1="452" y1="1224" x2="542" y2="1224" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round"/>
+<text x="497.0" y="1242" font-size="12.5" fill="#64748b" text-anchor="middle">4 weights that sum to 1</text>
+<line x1="385" y1="1198.0" x2="405" y2="1198.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="612" y="1140" width="178" height="116" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="701.0" y="1168" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">Weighted sum</text>
+<text x="701.0" y="1206" font-size="17" fill="#1e293b" font-weight="700" text-anchor="middle">z = Σ α · h</text>
+<text x="701.0" y="1242" font-size="12.5" fill="#64748b" text-anchor="middle">one vector per block</text>
+<line x1="589" y1="1198.0" x2="609" y2="1198.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="816" y="1140" width="178" height="116" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="905.0" y="1168" font-size="15" fill="#1e293b" font-weight="700" text-anchor="middle">Concatenate</text>
+<text x="905.0" y="1206" font-size="17" fill="#1e293b" font-weight="700" text-anchor="middle">14 blocks</text>
+<text x="905.0" y="1242" font-size="12.5" fill="#64748b" text-anchor="middle">79,360 numbers</text>
+<line x1="793" y1="1198.0" x2="813" y2="1198.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="1020" y="1140" width="178" height="116" rx="12" fill="#1e293b"/>
+<text x="1109.0" y="1168" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle">Linear layer</text>
+<text x="1109.0" y="1206" font-size="19" fill="#5eead4" font-weight="700" text-anchor="middle">→ 1024</text>
+<text x="1109.0" y="1242" font-size="12.5" fill="#cbd5e1" text-anchor="middle">features for STM and MTM</text>
+<line x1="997" y1="1198.0" x2="1017" y2="1198.0" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<text x="0" y="1284.0" font-size="13.5" fill="#64748b">Trained through a temporary linear probe that predicts high risk: weighted BCE (positive weight 1.5 × negatives / positives), full-batch Adam, learning rate 0.01, at most 500</text>
+<text x="0" y="1302.9" font-size="13.5" fill="#64748b">epochs, keeping the epoch with the best development AUC (patience 50). The probe is then dropped. The weights pick among the 4 positions, not among tokens.</text>
+<circle cx="19" cy="1352" r="19" fill="#1e293b"/>
+<text x="19" y="1359" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">5</text>
+<text x="50" y="1360" font-size="24" fill="#1e293b" font-weight="700">Classify with two networks on the same 1024 features</text>
+<rect x="0" y="1382" width="500" height="418" rx="16" fill="#f8fafc" stroke="#1d4ed8" stroke-width="2"/>
+<text x="20" y="1416" font-size="22" fill="#1d4ed8" font-weight="700">STM</text>
+<text x="76" y="1416" font-size="14" fill="#64748b">single task, best setting per fold</text>
+<rect x="20" y="1436" width="120" height="42" rx="10" fill="#1e293b"/>
+<text x="80" y="1463" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">1024 features</text>
+<line x1="144" y1="1457" x2="160" y2="1457" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="164" y="1436" width="150" height="42" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4"/>
+<text x="239" y="1463" font-size="14" fill="#1e293b" font-weight="700" text-anchor="middle">1–3 tanh layers</text>
+<line x1="318" y1="1457" x2="334" y2="1457" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="338" y="1436" width="142" height="42" rx="10" fill="#1d4ed8"/>
+<text x="409" y="1463" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">P(high risk)</text>
+<text x="409" y="1498" font-size="12" fill="#64748b" text-anchor="middle">sigmoid of 1 logit, BCE</text>
+<text x="20" y="1532" font-size="12.5" fill="#64748b" font-weight="700">Fold</text>
+<text x="72" y="1532" font-size="12.5" fill="#64748b" font-weight="700">Layers × units</text>
+<text x="206" y="1532" font-size="12.5" fill="#64748b" font-weight="700">LR</text>
+<text x="270" y="1532" font-size="12.5" fill="#64748b" font-weight="700">Epochs</text>
+<text x="350" y="1532" font-size="12.5" fill="#64748b" font-weight="700">Test AUC</text>
+<line x1="20" y1="1540" x2="480" y2="1540" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round"/>
+<text x="34" y="1564" font-size="14.5" fill="#1e293b" font-weight="700" text-anchor="middle">0</text>
+<rect x="72" y="1551" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<rect x="83" y="1551" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<rect x="94" y="1551" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="110" y="1564" font-size="14.5" fill="#1e293b">3 × 1024</text>
+<text x="206" y="1564" font-size="14.5" fill="#1e293b">0.01</text>
+<text x="270" y="1564" font-size="14.5" fill="#1e293b">1,000</text>
+<rect x="350" y="1550" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1550" width="59.9" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1564" font-size="15" fill="#1e293b">0.771</text>
+<text x="34" y="1596" font-size="14.5" fill="#1e293b" font-weight="700" text-anchor="middle">1</text>
+<rect x="72" y="1583" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="110" y="1596" font-size="14.5" fill="#1e293b">1 × 64</text>
+<text x="206" y="1596" font-size="14.5" fill="#1e293b">0.005</text>
+<text x="270" y="1596" font-size="14.5" fill="#1e293b">1,000</text>
+<rect x="350" y="1582" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1582" width="20.0" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1596" font-size="15" fill="#1e293b">0.657</text>
+<text x="34" y="1628" font-size="14.5" fill="#1e293b" font-weight="700" text-anchor="middle">2</text>
+<rect x="72" y="1615" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<rect x="83" y="1615" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<rect x="94" y="1615" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="110" y="1628" font-size="14.5" fill="#1e293b">3 × 1024</text>
+<text x="206" y="1628" font-size="14.5" fill="#1e293b">0.005</text>
+<text x="270" y="1628" font-size="14.5" fill="#1e293b">5,000</text>
+<rect x="350" y="1614" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1614" width="62.7" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1628" font-size="15" fill="#1e293b">0.779</text>
+<text x="34" y="1660" font-size="14.5" fill="#1e293b" font-weight="700" text-anchor="middle">3</text>
+<rect x="72" y="1647" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="110" y="1660" font-size="14.5" fill="#1e293b">1 × 512</text>
+<text x="206" y="1660" font-size="14.5" fill="#1e293b">0.001</text>
+<text x="270" y="1660" font-size="14.5" fill="#1e293b">5,000</text>
+<rect x="350" y="1646" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1646" width="48.9" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1660" font-size="15" fill="#1e293b">0.740</text>
+<text x="34" y="1692" font-size="14.5" fill="#1e293b" font-weight="700" text-anchor="middle">4</text>
+<rect x="72" y="1679" width="7" height="16" rx="2" fill="#93c5fd" stroke="#1d4ed8" stroke-width="0.8"/>
+<text x="110" y="1692" font-size="14.5" fill="#1e293b">1 × 512</text>
+<text x="206" y="1692" font-size="14.5" fill="#1e293b">0.05</text>
+<text x="270" y="1692" font-size="14.5" fill="#1e293b">2,500</text>
+<rect x="350" y="1678" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1678" width="11.9" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1692" font-size="15" fill="#1e293b">0.634</text>
+<line x1="20" y1="1702" x2="480" y2="1702" stroke="#1e293b" stroke-width="1" stroke-linecap="round"/>
+<text x="20" y="1722" font-size="14.5" fill="#1e293b" font-weight="700">Mean</text>
+<text x="110" y="1722" font-size="13" fill="#64748b">a different setting on each fold</text>
+<rect x="350" y="1708" width="70" height="18" rx="4" fill="#f1f5f9"/>
+<rect x="350" y="1708" width="40.7" height="18" rx="4" fill="#1d4ed8"/>
+<text x="430" y="1722" font-size="15" fill="#1e293b" font-weight="700">0.716</text>
+<rect x="520" y="1382" width="680" height="418" rx="16" fill="#f8fafc" stroke="#0f766e" stroke-width="2"/>
+<text x="540" y="1416" font-size="22" fill="#0f766e" font-weight="700">MTM</text>
+<text x="602" y="1416" font-size="14" fill="#64748b">multi-task cascade, one setting for all folds</text>
+<rect x="540" y="1436" width="130" height="42" rx="10" fill="#1e293b"/>
+<text x="605" y="1463" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">1024 features</text>
+<line x1="674" y1="1457" x2="690" y2="1457" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="694" y="1436" width="290" height="42" rx="10" fill="#334155"/>
+<text x="839" y="1463" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="middle">Shared layer: 512 tanh units</text>
+<path d="M839,1478 V1496" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="613.0" y1="1496" x2="1111.0" y2="1496" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+<line x1="613.0" y1="1496" x2="613.0" y2="1516" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow1)"/>
+<rect x="540.0" y="1520" width="146" height="62" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="613.0" y="1546" font-size="14.5" fill="#7c3aed" font-weight="700" text-anchor="middle">Personality</text>
+<text x="613.0" y="1566" font-size="12.5" fill="#64748b" text-anchor="middle">5 scores</text>
+<rect x="587.0" y="1590" width="52" height="22" rx="11" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="613.0" y="1606" font-size="11.5" fill="#7c3aed" font-weight="700" text-anchor="middle">MSE</text>
+<line x1="779.0" y1="1496" x2="779.0" y2="1516" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow1)"/>
+<rect x="706.0" y="1520" width="146" height="62" rx="10" fill="#ffffff" stroke="#0891b2" stroke-width="1.6"/>
+<text x="779.0" y="1546" font-size="14.5" fill="#0891b2" font-weight="700" text-anchor="middle">Psychosocial</text>
+<text x="779.0" y="1566" font-size="12.5" fill="#64748b" text-anchor="middle">4 scores</text>
+<rect x="753.0" y="1590" width="52" height="22" rx="11" fill="#ffffff" stroke="#0891b2" stroke-width="1.2"/>
+<text x="779.0" y="1606" font-size="11.5" fill="#0891b2" font-weight="700" text-anchor="middle">MSE</text>
+<line x1="688.0" y1="1551" x2="703.0" y2="1551" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<line x1="945.0" y1="1496" x2="945.0" y2="1516" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow1)"/>
+<rect x="872.0" y="1520" width="146" height="62" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<text x="945.0" y="1546" font-size="14.5" fill="#b45309" font-weight="700" text-anchor="middle">Psychiatric</text>
+<text x="945.0" y="1566" font-size="12.5" fill="#64748b" text-anchor="middle">2 scores</text>
+<rect x="919.0" y="1590" width="52" height="22" rx="11" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<text x="945.0" y="1606" font-size="11.5" fill="#b45309" font-weight="700" text-anchor="middle">MSE</text>
+<line x1="854.0" y1="1551" x2="869.0" y2="1551" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<line x1="1111.0" y1="1496" x2="1111.0" y2="1516" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow1)"/>
+<rect x="1038.0" y="1520" width="146" height="62" rx="10" fill="#0f766e" stroke="#0f766e" stroke-width="1.6"/>
+<text x="1111.0" y="1546" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="middle">Suicide</text>
+<text x="1111.0" y="1566" font-size="12.5" fill="#ccfbf1" text-anchor="middle">1 logit</text>
+<rect x="1085.0" y="1590" width="52" height="22" rx="11" fill="#0f766e" stroke="#0f766e" stroke-width="1.2"/>
+<text x="1111.0" y="1606" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">BCE</text>
+<line x1="1020.0" y1="1551" x2="1035.0" y2="1551" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<line x1="540" y1="1628" x2="564" y2="1628" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow1)"/>
+<text x="572" y="1632" font-size="12.5" fill="#64748b">shared layer into every stage</text>
+<line x1="770" y1="1628" x2="794" y2="1628" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<text x="802" y="1632" font-size="12.5" fill="#64748b">previous stage's prediction</text>
+<line x1="1111.0" y1="1614" x2="1111.0" y2="1644" stroke="#1e293b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow0)"/>
+<rect x="540" y="1648" width="640" height="44" rx="12" fill="#b45309"/>
+<text x="860.0" y="1676" font-size="15.5" fill="#ffffff" font-weight="700" text-anchor="middle">score = suicide logit + 0.1 × predicted PHQ-9   →   P(high risk)</text>
+<text x="540" y="1712" font-size="13" fill="#64748b">Predicted PHQ-9: ridge regression on the 1024 features, fit on the training fold.</text>
+<text x="540" y="1736" font-size="13.5" fill="#1e293b">Setting: 1 × 512 shared, tanh, learning rate 0.005, 1,000 epochs, 512-unit stages.</text>
+<text x="540" y="1760" font-size="13.5" fill="#1e293b">Loss: BCE on high risk + MSE on each z-scored questionnaire score.</text>
+<text x="540" y="1786" font-size="13.5" fill="#b45309" font-weight="700">Test AUC by fold: 0.735  ·  0.712  ·  0.769  ·  0.742  ·  0.714   mean 0.734</text>
+<circle cx="19" cy="1844" r="19" fill="#1e293b"/>
+<text x="19" y="1851" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">6</text>
+<text x="50" y="1852" font-size="24" fill="#1e293b" font-weight="700">Train, select, and test</text>
+<text x="359" y="1852" font-size="15" fill="#64748b">5 stratified folds; every user is a test user exactly once</text>
+<text x="0" y="1887" font-size="12.5" fill="#64748b" font-weight="700">Fold 0</text>
+<rect x="56" y="1874" width="504" height="15" rx="4" fill="#cbd5e1"/>
+<rect x="56.0" y="1874" width="100.8" height="15" rx="4" fill="#0f766e"/>
+<rect x="156.8" y="1874" width="71.4" height="15" rx="4" fill="#60a5fa"/>
+<text x="0" y="1909" font-size="12.5" fill="#64748b" font-weight="700">Fold 1</text>
+<rect x="56" y="1896" width="504" height="15" rx="4" fill="#cbd5e1"/>
+<rect x="156.8" y="1896" width="100.8" height="15" rx="4" fill="#0f766e"/>
+<rect x="257.6" y="1896" width="71.4" height="15" rx="4" fill="#60a5fa"/>
+<text x="0" y="1931" font-size="12.5" fill="#64748b" font-weight="700">Fold 2</text>
+<rect x="56" y="1918" width="504" height="15" rx="4" fill="#cbd5e1"/>
+<rect x="257.6" y="1918" width="100.8" height="15" rx="4" fill="#0f766e"/>
+<rect x="358.4" y="1918" width="71.4" height="15" rx="4" fill="#60a5fa"/>
+<text x="0" y="1953" font-size="12.5" fill="#64748b" font-weight="700">Fold 3</text>
+<rect x="56" y="1940" width="504" height="15" rx="4" fill="#cbd5e1"/>
+<rect x="358.4" y="1940" width="100.8" height="15" rx="4" fill="#0f766e"/>
+<rect x="459.2" y="1940" width="71.4" height="15" rx="4" fill="#60a5fa"/>
+<text x="0" y="1975" font-size="12.5" fill="#64748b" font-weight="700">Fold 4</text>
+<rect x="56" y="1962" width="504" height="15" rx="4" fill="#cbd5e1"/>
+<rect x="459.2" y="1962" width="100.8" height="15" rx="4" fill="#0f766e"/>
+<rect x="56" y="1962" width="71.4" height="15" rx="4" fill="#60a5fa"/>
+<rect x="56" y="1987" width="14" height="14" rx="3" fill="#cbd5e1"/>
+<text x="76" y="1998" font-size="12.5" fill="#1e293b">train 660 (87 high risk)</text>
+<rect x="252" y="1987" width="14" height="14" rx="3" fill="#60a5fa"/>
+<text x="272" y="1998" font-size="12.5" fill="#1e293b">dev 142 (19)</text>
+<rect x="372" y="1987" width="14" height="14" rx="3" fill="#0f766e"/>
+<text x="392" y="1998" font-size="12.5" fill="#1e293b">test 200–201 (26–27)</text>
+<circle cx="605" cy="1881.275" r="3.5" fill="#1e293b"/>
+<text x="618" y="1886.0" font-size="13.5" fill="#1e293b">504-setting grid: 1–3 layers, 16–1024 units, tanh or sigmoid, learning rate</text>
+<text x="618" y="1904.63" font-size="13.5" fill="#1e293b">0.001–0.05, 1,000–5,000 epochs. RMSprop (momentum 0.9), batch 32, best development-</text>
+<text x="618" y="1923.26" font-size="13.5" fill="#1e293b">AUC epoch kept (patience 200).</text>
+<circle cx="605" cy="1943.1650000000002" r="3.5" fill="#1e293b"/>
+<text x="618" y="1947.89" font-size="13.5" fill="#1e293b">STM: best development AUC on each fold. MTM and its PHQ-9 weight: best mean</text>
+<text x="618" y="1966.5200000000002" font-size="13.5" fill="#1e293b">development AUC over the folds.</text>
+<circle cx="605" cy="1986.4250000000002" r="3.5" fill="#1e293b"/>
+<text x="618" y="1991.15" font-size="13.5" fill="#1e293b">Test folds are scored once, after selection.</text>
+</svg>

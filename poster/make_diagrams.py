@@ -3,9 +3,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from svgkit import EDGE, INK, LINE, MTM_C, MUTED, PERS_C, PHQ_C, PSY_C, PSYCH_C, STM_C, Svg, text_width
+from svgkit import EDGE, INK, LINE, MTM_C, MUTED, PERS_C, PHQ_C, PSY_C, PSYCH_C, STM_C, Svg, esc, text_width, wrap
 
 POSTER = Path(__file__).resolve().parent
+MONO = "Consolas, 'Courier New', monospace"
 
 LLMS = ["Qwen3-32B", "DeepSeek-R1-Distill-32B", "Gemma-4-26B (MoE)", "Llama-3.3-70B"]
 LLM_COLORS = ["#6366f1", "#0ea5e9", "#10b981", "#f43f5e"]
@@ -21,6 +22,13 @@ STM_SETTINGS = [
     (1, 512, 0.001, 5000),
     (1, 512, 0.05, 2500),
 ]
+LLM_TAPS = [
+    ("Qwen3-32B", 64, [20, 40, 60, 64], 5120, "bf16, reasons first"),
+    ("DeepSeek-R1-Distill-Qwen-32B", 64, [20, 40, 60, 64], 5120, "bf16, reasons first"),
+    ("Gemma-4-26B-A4B (MoE)", 30, [20, 30], 2816, "bf16, 4B active"),
+    ("Llama-3.3-70B-Instruct", 80, [20, 40, 60, 80], 8192, "8-bit weights"),
+]
+POS_TEXT = ["#475569", "#2563eb", "#7c3aed", "#b45309"]
 
 
 def vec(s: Svg, x, y, color, n=5, size=9, gap=2):
@@ -326,6 +334,351 @@ def hyperparams() -> None:
     s.save(POSTER / "09_hyperparams.svg")
 
 
+def mono(s: Svg, x, y, parts, size=15):
+    spans = []
+    for text, color, *style in parts:
+        a = f' fill="{color}"'
+        if "b" in style:
+            a += ' font-weight="700"'
+        if "i" in style:
+            a += ' font-style="italic"'
+        spans.append(f"<tspan{a}>{esc(text)}</tspan>")
+    s.raw(f'<text x="{x}" y="{y}" font-size="{size}" font-family="{MONO}">{"".join(spans)}</text>')
+
+
+def step(s: Svg, y, n, title, sub=""):
+    s.circle(19, y - 8, 19, fill=INK)
+    s.text(19, y - 1, str(n), 19, "#ffffff", 700, "middle")
+    s.text(50, y, title, 24, INK, 700)
+    if sub:
+        s.text(round(50 + len(title) * 24 * 0.53 + 16), y, sub, 15, MUTED)
+
+
+def bullets(s: Svg, x, y, width, items, size=13.5, dot=INK, gap=8):
+    for item in items:
+        s.circle(x + 5, y - size * 0.35, 3.5, fill=dot)
+        y = s.lines(x + 18, y, wrap(item, width - 18, size), size, INK, leading=1.38) + gap
+    return y
+
+
+def method(v1_folds: list[float] | None = None, out: Path | None = None) -> None:
+    """`v1_folds`: test AUCs of the aux-pretrained, weight-averaged MTM; draws its box instead of MTM + PHQ-9."""
+    W = 1200
+    s = Svg(W, 1965)
+    s.shadows = False
+
+    # 1. corpus
+    step(s, 32, 1, "Compile each user's posts into one corpus")
+    t, h = 56, 180
+    s.rect(0, t, 236, h, fill="#ffffff", stroke=EDGE, rx=14, shadow=True)
+    for k in range(2):
+        yy = t + 14 + k * 40
+        s.rect(14, yy, 208, 32, fill="#f1f5f9", rx=8)
+        s.circle(29, yy + 16, 7, fill="#cbd5e1")
+        s.rect(44, yy + 9, 150 - 30 * k, 6, fill="#cbd5e1", rx=3)
+        s.rect(44, yy + 19, 110 + 20 * k, 6, fill="#e2e8f0", rx=3)
+    yy = t + 94
+    s.rect(14, yy, 208, 46, fill="#f1f5f9", rx=8)
+    s.rect(22, yy + 6, 46, 34, fill="#ddd6fe", rx=4)
+    s.path(f"M25,{yy + 38} L38,{yy + 19} L47,{yy + 29} L54,{yy + 22} L65,{yy + 38} Z", stroke=PERS_C, sw=1, fill=PERS_C)
+    s.circle(58, yy + 13, 4, fill="#ffffff")
+    s.rect(78, yy + 14, 120, 6, fill="#cbd5e1", rx=3)
+    s.rect(78, yy + 26, 90, 6, fill="#e2e8f0", rx=3)
+    s.text(118, t + 164, "Status posts and photos", 14, INK, 700, "middle")
+    s.line(242, t + h / 2, 262, t + h / 2, arrow=True, sw=2)
+
+    cx0 = 268
+    s.rect(cx0, t, 212, h, fill="#f5f3ff", stroke=PERS_C, sw=1.6, rx=14)
+    s.text(cx0 + 16, t + 30, "Caption each photo", 15.5, PERS_C, 700)
+    s.text(cx0 + 16, t + 54, "Qwen2.5-VL-7B-Instruct", 13.5, INK, 700)
+    s.lines(cx0 + 16, t + 80, wrap("2–4 objective sentences on content and mood; visible text is copied verbatim",
+                                   184, 13), 13, MUTED, leading=1.35)
+    mono(s, cx0 + 16, t + 166, [("[image] ", PERS_C, "b"), ("<caption>", INK)], 14)
+    s.line(486, t + h / 2, 500, t + h / 2, arrow=True, sw=2)
+
+    bx = 506
+    cw8 = 14.5 * 0.55
+    s.rect(bx, t, W - bx, h, fill="#f8fafc", stroke=EDGE, rx=14)
+    s.text(bx + 20, t + 30, "One corpus per user", 15.5, INK, 700)
+    s.text(W - 20, t + 30, "illustrative text, not a real user", 12.5, MUTED, anchor="end", italic=True)
+    rows = [
+        (0, [("[post] ", STM_C, "b"), ("can't sleep again. third night in a row", INK)]),
+        (0, [("[post] ", STM_C, "b"), ("brunch with the girls!! ", INK), ("[image] ", PERS_C, "b"),
+             ("Three women smile", INK)]),
+        (7, [("at a sunny café table with pancakes and coffee.", INK)]),
+        (0, [("[post] ", STM_C, "b"), ("new job starts monday, wish me luck ", INK), ("[post] ", STM_C, "b"),
+             ("...", MUTED)]),
+    ]
+    for k, (indent, parts) in enumerate(rows):
+        mono(s, round(bx + 20 + indent * cw8, 1), t + 62 + k * 24, parts, 14.5)
+    s.text(bx + 20, t + h - 12, "10 or more posts per user, in shuffled order (seed 42). No profile or demographic fields.",
+           13, MUTED)
+
+    # 2. prompt
+    step(s, 284, 2, "Insert the corpus into one task prompt", "exact wording; [...] marks shortened text")
+    t, h = 306, 276
+    s.rect(0, t, 800, h, fill="#0f172a", rx=14)
+    white, grey, amber, blue = "#e2e8f0", "#94a3b8", "#fbbf24", "#93c5fd"
+    prompt = [
+        [("You are an expert supervisor evaluating suicide-risk signals in social media language.", white)],
+        [("Input: a collection of Facebook posts authored by a single user. (order is arbitrary)", white)],
+        [("[...] isolation, burden, emotional pain, entrapment, hopelessness, death, self-harm [...]", grey, "i")],
+        [("Remember that majority of users do not have suicidal ideation, do not overinterpret", white)],
+        [("posts that are not overtly suicidal.", white)],
+        [("User posts:", white)],
+        None,
+        [("Format your answer exactly as:", white)],
+        [("Rationale: <2-3 sentences>", blue)],
+        [("Prediction: RISK=<1 for elevated risk, 0 for low risk>", blue)],
+    ]
+    for k, row in enumerate(prompt):
+        y = t + 36 + k * 24
+        if row is None:
+            w = round(19 * 15 * 0.55 + 16)
+            s.rect(14, y - 18, w, 26, fill=amber, rx=6)
+            mono(s, 22, y, [("[insert posts here]", "#0f172a", "b")], 15)
+            s.text(22 + w + 8, y - 1, "← the corpus from step 1 goes here", 14, amber, 700)
+        else:
+            mono(s, 22, y, row, 15)
+    rx0 = 820
+    s.rect(rx0, t, W - rx0, h, fill="#ffffff", stroke=EDGE, rx=14, shadow=True)
+    s.text(rx0 + 20, t + 32, "How each model reads it", 15.5, INK, 700)
+    bullets(s, rx0 + 20, t + 62, W - rx0 - 40, [
+        "Each model's own chat template",
+        "Greedy decoding in one generate() pass, with forward hooks on the tapped layers",
+        "Qwen3 and DeepSeek-R1 reason before answering, up to 512 new tokens. Gemma and Llama get 256",
+        "32k-token context. Longer corpora are split at post boundaries and the chunks' vectors averaged",
+    ])
+
+    # 3. token positions and models
+    step(s, 634, 3, "Read hidden states at four token positions", "frozen models, no fine-tuning")
+    st, sh = 694, 44
+    s.path(f"M0,{st - 6} V{st - 12} H760 V{st - 6}", stroke=MUTED, sw=1.4)
+    s.text(380, st - 20, "prompt, read in one forward pass", 13.5, MUTED, 700, "middle")
+    s.path(f"M770,{st - 6} V{st - 12} H{W} V{st - 6}", stroke=MUTED, sw=1.4)
+    s.text(985, st - 20, "output, generated greedily", 13.5, MUTED, 700, "middle")
+    segs = [
+        (0, 180, "instructions", "#f1f5f9"),
+        (180, 640, "user posts from step 1", "#e2e8f0"),
+        (640, 760, "format", "#f1f5f9"),
+        (770, 1100, "reasoning and rationale", "#ede9fe"),
+        (1100, W, "RISK=1", "#fef3c7"),
+    ]
+    for x0, x1, label, fill in segs:
+        s.rect(x0, st, x1 - x0, sh, fill=fill, stroke="#cbd5e1", sw=1, rx=6)
+        for x in range(x0 + 12, x1 - 6, 12):
+            s.line(x, st + 8, x, st + sh - 8, stroke="#cbd5e1", sw=1, opacity=0.8)
+        lw = text_width(label, 13.5, True) + 18
+        cx = (x0 + x1) / 2 - (8 if x1 == W else 0)
+        s.rect(round(cx - lw / 2, 1), st + 11, round(lw, 1), 22, fill=fill, rx=6)
+        s.text(cx, st + 27, label, 13.5, INK, 700, "middle")
+    s.rect(748, st + 4, 9, sh - 8, fill=POS_COLORS[1], rx=2)
+    s.rect(W - 12, st + 4, 9, sh - 8, fill=POS_COLORS[3], rx=2)
+    by = st + sh + 8
+    s.path(f"M190,{by} V{by + 8} H630 V{by}", stroke=POS_COLORS[0], sw=2.5)
+    s.path(f"M780,{by} V{by + 8} H1090 V{by}", stroke=POS_COLORS[2], sw=2.5)
+    callouts = [
+        (410, by + 8, "middle", "Input only", "mean over the post tokens", 0),
+        (752, st + sh, "middle", "Last prompt token", "before any output exists", 1),
+        (960, by + 8, "middle", "Chain of thought", "mean over generated tokens", 2),
+        (W, st + sh, "end", "Final prediction", "last generated token", 3),
+    ]
+    for x, y0, anchor, name, sub, k in callouts:
+        lx = x - 7 if anchor == "end" else x
+        s.line(lx, y0 + 2, lx, by + 22, stroke=POS_COLORS[k], sw=2.5)
+        s.text(x, by + 42, name, 15.5, POS_TEXT[k], 700, anchor)
+        s.text(x, by + 61, sub, 13.5, MUTED, anchor=anchor)
+
+    ty = by + 96
+    for label, x, anchor in [("Model", 0, "start"), ("Tapped layers (dots) along the model's depth", 300, "start"),
+                             ("Hidden size", 1000, "end"), ("Notes", 1020, "start")]:
+        s.text(x, ty, label, 13, MUTED, 700, anchor)
+    for k, ((name, layers, taps, width, note), color) in enumerate(zip(LLM_TAPS, LLM_COLORS)):
+        y = ty + 12 + k * 40
+        if k % 2 == 0:
+            s.rect(0, y, W, 36, fill="#f8fafc", rx=8)
+        s.circle(14, y + 18, 6, fill=color)
+        s.text(30, y + 24, name, 15, INK, 700)
+        s.line(300, y + 18, 300 + layers * 5, y + 18, stroke="#cbd5e1", sw=6)
+        for tap in taps:
+            s.circle(300 + tap * 5, y + 18, 7, fill=color, stroke="#ffffff", sw=2)
+        s.text(724, y + 24, ", ".join(map(str, taps)) + f" of {layers}", 14, INK)
+        s.text(1000, y + 24, f"{width:,}", 14, INK, 700, "end")
+        s.text(1020, y + 24, note, 13.5, MUTED)
+    cy = ty + 12 + 4 * 40 + 10
+    s.rect(0, cy, W, 40, fill=INK, rx=10)
+    s.text(W / 2, cy + 26, "4 + 4 + 2 + 4 = 14 model-layer blocks   ×   4 positions   =   56 vectors per user",
+           16.5, "#ffffff", 700, "middle")
+
+    # 4. attention fusion
+    y4 = cy + 92
+    step(s, y4, 4, "Fuse the 56 vectors into 1024 features", "attention fusion, fit on each training fold")
+    t, h, bw, gap = y4 + 24, 116, 178, 26
+    mid = t + h / 2
+    boxes = [
+        ("One block", None, "4 vectors, z-scored"),
+        ("Score each", "s = w · h", "one learned w per block"),
+        ("Softmax", None, "4 weights that sum to 1"),
+        ("Weighted sum", "z = Σ α · h", "one vector per block"),
+        ("Concatenate", "14 blocks", "79,360 numbers"),
+        ("Linear layer", "→ 1024", "features for STM and MTM"),
+    ]
+    for k, (title, formula, sub) in enumerate(boxes):
+        x = k * (bw + gap)
+        dark = k == len(boxes) - 1
+        s.rect(x, t, bw, h, fill=INK if dark else "#ffffff", stroke=None if dark else EDGE, rx=12,
+               shadow=not dark)
+        s.text(x + bw / 2, t + 28, title, 15, "#ffffff" if dark else INK, 700, "middle")
+        if k == 0:
+            for j in range(4):
+                for q in range(6):
+                    s.rect(x + 46 + q * 15, t + 40 + j * 13, 12, 10, fill=POS_COLORS[j], rx=2)
+        elif k == 2:
+            for j, hh in enumerate([16, 38, 26, 10]):
+                s.rect(x + 50 + j * 21, t + 84 - hh, 15, hh, fill=POS_COLORS[j], rx=3)
+            s.line(x + 44, t + 84, x + 134, t + 84, stroke=EDGE, sw=1)
+        else:
+            s.text(x + bw / 2, t + 66, formula, 19 if dark else 17, "#5eead4" if dark else INK, 700, "middle")
+        s.text(x + bw / 2, t + h - 14, sub, 12.5, "#cbd5e1" if dark else MUTED, anchor="middle")
+        if k:
+            s.line(x - gap + 3, mid, x - 3, mid, arrow=True, sw=2)
+    note = ("Trained through a temporary linear probe that predicts high risk: weighted BCE (positive weight 1.5 × "
+            "negatives / positives), full-batch Adam, learning rate 0.01, at most 500 epochs, keeping the epoch with "
+            "the best development AUC (patience 50). The probe is then dropped. The weights pick among the 4 "
+            "positions, not among tokens.")
+    s.lines(0, t + h + 28, wrap(note, W, 13.5), 13.5, MUTED, leading=1.4)
+
+    # 5. classifiers
+    y5 = t + h + 104
+    step(s, y5, 5, "Classify with two networks on the same 1024 features")
+    t, h = y5 + 22, 418
+    s.rect(0, t, 500, h, fill="#f8fafc", stroke=STM_C, sw=2, rx=16)
+    s.text(20, t + 34, "STM", 22, STM_C, 700)
+    s.text(76, t + 34, "single task, best setting per fold", 14, MUTED)
+    fy = t + 54
+    s.rect(20, fy, 120, 42, fill=INK, rx=10)
+    s.text(80, fy + 27, "1024 features", 14, "#ffffff", 700, "middle")
+    s.line(144, fy + 21, 160, fy + 21, arrow=True, sw=2)
+    s.rect(164, fy, 150, 42, fill="#dbeafe", stroke=STM_C, sw=1.4, rx=10)
+    s.text(239, fy + 27, "1–3 tanh layers", 14, INK, 700, "middle")
+    s.line(318, fy + 21, 334, fy + 21, arrow=True, sw=2)
+    s.rect(338, fy, 142, 42, fill=STM_C, rx=10)
+    s.text(409, fy + 27, "P(high risk)", 14, "#ffffff", 700, "middle")
+    s.text(409, fy + 62, "sigmoid of 1 logit, BCE", 12, MUTED, anchor="middle")
+    hy = fy + 96
+    for label, x in [("Fold", 20), ("Layers × units", 72), ("LR", 206), ("Epochs", 270), ("Test AUC", 350)]:
+        s.text(x, hy, label, 12.5, MUTED, 700)
+    s.line(20, hy + 8, 480, hy + 8, stroke=EDGE, sw=1)
+    for i, ((layers, units, lr, ep), auc) in enumerate(zip(STM_SETTINGS, STM_FOLDS)):
+        y = hy + 32 + i * 32
+        s.text(34, y, str(i), 14.5, INK, 700, "middle")
+        for q in range(layers):
+            s.rect(72 + q * 11, y - 13, 7, 16, fill="#93c5fd", stroke=STM_C, sw=0.8, rx=2)
+        s.text(110, y, f"{layers} × {units}", 14.5)
+        s.text(206, y, f"{lr:g}", 14.5)
+        s.text(270, y, f"{ep:,}", 14.5)
+        bar(s, 350, y - 5, auc, STM_C, False, width=70)
+    my = hy + 32 + 5 * 32 - 8
+    s.line(20, my - 14, 480, my - 14, stroke=INK, sw=1)
+    s.text(20, my + 6, "Mean", 14.5, INK, 700)
+    s.text(110, my + 6, "a different setting on each fold", 13, MUTED)
+    bar(s, 350, my + 1, sum(STM_FOLDS) / 5, STM_C, True, width=70)
+
+    mx = 520
+    s.rect(mx, t, W - mx, h, fill="#f8fafc", stroke=MTM_C, sw=2, rx=16)
+    s.text(mx + 20, t + 34, "MTM", 22, MTM_C, 700)
+    s.text(mx + 82, t + 34, "multi-task cascade, one setting for all folds", 14, MUTED)
+    s.rect(mx + 20, fy, 130, 42, fill=INK, rx=10)
+    s.text(mx + 85, fy + 27, "1024 features", 14, "#ffffff", 700, "middle")
+    s.line(mx + 154, fy + 21, mx + 170, fy + 21, arrow=True, sw=2)
+    s.rect(mx + 174, fy, 290, 42, fill="#334155", rx=10)
+    s.text(mx + 319, fy + 27, "Shared layer: 512 tanh units", 14.5, "#ffffff", 700, "middle")
+    stages = [("Personality", "5 scores", PERS_C, "MSE"), ("Psychosocial", "4 scores", PSY_C, "MSE"),
+              ("Psychiatric", "2 scores", PSYCH_C, "MSE"), ("Suicide", "1 logit", MTM_C, "BCE")]
+    sw_, sg = 146, 20
+    sy = fy + 84
+    centers = [mx + 20 + k * (sw_ + sg) + sw_ / 2 for k in range(4)]
+    rail = fy + 60
+    s.path(f"M{mx + 319},{fy + 42} V{rail}", stroke="#94a3b8", sw=2)
+    s.line(centers[0], rail, centers[-1], rail, stroke="#94a3b8", sw=2)
+    for k, ((name, sub, color, loss), c) in enumerate(zip(stages, centers)):
+        x = c - sw_ / 2
+        last = k == 3
+        s.line(c, rail, c, sy - 4, stroke="#94a3b8", sw=2, arrow=True)
+        s.rect(x, sy, sw_, 62, fill=color if last else "#ffffff", stroke=color, sw=1.6, rx=10)
+        s.text(c, sy + 26, name, 14.5, "#ffffff" if last else color, 700, "middle")
+        s.text(c, sy + 46, sub, 12.5, "#ccfbf1" if last else MUTED, anchor="middle")
+        tag_fill, tag_text = (color, "#ffffff") if last else ("#ffffff", color)
+        s.rect(c - 26, sy + 70, 52, 22, fill=tag_fill, stroke=color, sw=1.2, rx=11)
+        s.text(c, sy + 86, loss, 11.5, tag_text, 700, "middle")
+        if k:
+            s.line(x - sg + 2, sy + 31, x - 3, sy + 31, arrow=True, sw=2)
+    ly = sy + 112
+    s.line(mx + 20, ly - 4, mx + 44, ly - 4, stroke="#94a3b8", sw=2, arrow=True)
+    s.text(mx + 52, ly, "shared layer into every stage", 12.5, MUTED)
+    s.line(mx + 250, ly - 4, mx + 274, ly - 4, sw=2, arrow=True)
+    s.text(mx + 282, ly, "previous stage's prediction", 12.5, MUTED)
+    oy = ly + 16
+    s.line(centers[-1], sy + 94, centers[-1], oy - 4, arrow=True, sw=2)
+    folds = v1_folds if v1_folds is not None else PHQ_FOLDS
+    if v1_folds is not None:
+        s.rect(mx + 20, oy, W - mx - 40, 44, fill=MTM_C, rx=12)
+        s.text((mx + W) / 2, oy + 28, "P(high risk) from the suicide logit   ·   mean test AUC 0.738", 15.5,
+               "#ffffff", 700, "middle")
+        s.text(mx + 20, oy + 64, "150 questionnaire-only epochs, then joint training (shared layer at 1/5 the lr). "
+               "Scores use a moving average of the weights.", 13, MUTED)
+        s.text(mx + 20, oy + 88, "Setting: 1 × 512 shared, tanh, RMSprop lr 1e-4, 512-unit stages. 3 seeds × 5 best "
+               "development-AUC epochs, averaged.", 13.5, INK)
+        s.text(mx + 20, oy + 112, "Loss: BCE on high risk + 4 × MSE on each z-scored questionnaire score.", 13.5, INK)
+        s.text(mx + 20, oy + 138, "Test AUC by fold: " + "  ·  ".join(f"{v:.3f}" for v in folds)
+               + f"   mean {sum(folds) / 5:.3f}", 13.5, MTM_C, 700)
+    else:
+        s.rect(mx + 20, oy, W - mx - 40, 44, fill=PHQ_C, rx=12)
+        s.text((mx + W) / 2, oy + 28, "score = suicide logit + 0.1 × predicted PHQ-9   →   P(high risk)", 15.5,
+               "#ffffff", 700, "middle")
+        s.text(mx + 20, oy + 64, "Predicted PHQ-9: ridge regression on the 1024 features, fit on the training fold.",
+               13, MUTED)
+        s.text(mx + 20, oy + 88, "Setting: 1 × 512 shared, tanh, learning rate 0.005, 1,000 epochs, 512-unit stages.",
+               13.5, INK)
+        s.text(mx + 20, oy + 112, "Loss: BCE on high risk + MSE on each z-scored questionnaire score.", 13.5, INK)
+        s.text(mx + 20, oy + 138, "Test AUC by fold: " + "  ·  ".join(f"{v:.3f}" for v in folds)
+               + f"   mean {sum(folds) / 5:.3f}", 13.5, PHQ_C, 700)
+
+    # 6. protocol
+    y6 = t + h + 52
+    step(s, y6, 6, "Train, select, and test", "5 stratified folds; every user is a test user exactly once")
+    t = y6 + 22
+    n, x0, x1 = 1003, 56, 560
+    scale = (x1 - x0) / n
+    for i in range(5):
+        y = t + i * 22
+        s.text(0, y + 13, f"Fold {i}", 12.5, MUTED, 700)
+        s.rect(x0, y, x1 - x0, 15, fill="#cbd5e1", rx=4)
+        tx = x0 + i * 200.6 * scale
+        s.rect(round(tx, 1), y, round(200.6 * scale, 1), 15, fill=MTM_C, rx=4)
+        dx = tx + 200.6 * scale if i < 4 else x0
+        s.rect(round(dx, 1), y, round(142 * scale, 1), 15, fill="#60a5fa", rx=4)
+    ly = t + 5 * 22 + 14
+    for k, (label, color) in enumerate([("train 660 (87 high risk)", "#cbd5e1"), ("dev 142 (19)", "#60a5fa"),
+                                        ("test 200–201 (26–27)", MTM_C)]):
+        lx = x0 + [0, 196, 316][k]
+        s.rect(lx, ly - 11, 14, 14, fill=color, rx=3)
+        s.text(lx + 20, ly, label, 12.5, INK)
+    bullets(s, 600, t + 12, W - 600, [
+        "504-setting grid: 1–3 layers, 16–1024 units, tanh or sigmoid, learning rate 0.001–0.05, "
+        "1,000–5,000 epochs. RMSprop (momentum 0.9), batch 32, best development-AUC epoch kept (patience 200).",
+        ("STM: best development AUC on each fold. MTM: aux-pretrained, then joint; pick by typical (median) "
+         "development AUC, not a lucky epoch." if v1_folds is not None else
+         "STM: best development AUC on each fold. MTM and its PHQ-9 weight: best mean development AUC over the folds."),
+        "Test folds are scored once, after selection.",
+    ], gap=6)
+    s.h = ly + 14
+    dest = out or (POSTER / "a0" / "method.svg")
+    dest.parent.mkdir(exist_ok=True)
+    s.save(dest)
+
+
 if __name__ == "__main__":
     system()
     hyperparams()
+    method()

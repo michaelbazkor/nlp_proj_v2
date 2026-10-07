@@ -37,6 +37,8 @@ class Svg:
         self.w, self.h = w, h
         self.body: list[str] = []
         self.markers: dict[str, str] = {}
+        # PowerPoint drops any element that uses an SVG filter, so poster figures turn shadows off.
+        self.shadows = True
 
     def _marker(self, color: str) -> str:
         if color not in self.markers:
@@ -51,7 +53,7 @@ class Svg:
             a.append(f'stroke-dasharray="{dash}"')
         if opacity is not None:
             a.append(f'opacity="{opacity}"')
-        if shadow:
+        if shadow and self.shadows:
             a.append('filter="url(#shadow)"')
         self.body.append(f"<rect {' '.join(a)}/>")
 

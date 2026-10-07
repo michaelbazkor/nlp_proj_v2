@@ -63,8 +63,9 @@
 <text x="828" y="407.59999999999997" font-size="15.5" fill="#1e293b">posts, not taken from the person.</text>
 <circle cx="801" cy="440.29999999999995" r="13" fill="#e11d48"/>
 <text x="801" y="445.29999999999995" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
-<text x="828" y="445.29999999999995" font-size="15.5" fill="#1e293b">In this data the extraversion column is a copy of life satisfaction.</text>
-<circle cx="801" cy="477.99999999999994" r="13" fill="#e11d48"/>
-<text x="801" y="482.99999999999994" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
-<text x="828" y="482.99999999999994" font-size="15.5" fill="#1e293b">The sample has more distress than the general population.</text>
+<text x="828" y="445.29999999999995" font-size="15.5" fill="#1e293b">The data file's life-satisfaction column repeats the extraversion scores, so</text>
+<text x="828" y="466.99999999999994" font-size="15.5" fill="#1e293b">real life satisfaction is missing.</text>
+<circle cx="801" cy="499.69999999999993" r="13" fill="#e11d48"/>
+<text x="801" y="504.69999999999993" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">!</text>
+<text x="828" y="504.69999999999993" font-size="15.5" fill="#1e293b">The sample has more distress than the general population.</text>
 </svg>
